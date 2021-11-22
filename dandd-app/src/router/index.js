@@ -1,5 +1,16 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
+import Makecampaign from '../views/kampagne/Makecampaign.vue'
+import Kampagnedetails from '../views/kampagne/Kampagnedetails.vue'
+import Redigerkampagne from '../views/kampagne/Redigerkampagne.vue'
+import Minekampagner from '../views/kampagne/Minekampagner.vue'
+import Login from '../views/profile/Login.vue'
+import Profil from '../views/profile/Profil.vue'
+import Registrer from '../views/profile/Registrer.vue'
+import Rediger from '../views/profile/Rediger.vue'
+import Kalender from '../views/Kalender.vue'
+import Forumforside from '../views/forum/Forumforside.vue'
+
 
 const routes = [
   {
@@ -8,13 +19,55 @@ const routes = [
     component: Home
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  }
+    path: '/makecampaign',
+    name: 'Makecampaign',
+    component: Makecampaign
+  },
+  {
+    path: '/kampagnedetails',
+    name: 'Kampagnedetails',
+    component: Kampagnedetails
+  },
+  {
+    path: '/redigerkampagne',
+    name: 'Redigerkampagne',
+    component: Redigerkampagne
+  },
+  {
+    path: '/minekampagner',
+    name: 'Minekampagner',
+    component: Minekampagner
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login
+  },
+  {
+    path: '/profil',
+    name: 'Profil',
+    component: Profil
+  },
+  {
+    path: '/registrer',
+    name: 'Registrer',
+    component: Registrer
+  },
+  {
+    path: '/rediger',
+    name: 'Rediger',
+    component: Rediger
+  },
+  {
+    path: '/kalender',
+    name: 'Kalender',
+    component: Kalender
+  },
+  {
+    path: '/forumforside',
+    name: 'Forumforside',
+    component: Forumforside
+  },
 ]
 
 const router = createRouter({
