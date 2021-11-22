@@ -14,7 +14,7 @@ export default {
 
 .footer {
     background-color: #A05353;
-    height: 80px;
+    height: 90px;
 }
 
 </style>
