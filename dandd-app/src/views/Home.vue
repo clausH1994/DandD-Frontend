@@ -14,5 +14,8 @@ export default {
 </script>
 
 <style>
-
+.home {
+  background-image: url(../assets/campaignbackground.png);
+  height: 100vh;
+}
 </style>
