@@ -20,6 +20,9 @@ export default {
 <style>
 .profile {
   background-image: url(../../assets/profilebackground.png);
-  height: 79vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
 }
 </style>

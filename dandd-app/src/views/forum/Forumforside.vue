@@ -21,7 +21,10 @@ export default {
 <style>
 .forum {
   background-image: url(../../assets/forumbackground.png);
-  height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
 }
 
 </style>

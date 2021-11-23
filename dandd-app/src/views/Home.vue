@@ -129,6 +129,10 @@ export default {
 <style>
 .home {
   background-image: url(../assets/campaignbackground.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
 }
 
 .contenthome {
