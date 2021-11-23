@@ -138,13 +138,11 @@ export default {
 
 .filter {
   width: 20%;
-  border: 1px solid red;
   text-align: left;
 }
 
 .maincontent {
   width: 70%;
-  border: 1px solid blue;
 }
 
 .checkboxes {
