@@ -21,7 +21,11 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+}
+
+h1 {
+  color: White;
+  font-size: 50px;  
 }
 
 body {
@@ -29,5 +33,35 @@ body {
     padding: 0;
 }
 
+.top {
+  display: flex;
+  height: 250px;
+}
+
+.overskrift {
+  text-align: left;
+  margin: auto;
+  width: 20%
+}
+
+.knap {
+  margin: auto;
+  width: 10%
+}
+
+.filler {
+  width: 30%;
+}
+
+button.okamp {
+  background-color: #B93B3B;
+  color: white;
+  font-family: 'Charm', cursive;
+  font-size: 20px;
+  height: 55px;
+  width: 150px;
+  border-radius: 12px;
+  border: none;
+}
 
 </style>

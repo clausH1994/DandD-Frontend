@@ -1,6 +1,13 @@
 <template>
   <div class="profile">
-
+    <div class="top">
+      <div class="overskrift">
+    <h1> Profil </h1>
+      </div>
+      <div class="filler"></div>
+      <div class="knap">
+      </div>
+    </div>
   </div>
 </template>
 
