@@ -21,11 +21,16 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
+  color: white;
 }
 
 h1 {
   color: White;
   font-size: 50px;  
+}
+
+h2 {
+  color: white;
 }
 
 body {
