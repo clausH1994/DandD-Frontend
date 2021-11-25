@@ -105,9 +105,382 @@
 
       <div class="maincontent">
 
+        <div class="campaigncard">
+            <h3>Header</h3>
+            <ul class="campcard">
+              <li>
+              <div class="test">
+                <div class="test1">
+              <p class="ccp"><b>Ejer:</b></p>
+                </div>
+                <div class="test2">
+              <p class="ccp">Slayerfire22</p>
+                </div>
+              </div>
+              </li>
+              <li>
+              <div class="test">
+                <div class="test1">
+              <p class="ccp"><b>Regler:</b></p>
+                </div>
+                <div class="test2">
+              <p class="ccp">This group follows the PHB with some minor homebrew</p>
+                </div>
+              </div>
+              </li>
+              <li>
+              <div class="test">
+                <div class="test1">
+              <p class="ccp"><b>Setting:</b></p>
+                </div>
+                <div class="test2">
+              <p class="ccp">Fantasy</p>
+                </div>
+              </div>
+              </li>
+              <li>
+              <div class="test">
+                <div class="test1">
+              <p class="ccp"><b>Edition:</b></p>
+                </div>
+                <div class="test2">
+              <p class="ccp">5th Edition</p>
+                </div>
+              </div>
+              </li>
+              <li>
+                <div class="camproller">
+              <p class="ccp"><b>Ønskede Classes:</b></p>
+              <p class="ccp">Display icons here</p>
+                </div>
+              </li>
+              <li>
+              <div class="test">
+                <div class="test1">
+              <p class="ccp"><b>Lokation</b></p>
+                </div>
+                <div class="test2">
+              <p class="ccp">2100 København Ø</p>
+                </div>
+              </div>
+              </li>
+            </ul>
+        </div>
+
+        <div class="campaigncard">
+            <h3>Header</h3>
+            <ul class="campcard">
+              <li>
+              <div class="test">
+                <div class="test1">
+              <p class="ccp"><b>Ejer:</b></p>
+                </div>
+                <div class="test2">
+              <p class="ccp">Slayerfire22</p>
+                </div>
+              </div>
+              </li>
+              <li>
+              <div class="test">
+                <div class="test1">
+              <p class="ccp"><b>Regler:</b></p>
+                </div>
+                <div class="test2">
+              <p class="ccp">This group follows the PHB with some minor homebrew</p>
+                </div>
+              </div>
+              </li>
+              <li>
+              <div class="test">
+                <div class="test1">
+              <p class="ccp"><b>Setting:</b></p>
+                </div>
+                <div class="test2">
+              <p class="ccp">Fantasy</p>
+                </div>
+              </div>
+              </li>
+              <li>
+              <div class="test">
+                <div class="test1">
+              <p class="ccp"><b>Edition:</b></p>
+                </div>
+                <div class="test2">
+              <p class="ccp">5th Edition</p>
+                </div>
+              </div>
+              </li>
+              <li>
+                <div class="camproller">
+              <p class="ccp"><b>Ønskede Classes:</b></p>
+              <p class="ccp">Display icons here</p>
+                </div>
+              </li>
+              <li>
+              <div class="test">
+                <div class="test1">
+              <p class="ccp"><b>Lokation</b></p>
+                </div>
+                <div class="test2">
+              <p class="ccp">2100 København Ø</p>
+                </div>
+              </div>
+              </li>
+            </ul>
+        </div>
+
+        <div class="campaigncard">
+            <h3>Header</h3>
+            <ul class="campcard">
+              <li>
+              <div class="test">
+                <div class="test1">
+              <p class="ccp"><b>Ejer:</b></p>
+                </div>
+                <div class="test2">
+              <p class="ccp">Slayerfire22</p>
+                </div>
+              </div>
+              </li>
+              <li>
+              <div class="test">
+                <div class="test1">
+              <p class="ccp"><b>Regler:</b></p>
+                </div>
+                <div class="test2">
+              <p class="ccp">This group follows the PHB with some minor homebrew</p>
+                </div>
+              </div>
+              </li>
+              <li>
+              <div class="test">
+                <div class="test1">
+              <p class="ccp"><b>Setting:</b></p>
+                </div>
+                <div class="test2">
+              <p class="ccp">Fantasy</p>
+                </div>
+              </div>
+              </li>
+              <li>
+              <div class="test">
+                <div class="test1">
+              <p class="ccp"><b>Edition:</b></p>
+                </div>
+                <div class="test2">
+              <p class="ccp">5th Edition</p>
+                </div>
+              </div>
+              </li>
+              <li>
+                <div class="camproller">
+              <p class="ccp"><b>Ønskede Classes:</b></p>
+              <p class="ccp">Display icons here</p>
+                </div>
+              </li>
+              <li>
+              <div class="test">
+                <div class="test1">
+              <p class="ccp"><b>Lokation</b></p>
+                </div>
+                <div class="test2">
+              <p class="ccp">2100 København Ø</p>
+                </div>
+              </div>
+              </li>
+            </ul>
+        </div>
+
+        <div class="campaigncard">
+            <h3>Header</h3>
+            <ul class="campcard">
+              <li>
+              <div class="test">
+                <div class="test1">
+              <p class="ccp"><b>Ejer:</b></p>
+                </div>
+                <div class="test2">
+              <p class="ccp">Slayerfire22</p>
+                </div>
+              </div>
+              </li>
+              <li>
+              <div class="test">
+                <div class="test1">
+              <p class="ccp"><b>Regler:</b></p>
+                </div>
+                <div class="test2">
+              <p class="ccp">This group follows the PHB with some minor homebrew</p>
+                </div>
+              </div>
+              </li>
+              <li>
+              <div class="test">
+                <div class="test1">
+              <p class="ccp"><b>Setting:</b></p>
+                </div>
+                <div class="test2">
+              <p class="ccp">Fantasy</p>
+                </div>
+              </div>
+              </li>
+              <li>
+              <div class="test">
+                <div class="test1">
+              <p class="ccp"><b>Edition:</b></p>
+                </div>
+                <div class="test2">
+              <p class="ccp">5th Edition</p>
+                </div>
+              </div>
+              </li>
+              <li>
+                <div class="camproller">
+              <p class="ccp"><b>Ønskede Classes:</b></p>
+              <p class="ccp">Display icons here</p>
+                </div>
+              </li>
+              <li>
+              <div class="test">
+                <div class="test1">
+              <p class="ccp"><b>Lokation</b></p>
+                </div>
+                <div class="test2">
+              <p class="ccp">2100 København Ø</p>
+                </div>
+              </div>
+              </li>
+            </ul>
+        </div>
+
+        <div class="campaigncard">
+            <h3>Header</h3>
+            <ul class="campcard">
+              <li>
+              <div class="test">
+                <div class="test1">
+              <p class="ccp"><b>Ejer:</b></p>
+                </div>
+                <div class="test2">
+              <p class="ccp">Slayerfire22</p>
+                </div>
+              </div>
+              </li>
+              <li>
+              <div class="test">
+                <div class="test1">
+              <p class="ccp"><b>Regler:</b></p>
+                </div>
+                <div class="test2">
+              <p class="ccp">This group follows the PHB with some minor homebrew</p>
+                </div>
+              </div>
+              </li>
+              <li>
+              <div class="test">
+                <div class="test1">
+              <p class="ccp"><b>Setting:</b></p>
+                </div>
+                <div class="test2">
+              <p class="ccp">Fantasy</p>
+                </div>
+              </div>
+              </li>
+              <li>
+              <div class="test">
+                <div class="test1">
+              <p class="ccp"><b>Edition:</b></p>
+                </div>
+                <div class="test2">
+              <p class="ccp">5th Edition</p>
+                </div>
+              </div>
+              </li>
+              <li>
+                <div class="camproller">
+              <p class="ccp"><b>Ønskede Classes:</b></p>
+              <p class="ccp">Display icons here</p>
+                </div>
+              </li>
+              <li>
+              <div class="test">
+                <div class="test1">
+              <p class="ccp"><b>Lokation</b></p>
+                </div>
+                <div class="test2">
+              <p class="ccp">2100 København Ø</p>
+                </div>
+              </div>
+              </li>
+            </ul>
+        </div>
+
+        <div class="campaigncard">
+            <h3>Header</h3>
+            <ul class="campcard">
+              <li>
+              <div class="test">
+                <div class="test1">
+              <p class="ccp"><b>Ejer:</b></p>
+                </div>
+                <div class="test2">
+              <p class="ccp">Slayerfire22</p>
+                </div>
+              </div>
+              </li>
+              <li>
+              <div class="test">
+                <div class="test1">
+              <p class="ccp"><b>Regler:</b></p>
+                </div>
+                <div class="test2">
+              <p class="ccp">This group follows the PHB with some minor homebrew</p>
+                </div>
+              </div>
+              </li>
+              <li>
+              <div class="test">
+                <div class="test1">
+              <p class="ccp"><b>Setting:</b></p>
+                </div>
+                <div class="test2">
+              <p class="ccp">Fantasy</p>
+                </div>
+              </div>
+              </li>
+              <li>
+              <div class="test">
+                <div class="test1">
+              <p class="ccp"><b>Edition:</b></p>
+                </div>
+                <div class="test2">
+              <p class="ccp">5th Edition</p>
+                </div>
+              </div>
+              </li>
+              <li>
+                <div class="camproller">
+              <p class="ccp"><b>Ønskede Classes:</b></p>
+              <p class="ccp">Display icons here</p>
+                </div>
+              </li>
+              <li>
+              <div class="test">
+                <div class="test1">
+              <p class="ccp"><b>Lokation</b></p>
+                </div>
+                <div class="test2">
+              <p class="ccp">2100 København Ø</p>
+                </div>
+              </div>
+              </li>
+            </ul>
+        </div>
+
       </div>
 
     </div>
+    
   </div>
 </template>
 
@@ -145,8 +518,14 @@ export default {
   text-align: left;
 }
 
+.filter h3 {
+  font-size: 25px;
+}
+
 .maincontent {
   width: 70%;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .checkboxes {
@@ -160,6 +539,7 @@ h4.check:hover {
 
 h4 {
   display: table-cell;
+  font-size: 20px;
 }
 
 .edition {
@@ -172,6 +552,47 @@ h4 {
 
 .classes {
 
+}
+
+.campaigncard {
+    width: 20%;
+    background-color: #DEDBC4;
+    border-radius: 15px/90px;
+    padding-bottom: 5px;
+    color: black;
+    margin-bottom: 20px;
+    margin: 25px;
+}
+
+.campaigncard h3 {
+  padding-top: 5px;
+}
+
+ul.campcard {
+  list-style-type: none;
+  text-align: left;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.test {
+  display: flex;
+}
+
+.test1 {
+  width: 45%;
+}
+
+.test2 {
+  width: 55%;
+}
+
+.camproller {
+  margin: 0px;
+}
+
+.ccp {
+  margin: 2px;
 }
 
 </style>
