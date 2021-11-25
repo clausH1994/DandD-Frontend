@@ -1,5 +1,12 @@
 <template>
-    <div class="background">
+    <div class="login">
+            <div class="top">
+      <div class="overskrift">
+      </div>
+      <div class="filler"></div>
+      <div class="knap">
+      </div>
+    </div>
         <div class="placement">
         <div class="outerBox">
         <v-form class="register">
@@ -42,13 +49,14 @@
 .spacer {
     width: 50%;
 }
-.background {
+.login {
     background-image: url(../../assets/profilebackground.png);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
-  padding: 100px 0;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    padding-bottom: 100px;
+
 }
 .outerBox {
     width: 25%;
