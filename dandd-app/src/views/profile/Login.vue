@@ -55,7 +55,7 @@
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
-    padding-bottom: 100px;
+    height: 80.2vh;
 
 }
 .outerBox {
