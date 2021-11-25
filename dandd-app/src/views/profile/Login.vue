@@ -61,7 +61,7 @@
 .outerBox {
     width: 25%;
     background-color: #DEDBC4;
-    border-radius: 10%;
+    border-radius: 15px/90px;
     padding-bottom: 10px;
     
 }
@@ -102,7 +102,7 @@ input {
 }
 button {
     height: 45px;
-    border-radius: 10px;
+    border-radius: 12px;
 }
 
 
