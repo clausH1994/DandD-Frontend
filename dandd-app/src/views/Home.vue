@@ -167,16 +167,17 @@
             </ul>
         </div>
 
-        <div class="campaigncard">
-            <h3>Header</h3>
+        <div class="campaigncard" v-for="campaign in campaigns" v-bind:key="campaign.id">
+            <h3>{{ campaign.titel }}</h3>
             <ul class="campcard">
               <li>
-              <div class="test">
+                <div class="test">
                 <div class="test1">
               <p class="ccp"><b>Ejer:</b></p>
                 </div>
                 <div class="test2">
-              <p class="ccp">Slayerfire22</p>
+              <p class="ccp" v-if="campaign.owner.length < 15 ">{{ campaign.owner }}</p>
+              <p class="ccp" v-else>{{ campaign.owner.substring(0,15)+".." }}</p>
                 </div>
               </div>
               </li>
@@ -186,7 +187,7 @@
               <p class="ccp"><b>Regler:</b></p>
                 </div>
                 <div class="test2">
-              <p class="ccp">This group follows the PHB with some minor homebrew</p>
+              <p class="ccp">{{ campaign.rules }}</p>
                 </div>
               </div>
               </li>
@@ -196,7 +197,7 @@
               <p class="ccp"><b>Setting:</b></p>
                 </div>
                 <div class="test2">
-              <p class="ccp">Fantasy</p>
+              <p class="ccp">{{ campaign.setting }}</p>
                 </div>
               </div>
               </li>
@@ -206,271 +207,23 @@
               <p class="ccp"><b>Edition:</b></p>
                 </div>
                 <div class="test2">
-              <p class="ccp">5th Edition</p>
+              <p class="ccp">{{ campaign.edition }}</p>
                 </div>
               </div>
               </li>
               <li>
                 <div class="camproller">
               <p class="ccp"><b>Ønskede Classes:</b></p>
-              <p class="ccp">Display icons here</p>
+              <p class="ccp">{{ campaign.wishedClasses }}</p>
                 </div>
               </li>
               <li>
               <div class="test">
                 <div class="test1">
-              <p class="ccp"><b>Lokation</b></p>
+              <p class="ccp"><b>Lokation:</b></p>
                 </div>
                 <div class="test2">
-              <p class="ccp">2100 København Ø</p>
-                </div>
-              </div>
-              </li>
-            </ul>
-        </div>
-
-        <div class="campaigncard">
-            <h3>Header</h3>
-            <ul class="campcard">
-              <li>
-              <div class="test">
-                <div class="test1">
-              <p class="ccp"><b>Ejer:</b></p>
-                </div>
-                <div class="test2">
-              <p class="ccp">Slayerfire22</p>
-                </div>
-              </div>
-              </li>
-              <li>
-              <div class="test">
-                <div class="test1">
-              <p class="ccp"><b>Regler:</b></p>
-                </div>
-                <div class="test2">
-              <p class="ccp">This group follows the PHB with some minor homebrew</p>
-                </div>
-              </div>
-              </li>
-              <li>
-              <div class="test">
-                <div class="test1">
-              <p class="ccp"><b>Setting:</b></p>
-                </div>
-                <div class="test2">
-              <p class="ccp">Fantasy</p>
-                </div>
-              </div>
-              </li>
-              <li>
-              <div class="test">
-                <div class="test1">
-              <p class="ccp"><b>Edition:</b></p>
-                </div>
-                <div class="test2">
-              <p class="ccp">5th Edition</p>
-                </div>
-              </div>
-              </li>
-              <li>
-                <div class="camproller">
-              <p class="ccp"><b>Ønskede Classes:</b></p>
-              <p class="ccp">Display icons here</p>
-                </div>
-              </li>
-              <li>
-              <div class="test">
-                <div class="test1">
-              <p class="ccp"><b>Lokation</b></p>
-                </div>
-                <div class="test2">
-              <p class="ccp">2100 København Ø</p>
-                </div>
-              </div>
-              </li>
-            </ul>
-        </div>
-
-        <div class="campaigncard">
-            <h3>Header</h3>
-            <ul class="campcard">
-              <li>
-              <div class="test">
-                <div class="test1">
-              <p class="ccp"><b>Ejer:</b></p>
-                </div>
-                <div class="test2">
-              <p class="ccp">Slayerfire22</p>
-                </div>
-              </div>
-              </li>
-              <li>
-              <div class="test">
-                <div class="test1">
-              <p class="ccp"><b>Regler:</b></p>
-                </div>
-                <div class="test2">
-              <p class="ccp">This group follows the PHB with some minor homebrew</p>
-                </div>
-              </div>
-              </li>
-              <li>
-              <div class="test">
-                <div class="test1">
-              <p class="ccp"><b>Setting:</b></p>
-                </div>
-                <div class="test2">
-              <p class="ccp">Fantasy</p>
-                </div>
-              </div>
-              </li>
-              <li>
-              <div class="test">
-                <div class="test1">
-              <p class="ccp"><b>Edition:</b></p>
-                </div>
-                <div class="test2">
-              <p class="ccp">5th Edition</p>
-                </div>
-              </div>
-              </li>
-              <li>
-                <div class="camproller">
-              <p class="ccp"><b>Ønskede Classes:</b></p>
-              <p class="ccp">Display icons here</p>
-                </div>
-              </li>
-              <li>
-              <div class="test">
-                <div class="test1">
-              <p class="ccp"><b>Lokation</b></p>
-                </div>
-                <div class="test2">
-              <p class="ccp">2100 København Ø</p>
-                </div>
-              </div>
-              </li>
-            </ul>
-        </div>
-
-        <div class="campaigncard">
-            <h3>Header</h3>
-            <ul class="campcard">
-              <li>
-              <div class="test">
-                <div class="test1">
-              <p class="ccp"><b>Ejer:</b></p>
-                </div>
-                <div class="test2">
-              <p class="ccp">Slayerfire22</p>
-                </div>
-              </div>
-              </li>
-              <li>
-              <div class="test">
-                <div class="test1">
-              <p class="ccp"><b>Regler:</b></p>
-                </div>
-                <div class="test2">
-              <p class="ccp">This group follows the PHB with some minor homebrew</p>
-                </div>
-              </div>
-              </li>
-              <li>
-              <div class="test">
-                <div class="test1">
-              <p class="ccp"><b>Setting:</b></p>
-                </div>
-                <div class="test2">
-              <p class="ccp">Fantasy</p>
-                </div>
-              </div>
-              </li>
-              <li>
-              <div class="test">
-                <div class="test1">
-              <p class="ccp"><b>Edition:</b></p>
-                </div>
-                <div class="test2">
-              <p class="ccp">5th Edition</p>
-                </div>
-              </div>
-              </li>
-              <li>
-                <div class="camproller">
-              <p class="ccp"><b>Ønskede Classes:</b></p>
-              <p class="ccp">Display icons here</p>
-                </div>
-              </li>
-              <li>
-              <div class="test">
-                <div class="test1">
-              <p class="ccp"><b>Lokation</b></p>
-                </div>
-                <div class="test2">
-              <p class="ccp">2100 København Ø</p>
-                </div>
-              </div>
-              </li>
-            </ul>
-        </div>
-
-        <div class="campaigncard">
-            <h3>Header</h3>
-            <ul class="campcard">
-              <li>
-              <div class="test">
-                <div class="test1">
-              <p class="ccp"><b>Ejer:</b></p>
-                </div>
-                <div class="test2">
-              <p class="ccp">Slayerfire22</p>
-                </div>
-              </div>
-              </li>
-              <li>
-              <div class="test">
-                <div class="test1">
-              <p class="ccp"><b>Regler:</b></p>
-                </div>
-                <div class="test2">
-              <p class="ccp">This group follows the PHB with some minor homebrew</p>
-                </div>
-              </div>
-              </li>
-              <li>
-              <div class="test">
-                <div class="test1">
-              <p class="ccp"><b>Setting:</b></p>
-                </div>
-                <div class="test2">
-              <p class="ccp">Fantasy</p>
-                </div>
-              </div>
-              </li>
-              <li>
-              <div class="test">
-                <div class="test1">
-              <p class="ccp"><b>Edition:</b></p>
-                </div>
-                <div class="test2">
-              <p class="ccp">5th Edition</p>
-                </div>
-              </div>
-              </li>
-              <li>
-                <div class="camproller">
-              <p class="ccp"><b>Ønskede Classes:</b></p>
-              <p class="ccp">Display icons here</p>
-                </div>
-              </li>
-              <li>
-              <div class="test">
-                <div class="test1">
-              <p class="ccp"><b>Lokation</b></p>
-                </div>
-                <div class="test2">
-              <p class="ccp">2100 København Ø</p>
+              <p class="ccp">{{ campaign.zipcode }} {{ campaign.city }}</p>
                 </div>
               </div>
               </li>
@@ -486,7 +239,6 @@
 
 <script>
 
-
 export default {
   name: 'Home',
   components: { },
@@ -495,11 +247,47 @@ export default {
       openEdition: false,
       openSetting: false,
       openClasses: false,
-    }},
+      campaigns: [],
+    };
+    },
+
+methods: {
+  getCampaigns() {
+      this.userID;
+      fetch("https://dandd-api.herokuapp.com/api/campaigns/" , {
+        method: "GET",
+      }).then((response) =>
+        response
+          .json()
+          .then((data) => ({
+            data: data,
+            status: response.status,
+          }))
+          .then((response) => {
+            if (response.data) {
+              this.campaigns = response.data;
+              console.log(response.data);
+            } else {
+              alert(
+                "Server returned " +
+                  response.status +
+                  " : " +
+                  response.statusText
+              );
+            }
+          })
+      );
+    },
+},
+
+created() {
+  this.getCampaigns();
 }
+};
+
 </script>
 
-<style>
+<style scoped>
 .home {
   background-image: url(../assets/campaignbackground.png);
   background-position: center;
