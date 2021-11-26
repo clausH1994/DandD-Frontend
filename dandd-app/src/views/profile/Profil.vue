@@ -65,8 +65,7 @@ export default {
 
   data: () => ({
     userID: null,
-    token:
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAdGVzdC5kayIsImlkIjoiNjE5Y2I5Yzc3ZjgwY2MwM2FhYmViYzFmIiwiaWF0IjoxNjM3ODQ3MTgxLCJleHAiOjE2Mzc5MzM1ODF9.7X6VgQwqDsojBVjHnx-uVGrC0pHfqI6G0hZUgvDKT9w",
+    token:null,
     username: null,
     name: null,
     age: null,
