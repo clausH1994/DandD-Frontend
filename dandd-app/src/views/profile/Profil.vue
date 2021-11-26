@@ -14,25 +14,23 @@
             <p>Brugernavn: {{ username }}</p>
             <p>Alder: {{ age }}</p>
             <p>Role: {{ role }}</p>
-            <div style="display: flex;">
-              <p>Class: </p>
-               <div v-for="item in classes" v-bind:key="item.id">
-                 <p> &nbsp; {{item}},</p>
-               </div>
+            <div style="display: flex">
+              <p>Class:</p>
+              <div v-for="item in classes" v-bind:key="item.id">
+                <p>&nbsp; {{ item }},</p>
+              </div>
             </div>
-           
-            
           </div>
 
           <div class="columm">
             <p>Navn: {{ name }}</p>
             <p>By: {{ city }}</p>
-            
-             <div style="display: flex;">
-              <p>setting: </p>
-               <div v-for="item in setting" v-bind:key="item.id">
-                 <p> &nbsp; {{item}},</p>
-               </div>
+
+            <div style="display: flex">
+              <p>setting:</p>
+              <div v-for="item in setting" v-bind:key="item.id">
+                <p>&nbsp; {{ item }},</p>
+              </div>
             </div>
             <p></p>
           </div>
@@ -56,20 +54,17 @@ export default {
   // run when page is created and check if the user are logged in.
   // calls getLoginUser()
   created() {
-    //this.token = sessionStorage.getItem("user_token");
-    //this.userID = sessionStorage.getItem("user_id");
-    /*  if (this.token == null && this.userID == null) {
+    this.token = sessionStorage.getItem("token");
+    this.userID = sessionStorage.getItem("user_id");
+    if (this.token == null && this.userID == null) {
       this.$router.push("Login");
     } else {
       this.getLoginUser();
-    } */
-    this.getLoginUser();
-    
+    }
   },
 
   data: () => ({
-    userID: "619f9792f0d2ed7a8483fd91",
-
+    userID: null,
     token:
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAdGVzdC5kayIsImlkIjoiNjE5Y2I5Yzc3ZjgwY2MwM2FhYmViYzFmIiwiaWF0IjoxNjM3ODQ3MTgxLCJleHAiOjE2Mzc5MzM1ODF9.7X6VgQwqDsojBVjHnx-uVGrC0pHfqI6G0hZUgvDKT9w",
     username: null,
@@ -80,7 +75,6 @@ export default {
     role: null,
     classes: null,
     setting: null,
-
   }),
 
   methods: {
@@ -119,13 +113,11 @@ export default {
           })
       );
     },
-
-   
   },
 };
 </script>
 
-<style>
+<style scoped>
 .profile {
   background-image: url(../../assets/profilebackground.png);
   background-position: center;

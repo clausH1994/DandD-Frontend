@@ -169,7 +169,7 @@
     }
 </script>
 
-<style>
+<style scoped>
 .placement {
     width: 65%;
     margin: 0 auto;
@@ -233,6 +233,4 @@ button {
     height: 45px;
     border-radius: 12px;
 }
-
-
 </style>
