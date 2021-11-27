@@ -44,6 +44,48 @@
             </td>
           </tr>
         </table>
+        <table>
+          <tr>
+            <td>
+              <div class="kam-text"><p>Icewind dale</p></div>
+            </td>
+            <td>
+              <div class="kam-text"><p>af slayerfire22</p></div>
+            </td>
+            <td>
+              <div class="kam-text">
+                <input type="checkbox" name="" id="" /><label>Privat</label>
+              </div>
+            </td>
+            <td>
+              <button class="kam-btn">Rediger</button>
+              <button class="kam-btn">Kalender</button>
+              <button class="kam-btn">Roller</button>
+              <button class="kam-btn">Delete</button>
+            </td>
+          </tr>
+        </table>
+        <table>
+          <tr>
+            <td>
+              <div class="kam-text"><p>Icewind dale</p></div>
+            </td>
+            <td>
+              <div class="kam-text"><p>af slayerfire22</p></div>
+            </td>
+            <td>
+              <div class="kam-text">
+                <input type="checkbox" name="" id="" /><label>Privat</label>
+              </div>
+            </td>
+            <td>
+              <button class="kam-btn">Rediger</button>
+              <button class="kam-btn">Kalender</button>
+              <button class="kam-btn">Roller</button>
+              <button class="kam-btn">Delete</button>
+            </td>
+          </tr>
+        </table>
       </div>
 
       <div id="t-kam" class="Campaign paper" style="display: none">
@@ -117,7 +159,7 @@ table {
   width: 100%;
   table-layout: auto;
   border-top: solid 1px;
-  border-bottom: solid 1px;
+  
 }
 
 table:first-child {
@@ -126,6 +168,7 @@ table:first-child {
 
 table:last-child {
   margin-bottom: 20px;
+  border-bottom: solid 1px;
 }
 
 .kam-btn {
