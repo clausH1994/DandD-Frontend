@@ -44,31 +44,144 @@
             </div>
 
             <p>Foretrukne Class</p>
-            <div class="container">
-              <div class="setting-1">
-                  <input type="checkbox" name="" id="" /><label>Barbarian</label>
-                  <input type="checkbox" name="" id="" /><label>Bard</label>
-                  <input type="checkbox" name="" id="" /><label>Cleric</label>
+                  <div class="checkboxes-area">
+            <div class="checkboxes-placement">
+              <div>
+                <input
+                  class="checkboxes"
+                  type="checkbox"
+                  v-model="barbarian"
+                  name=""
+                  id=""
+                /><label class="labels">Barbarian</label>
               </div>
-              <div class="setting-1">
-                  <input type="checkbox" name="" id="" /><label>Druid</label>
-                  <input type="checkbox" name="" id="" /><label>Fighter</label>
-                  <input type="checkbox" name="" id="" /><label>Monk</label>
+
+              <div>
+                <input
+                  class="checkboxes"
+                  type="checkbox"
+                  v-model="druid"
+                  name=""
+                  id=""
+                /><label class="labels">Druid</label>
               </div>
-              <div class="setting-1">
-                  <input type="checkbox" name="" id="" /><label>Paladin</label>
-                  <input type="checkbox" name="" id="" /><label>Ranger</label>
-                  <input type="checkbox" name="" id="" /><label>Rogue</label>
+
+              <div>
+                <input
+                  class="checkboxes"
+                  type="checkbox"
+                  v-model="paladin"
+                  name=""
+                  id=""
+                /><label class="labels">Paladin</label>
               </div>
-              <div class="setting-1">
-                  <input type="checkbox" name="" id="" /><label>Sorcerer</label>
-                  <input type="checkbox" name="" id="" /><label>Warlock</label>
-                  <input type="checkbox" name="" id="" /><label>Wizard</label>
-                </div>
-              <div class="setting-1">
-                <input type="checkbox" name="" id="" /><label>Artificer</label>
+
+              <div>
+                <input
+                  class="checkboxes"
+                  type="checkbox"
+                  v-model="sorcerer"
+                  name=""
+                  id=""
+                /><label class="labels">Sorcerer</label>
+              </div>
+
+              <div>
+                <input
+                  class="checkboxes"
+                  type="checkbox"
+                  v-model="artificer"
+                  name=""
+                  id=""
+                /><label class="labels">Artificer</label>
               </div>
             </div>
+
+            <div class="checkboxes-placement">
+              <div>
+                <input
+                  class="checkboxes"
+                  type="checkbox"
+                  v-model="bard"
+                  name=""
+                  id=""
+                /><label class="labels">Bard</label>
+              </div>
+
+              <div>
+                <input
+                  class="checkboxes"
+                  type="checkbox"
+                  v-model="fighter"
+                  name=""
+                  id=""
+                /><label class="labels">Fighter</label>
+              </div>
+
+              <div>
+                <input
+                  class="checkboxes"
+                  type="checkbox"
+                  v-model="ranger"
+                  name=""
+                  id=""
+                /><label class="labels">Ranger</label>
+              </div>
+
+              <div>
+                <input
+                  class="checkboxes"
+                  type="checkbox"
+                  v-model="warlock"
+                  name=""
+                  id=""
+                /><label class="labels">Warlock</label>
+              </div>
+            </div>
+
+            <div class="checkboxes-placement">
+              <div>
+                <input
+                  class="checkboxes"
+                  type="checkbox"
+                  v-model="cleric"
+                  name=""
+                  id=""
+                /><label class="labels">Cleric</label>
+              </div>
+
+              <div>
+                <input
+                  class="checkboxes"
+                  type="checkbox"
+                  v-model="monk"
+                  name=""
+                  id=""
+                /><label class="labels">Monk</label>
+              </div>
+
+              <div>
+                <input
+                  class="checkboxes"
+                  type="checkbox"
+                  v-model="rogue"
+                  name=""
+                  id=""
+                /><label class="labels">Rogue</label>
+              </div>
+
+              <div>
+                <input
+                  class="checkboxes"
+                  type="checkbox"
+                  v-model="wizard"
+                  name=""
+                  id=""
+                /><label class="labels">Wizard</label>
+              </div>
+            </div>
+          </div>
+
           </div>
         </div>
       </div>
@@ -89,7 +202,7 @@ export default {};
 }
 
 .spacer {
-  width: 50%;
+  width: 30%;
 }
 
 .container {
@@ -126,14 +239,14 @@ input {
 }
 
 .outerBox {
-  width: 25%;
+  width: 35%;
   background-color: #dedbc4;
   border-radius: 15px/90px;
   padding-bottom: 10px;
   height: 350px;
 }
 .outerBox-2 {
-  width: 25%;
+  width: 35%;
   background-color: #dedbc4;
   border-radius: 15px/90px;
   padding-bottom: 10px;
@@ -153,5 +266,29 @@ p {
 
 .okamp {
   margin-bottom: 30px;
+}
+
+
+.checkboxes {
+  height: 15px;
+  width: 15px;
+}
+
+.labels {
+  font-size: 15px;
+  margin-left: 5px;
+}
+
+.checkboxes-area {
+  display: flex;
+  justify-content: space-between;
+  margin-right: 20px;
+}
+
+.checkboxes-placement {
+  text-align: left;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 </style>
