@@ -6,7 +6,9 @@
       </div>
       <div class="filler"></div>
       <div class="knap">
-        <button class="okamp">Tilbage</button>
+        <button class="okamp" onclick="history.back()" style="cursor: pointer">
+          Tilbage
+        </button>
       </div>
     </div>
     <div class="container">
@@ -49,19 +51,23 @@
             <option v-for="i in 10" :key="i" value="">{{ i }}</option>
           </select>
           <div class="online">
-            <input type="checkbox" name="online" class="checkbox"/><label for="online"
-              >Online</label
-            >
+            <input
+              type="checkbox"
+              name="online"
+              v-model="online"
+              class="checkbox"
+            /><label for="online">Online</label>
           </div>
-           <input
+          <input
             class="input"
             type="text"
             placeholder="City"
             v-model="city"
             required
           />
-           <input
+          <input
             class="input"
+            id="zipcode"
             type="text"
             placeholder="Postnr"
             v-model="zipcode"
@@ -69,13 +75,192 @@
           />
         </form>
       </div>
-      <div class="card">
-        <textarea v-model="rules" rows="10" placeholder="Regler"></textarea>
+      <div class="cardHolder">
+        <div class="card2">
+          <textarea
+            class="textArea"
+            v-model="rules"
+            rows="7"
+            placeholder="Regler:"
+          ></textarea>
+        </div>
+        <div class="card2">
+          <textarea
+            class="textArea"
+            v-model="notes"
+            rows="7"
+            placeholder="Extra noter:"
+          ></textarea>
+        </div>
       </div>
-      <div class="card">
-        <textarea v-model="notes" placeholder="Extra noter"></textarea>
+      <div class="cardHolder">
+        <div class="card2">
+          <textarea
+            class="textArea"
+            v-model="tools"
+            rows="3"
+            placeholder="Værktøjer:"
+          ></textarea>
+        </div>
+
+        <div class="card2">
+          <h2>Søger GM/DM</h2>
+          <div class="checkboxes-placement">
+            <div>
+              <input
+                type="checkbox"
+                v-model="gm"
+                name="gm"
+                class="checkboxes"
+              /><label class="labels" for="gm">GM/DM</label>
+            </div>
+          </div>
+
+          <h2>Søger Classes</h2>
+          <div class="checkboxes-area">
+            <div class="checkboxes-placement">
+              <div>
+                <input
+                  class="checkboxes"
+                  type="checkbox"
+                  v-model="barbarian"
+                  name=""
+                  id=""
+                /><label class="labels">Barbarian</label>
+              </div>
+
+              <div>
+                <input
+                  class="checkboxes"
+                  type="checkbox"
+                  v-model="druid"
+                  name=""
+                  id=""
+                /><label class="labels">Druid</label>
+              </div>
+
+              <div>
+                <input
+                  class="checkboxes"
+                  type="checkbox"
+                  v-model="paladin"
+                  name=""
+                  id=""
+                /><label class="labels">Paladin</label>
+              </div>
+
+              <div>
+                <input
+                  class="checkboxes"
+                  type="checkbox"
+                  v-model="sorcerer"
+                  name=""
+                  id=""
+                /><label class="labels">Sorcerer</label>
+              </div>
+
+              <div>
+                <input
+                  class="checkboxes"
+                  type="checkbox"
+                  v-model="artificer"
+                  name=""
+                  id=""
+                /><label class="labels">Artificer</label>
+              </div>
+            </div>
+
+            <div class="checkboxes-placement">
+              <div>
+                <input
+                  class="checkboxes"
+                  type="checkbox"
+                  v-model="bard"
+                  name=""
+                  id=""
+                /><label class="labels">Bard</label>
+              </div>
+
+              <div>
+                <input
+                  class="checkboxes"
+                  type="checkbox"
+                  v-model="fighter"
+                  name=""
+                  id=""
+                /><label class="labels">Fighter</label>
+              </div>
+
+              <div>
+                <input
+                  class="checkboxes"
+                  type="checkbox"
+                  v-model="ranger"
+                  name=""
+                  id=""
+                /><label class="labels">Ranger</label>
+              </div>
+
+              <div>
+                <input
+                  class="checkboxes"
+                  type="checkbox"
+                  v-model="warlock"
+                  name=""
+                  id=""
+                /><label class="labels">Warlock</label>
+              </div>
+            </div>
+
+            <div class="checkboxes-placement">
+              <div>
+                <input
+                  class="checkboxes"
+                  type="checkbox"
+                  v-model="cleric"
+                  name=""
+                  id=""
+                /><label class="labels">Cleric</label>
+              </div>
+
+              <div>
+                <input
+                  class="checkboxes"
+                  type="checkbox"
+                  v-model="monk"
+                  name=""
+                  id=""
+                /><label class="labels">Monk</label>
+              </div>
+
+              <div>
+                <input
+                  class="checkboxes"
+                  type="checkbox"
+                  v-model="rogue"
+                  name=""
+                  id=""
+                /><label class="labels">Rogue</label>
+              </div>
+
+              <div>
+                <input
+                  class="checkboxes"
+                  type="checkbox"
+                  v-model="wizard"
+                  name=""
+                  id=""
+                /><label class="labels">Wizard</label>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
+
+  
+      <button class="okamp btnCreate" style="cursor: pointer">Opret</button>
+    
   </div>
 </template>
 
@@ -98,10 +283,14 @@ export default {
     edition: null,
     setting: null,
     numberOfPlayers: "numberOfPlayers",
-    city:null,
+    city: null,
     zipcode: null,
     rules: null,
     notes: null,
+    tools: null,
+    online: false,
+
+    gm: false,
   }),
 };
 </script>
@@ -113,13 +302,21 @@ export default {
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
+  height: 86vh;
 }
 
 .container {
   display: flex;
   justify-content: space-between;
   margin: 0 auto;
-  width: 80%;
+  width: 75%;
+}
+
+.cardHolder {
+  width: 29%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .card {
@@ -131,23 +328,83 @@ export default {
   padding: 20px;
 }
 
+.card2 {
+  border-radius: 35px/90px;
+  width: 100%;
+  background-color: #dedbc4;
+  color: black;
+  font-size: 24px;
+  padding: 20px;
+}
+
 .input {
   width: 80%;
   height: 45px;
   margin-top: 30px;
   font-size: 24px;
+  border-radius: 12px;
+  border: 1px solid;
 }
 
-.checkbox
-{
+.checkbox {
   height: 30px;
   width: 30px;
+}
+
+.checkboxes {
+  height: 20px;
+  width: 20px;
+}
+
+.labels {
+  font-size: 20px;
+  margin-left: 5px;
+}
+
+.checkboxes-area {
+  display: flex;
+  justify-content: space-between;
+  margin-right: 20px;
+}
+
+.checkboxes-placement {
+  text-align: left;
+  margin-left: 25px;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .online {
   display: flex;
   width: 80%;
-  margin: 15px auto 0 auto;
+  margin: 15px auto -15px auto;
   text-align: left;
+}
+
+.textArea {
+  width: 97%;
+  margin: 0 auto;
+  padding-left: 15px;
+  font-size: 24px;
+  border-radius: 20px/90px;
+  border: 1px solid;
+}
+
+.btnCreate
+{
+  margin-top: 100px;
+  font-weight: bold;
+}
+
+#zipcode {
+  margin-bottom: 25px;
+}
+
+h2 {
+  color: black;
+  text-align: left;
+  margin: 0 0 0 25px;
+  font-size: 24px;
 }
 </style> 

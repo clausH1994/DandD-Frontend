@@ -7,7 +7,7 @@
       <div class="filler"></div>
       <div class="knap"></div>
     </div>
-    <div class="test">
+    <div class="container">
       <div class="placement">
         <div class="card">
           <div class="columm">
@@ -166,7 +166,7 @@ button a {
   text-decoration: none;
 }
 
-.test {
+.container {
   height: 67vh;
 }
 </style>
