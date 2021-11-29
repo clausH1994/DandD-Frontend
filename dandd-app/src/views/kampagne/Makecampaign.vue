@@ -22,8 +22,8 @@
             required
           />
 
-          <select class="input" name="edition" id="edition" required>
-            <option value="" disabled selected hidden>Edition</option>
+          <select class="input" v-model="edition">
+            <option value="" disabled hidden>Edition</option>
             <option value="1st">1st</option>
             <option value="2nd">2nd</option>
             <option value="3rd">3rd</option>
@@ -34,8 +34,7 @@
 
           <select
             class="input"
-            name="setting"
-            id="setting"
+            v-model="setting"
             placeholder="Setting"
             required
           >
@@ -46,9 +45,9 @@
             <option value="Homebrew">Homebrew</option>
           </select>
 
-          <select class="input" name="numberOfPlayers" id="numberOfPlayers">
+          <select class="input" v-model="numberOfPlayers">
             <option value="" disabled selected hidden>Antal Deltager</option>
-            <option v-for="i in 10" :key="i" value="">{{ i }}</option>
+            <option v-for="n in 10" :key="n" value=n>{{ n }}</option>
           </select>
           <div class="online">
             <input
@@ -258,9 +257,13 @@
       </div>
     </div>
 
-  
-      <button class="okamp btnCreate" style="cursor: pointer">Opret</button>
-    
+    <button
+      class="okamp btnCreate"
+      style="cursor: pointer"
+      @click="createCampaign()"
+    >
+      Opret
+    </button>
   </div>
 </template>
 
@@ -280,9 +283,9 @@ export default {
     userID: null,
     token: null,
     title: null,
-    edition: null,
-    setting: null,
-    numberOfPlayers: "numberOfPlayers",
+    edition: "",
+    setting: "",
+    numberOfPlayers: "",
     city: null,
     zipcode: null,
     rules: null,
@@ -291,7 +294,52 @@ export default {
     online: false,
 
     gm: false,
+    barbarian: false,
+    bard: false,
+    cleric: false,
+    druid: false,
+    fighter: false,
+    monk: false,
+    paladin: false,
+    sorcerer: false,
+    ranger: false,
+    rogue: false,
+    warlock: false,
+    wizard: false,
+    artificer: false,
   }),
+
+  methods: {
+    createCampaign() {
+      console.log("ID = " + this.userID);
+      console.log("token = " + this.token);
+      console.log("title = " + this.title);
+      console.log("edition = " + this.edition);
+      console.log("setting = " + this.setting);
+      console.log("numberOfPlayers = " + this.numberOfPlayers);
+      console.log("city = " + this.city);
+      console.log("zipcode = " + this.zipcode);
+      console.log("rules = " + this.rules);
+      console.log("notes = " + this.notes);
+      console.log("tools = " + this.tools);
+      console.log("online = " + this.online);
+
+      console.log("gm = " + this.gm);
+      console.log("barbarian = " + this.barbarian);
+      console.log("bard = " + this.bard);
+      console.log("cleric = " + this.cleric);
+      console.log("druid = " + this.druid);
+      console.log("fighter = " + this.fighter);
+      console.log("monk = " + this.monk);
+      console.log("paladin = " + this.paladin);
+      console.log("sorcerer = " + this.sorcerer);
+      console.log("ranger = " + this.ranger);
+      console.log("rogue = " + this.rogue);
+      console.log("warlock = " + this.warlock);
+      console.log("wizard = " + this.wizard);
+      console.log("artificer = " + this.artificer);
+    },
+  },
 };
 </script>
 
@@ -302,7 +350,7 @@ export default {
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
-  height: 86vh;
+
 }
 
 .container {
@@ -391,10 +439,10 @@ export default {
   border: 1px solid;
 }
 
-.btnCreate
-{
-  margin-top: 100px;
+.btnCreate {
+  margin: 100px auto 100px auto;
   font-weight: bold;
+  
 }
 
 #zipcode {
