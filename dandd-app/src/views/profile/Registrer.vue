@@ -46,53 +46,25 @@
             <p>Foretrukne Class</p>
             <div class="container">
               <div class="setting-1">
-                <div class="setting-1">
-                  <input type="checkbox" name="" id="" /><label
-                    >Barbarian</label
-                  >
-                </div>
-                <div class="setting-1">
+                  <input type="checkbox" name="" id="" /><label>Barbarian</label>
                   <input type="checkbox" name="" id="" /><label>Bard</label>
-                </div>
-
-                <div class="setting-1">
                   <input type="checkbox" name="" id="" /><label>Cleric</label>
-                </div>
               </div>
               <div class="setting-1">
-                <div class="setting-1">
                   <input type="checkbox" name="" id="" /><label>Druid</label>
-                </div>
-                <div class="setting-1">
                   <input type="checkbox" name="" id="" /><label>Fighter</label>
-                </div>
-                <div class="setting-1">
                   <input type="checkbox" name="" id="" /><label>Monk</label>
-                </div>
               </div>
               <div class="setting-1">
-                <div class="setting-1">
                   <input type="checkbox" name="" id="" /><label>Paladin</label>
-                </div>
-                <div class="setting-1">
                   <input type="checkbox" name="" id="" /><label>Ranger</label>
-                </div>
-                <div class="setting-1">
                   <input type="checkbox" name="" id="" /><label>Rogue</label>
-                </div>
               </div>
               <div class="setting-1">
-                <div class="setting-1">
                   <input type="checkbox" name="" id="" /><label>Sorcerer</label>
-                </div>
-                <div class="setting-1">
                   <input type="checkbox" name="" id="" /><label>Warlock</label>
-                </div>
-
-                <div class="setting-1">
                   <input type="checkbox" name="" id="" /><label>Wizard</label>
                 </div>
-              </div>
               <div class="setting-1">
                 <input type="checkbox" name="" id="" /><label>Artificer</label>
               </div>
