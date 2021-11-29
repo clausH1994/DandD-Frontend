@@ -36,11 +36,11 @@
                 <input type="checkbox" name="" id="" /><label>Privat</label>
               </div>
             </td>
-            <td>
-              <button class="kam-btn">Rediger</button>
-              <button class="kam-btn">Kalender</button>
-              <button class="kam-btn">Roller</button>
+            <td>              
               <button class="kam-btn">Delete</button>
+              <button class="kam-btn">Roller</button>
+              <button class="kam-btn">Kalender</button>
+              <button class="kam-btn">Rediger</button>
             </td>
           </tr>
         </table>
@@ -57,11 +57,11 @@
                 <input type="checkbox" name="" id="" /><label>Privat</label>
               </div>
             </td>
-            <td>
-              <button class="kam-btn">Rediger</button>
-              <button class="kam-btn">Kalender</button>
-              <button class="kam-btn">Roller</button>
+            <td>              
               <button class="kam-btn">Delete</button>
+              <button class="kam-btn">Roller</button>
+              <button class="kam-btn">Kalender</button>
+              <button class="kam-btn">Rediger</button>
             </td>
           </tr>
         </table>
@@ -78,11 +78,11 @@
                 <input type="checkbox" name="" id="" /><label>Privat</label>
               </div>
             </td>
-            <td>
-              <button class="kam-btn">Rediger</button>
-              <button class="kam-btn">Kalender</button>
-              <button class="kam-btn">Roller</button>
+            <td>              
               <button class="kam-btn">Delete</button>
+              <button class="kam-btn">Roller</button>
+              <button class="kam-btn">Kalender</button>
+              <button class="kam-btn">Rediger</button>
             </td>
           </tr>
         </table>
@@ -97,13 +97,18 @@
               <p>Privat</p>
             </td>
             <td>
-              <button class="kam-btn">Kontakt</button>
-              <button class="kam-btn">Kalender</button>
               <button class="kam-btn">Forlad</button>
+              <button class="kam-btn">Kalender</button>
+              <button class="kam-btn">Kontakt</button>
             </td>
           </tr>
         </table>
       </div>
+    </div>
+    <div>
+      <button class="okamp">
+        Opret
+      </button>
     </div>
   </div>
 </template>
@@ -134,6 +139,7 @@ export default {
 
 .content {
   white-space: nowrap;
+  margin-bottom: 50px;
 }
 
 .Campaign {
@@ -159,7 +165,6 @@ table {
   width: 100%;
   table-layout: auto;
   border-top: solid 1px;
-  
 }
 
 table:first-child {
