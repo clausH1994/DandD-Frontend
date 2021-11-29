@@ -16,6 +16,11 @@
             <input v-model="name" placeholder="Navn">
             <input v-model="city" placeholder="By">
             <input v-model="postNr" placeholder="Post nr">
+            <input type="date" id="birthday" name="Date of Birth">
+            <div class="setting-1">
+             <input type="checkbox" name="" id=""><label>GM/DM</label>
+              <input type="checkbox" name="" id=""><label>Player</label>
+            </div>
              </div>
         </div>
          <div class="spacer"></div>
@@ -61,6 +66,7 @@
         </div>
 
      </div>
+     <button class="okamp">Opret</button>
 
   </div>
     </div>
@@ -89,4 +95,5 @@
 p {
     text-align: left;
 }
+
 </style>
