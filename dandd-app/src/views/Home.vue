@@ -177,7 +177,7 @@
                 </div>
                 <div class="test2">
               <p class="ccp" v-if="campaign.owner.length < 15 ">{{ campaign.owner }}</p>
-              <p class="ccp" v-else>{{ campaign.owner.substring(0,15)+".." }}</p>
+              <p class="ccp" v-else>{{ campaign.owner.substring(0,15)+"..." }}</p>
                 </div>
               </div>
               </li>
@@ -187,7 +187,8 @@
               <p class="ccp"><b>Regler:</b></p>
                 </div>
                 <div class="test2">
-              <p class="ccp">{{ campaign.rules }}</p>
+              <p class="ccp" v-if="campaign.rules.length < 80 ">{{ campaign.rules }}</p>
+              <p class="ccp" v-else>{{ campaign.rules.substring(0,80)+"..." }}</p>
                 </div>
               </div>
               </li>
@@ -373,6 +374,7 @@ ul.campcard {
 
 .test2 {
   width: 55%;
+  overflow-wrap: break-word;
 }
 
 .camproller {
