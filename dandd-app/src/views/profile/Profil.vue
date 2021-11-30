@@ -13,8 +13,13 @@
           <div class="columm">
             <p>Brugernavn: {{ username }}</p>
             <p>Alder: {{ age }}</p>
-            <p>Role: {{ role }}</p>
-            <div style="display: flex">
+            <div class="list">
+              <p>roles:</p>
+              <div v-for="item in roles" v-bind:key="item.id">
+                <p>&nbsp; {{ item }},</p>
+              </div>
+            </div>
+            <div class="list">
               <p>Class:</p>
               <div v-for="item in classes" v-bind:key="item.id">
                 <p>&nbsp; {{ item }},</p>
@@ -26,7 +31,7 @@
             <p>Navn: {{ name }}</p>
             <p>By: {{ city }}</p>
 
-            <div style="display: flex">
+            <div class="list">
               <p>setting:</p>
               <div v-for="item in setting" v-bind:key="item.id">
                 <p>&nbsp; {{ item }},</p>
@@ -65,13 +70,13 @@ export default {
 
   data: () => ({
     userID: null,
-    token:null,
+    token: null,
     username: null,
     name: null,
     age: null,
     city: null,
     zipcode: null,
-    role: null,
+    roles: [],
     classes: null,
     setting: null,
   }),
@@ -98,7 +103,7 @@ export default {
               this.age = this.user.age;
               this.city = this.user.city;
               this.zipcode = this.user.zipcode;
-              this.role = this.user.role;
+              this.roles = this.user.roles;
               this.classes = this.user.class;
               this.setting = this.user.setting;
             } else {
@@ -147,8 +152,15 @@ export default {
   margin-left: 75px;
 }
 
+.list
+{
+  display: flex;
+ 
+}
+
 p {
   font-size: 30px;
+   margin-top: 0
 }
 
 button {
@@ -164,9 +176,5 @@ button {
 button a {
   color: white;
   text-decoration: none;
-}
-
-.container {
-  height: 67vh;
 }
 </style>

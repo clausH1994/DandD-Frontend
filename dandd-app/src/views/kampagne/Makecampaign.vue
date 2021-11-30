@@ -45,9 +45,18 @@
             <option value="Homebrew">Homebrew</option>
           </select>
 
-          <select class="input" v-model="numberOfPlayers">
+          <select class="input" v-model="maxPlayers">
             <option value="" disabled selected hidden>Antal Deltager</option>
-            <option v-for="n in 10" :key="n" value=n>{{ n }}</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
           </select>
           <div class="online">
             <input
@@ -271,27 +280,32 @@
 export default {
   created() {
     this.token = sessionStorage.getItem("token");
-    this.userID = sessionStorage.getItem("user_id");
-    if (this.token == null && this.userID == null) {
+    this.user = JSON.parse(sessionStorage.getItem("user"));
+    if (this.token == null || this.user == null) {
       this.$router.push("Login");
     } else {
-      //this.getLoginUser();
+      //
     }
   },
 
   data: () => ({
-    userID: null,
+    user: null,
     token: null,
+
     title: null,
     edition: "",
     setting: "",
-    numberOfPlayers: "",
+    maxPlayers: "",
     city: null,
     zipcode: null,
     rules: null,
     notes: null,
     tools: null,
     online: false,
+    wishedClasses: [],
+    listOfPlayer:[],
+    dates:[],
+
 
     gm: false,
     barbarian: false,
@@ -311,33 +325,118 @@ export default {
 
   methods: {
     createCampaign() {
-      console.log("ID = " + this.userID);
-      console.log("token = " + this.token);
-      console.log("title = " + this.title);
-      console.log("edition = " + this.edition);
-      console.log("setting = " + this.setting);
-      console.log("numberOfPlayers = " + this.numberOfPlayers);
-      console.log("city = " + this.city);
-      console.log("zipcode = " + this.zipcode);
-      console.log("rules = " + this.rules);
-      console.log("notes = " + this.notes);
-      console.log("tools = " + this.tools);
-      console.log("online = " + this.online);
+      if(this.gm == true)
+      {
+        this.wishedClasses.push("GM");
+      }
+       if(this.barbarian == true)
+      {
+        this.wishedClasses.push("barbarian");
+      }
+       if(this.bard == true)
+      {
+        this.wishedClasses.push("bard");
+      }
+       if(this.cleric == true)
+      {
+        this.wishedClasses.push("cleric");
+      }
+       if(this.druid == true)
+      {
+        this.wishedClasses.push("druid");
+      }
+       if(this.fighter == true)
+      {
+        this.wishedClasses.push("fighter");
+      }
+       if(this.monk == true)
+      {
+        this.wishedClasses.push("monk");
+      }
+       if(this.paladin == true)
+      {
+        this.wishedClasses.push("paladin");
+      }
+       if(this.sorcerer == true)
+      {
+        this.wishedClasses.push("sorcerer");
+      }
+       if(this.ranger == true)
+      {
+        this.wishedClasses.push("ranger");
+      }
+       if(this.rogue == true)
+      {
+        this.wishedClasses.push("rogue");
+      }
+       if(this.warlock == true)
+      {
+        this.wishedClasses.push("warlock");
+      }
+       if(this.rogue == true)
+      {
+        this.wishedClasses.push("wizard");
+      }
+       if(this.artificer == true)
+      {
+        this.wishedClasses.push("artificer");
+      }
 
-      console.log("gm = " + this.gm);
-      console.log("barbarian = " + this.barbarian);
-      console.log("bard = " + this.bard);
-      console.log("cleric = " + this.cleric);
-      console.log("druid = " + this.druid);
-      console.log("fighter = " + this.fighter);
-      console.log("monk = " + this.monk);
-      console.log("paladin = " + this.paladin);
-      console.log("sorcerer = " + this.sorcerer);
-      console.log("ranger = " + this.ranger);
-      console.log("rogue = " + this.rogue);
-      console.log("warlock = " + this.warlock);
-      console.log("wizard = " + this.wizard);
-      console.log("artificer = " + this.artificer);
+    
+      if (this.token != null && this.user != null) {
+        const requestOptions = {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "auth-token": this.token,
+          },
+          body: JSON.stringify({
+            ownerID: this.user._id,
+            ownerName: this.user.username,
+            title: this.title,
+            edition: this.edition,
+            setting: this.setting,
+            maxPlayers: this.maxPlayers,
+            city: this.city,
+            zipcode: this.zipcode,
+            rules: this.rules,
+            notes: this.notes,
+            tools: this.tools,
+            online: this.online,
+            private: false,
+
+            wishedClasses: this.wishedClasses,
+            dates: this.dates,
+            listOfPlayer: this.listOfPlayer
+          }),
+        };
+        fetch(
+          "https://dandd-api.herokuapp.com/api/campaigns/",
+          requestOptions
+        ).then((response) =>
+          response
+            .json()
+            .then((data) => ({
+              data: data,
+              status: response.status,
+            }))
+            .then((response) => {
+              if (response.data) {
+               // this.projectID = response.data[0]._id;
+                //this.addProjectToUser(this.projectID);
+                console.log("Det virker!!");
+              } else {
+                alert(
+                  "Server returned " +
+                    response.status +
+                    " : " +
+                    response.statusText
+                );
+              }
+            })
+        );
+      }
+
     },
   },
 };
@@ -350,7 +449,6 @@ export default {
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
-
 }
 
 .container {
@@ -442,7 +540,6 @@ export default {
 .btnCreate {
   margin: 100px auto 100px auto;
   font-weight: bold;
-  
 }
 
 #zipcode {
