@@ -90,7 +90,13 @@
         .then((response) => {
           if (response.ok) {
             alert("User Registered");
-           this.$router.push("Registrer");
+            response.json().then(data => {
+              sessionStorage.setItem("tempID", data.data)
+              sessionStorage.setItem("pass" , this.passwordR)
+              sessionStorage.setItem("email", this.rEmail)
+              this.$router.push("Registrer");
+            });
+       
             //return response.json();
           } else {
             alert(
@@ -140,6 +146,10 @@
                 sessionStorage.setItem(
                   "token",
                   response.data.token
+                );
+                 sessionStorage.setItem(
+                  "user",
+                  response.data.user
                 );
                 sessionStorage.setItem("user_id", response.data.id);
                 const token = sessionStorage.getItem("token");
