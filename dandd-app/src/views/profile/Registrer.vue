@@ -14,10 +14,10 @@
             <input v-model="name" placeholder="Navn" />
             <input v-model="city" placeholder="By" />
             <input v-model="postNr" placeholder="Post nr" />
-            <input type="date" id="birthday" name="Date of Birth" />
+            <input type="date" v-model="dob" id="birthday" name="Date of Birth" />
             <div class="setting-1">
-              <input type="checkbox" name="" id="" /><label>GM/DM</label>
-              <input type="checkbox" name="" id="" /><label>Player</label>
+              <input type="checkbox" v-model="gm" name="" id="" /><label>GM/DM</label>
+              <input type="checkbox" v-model="player" name="" id="" /><label>Player</label>
             </div>
           </div>
         </div>
@@ -28,18 +28,18 @@
             <p>Foretrukne Settings</p>
             <div class="setting-1">
               <div class="setting-1">
-                <input type="checkbox" name="" id="" /><label>Modern</label>
+                <input type="checkbox" v-model="modern" name="" id="" /><label>Modern</label>
               </div>
               <div class="setting-1">
-                <input type="checkbox" name="" id="" /><label>Sci-fi</label>
+                <input type="checkbox" v-model="scifi" name="" id="" /><label>Sci-fi</label>
               </div>
             </div>
             <div class="setting-1">
               <div class="setting-1">
-                <input type="checkbox" name="" id="" /><label>Fantasy</label>
+                <input type="checkbox" v-model="fantasy" name="" id="" /><label>Fantasy</label>
               </div>
               <div class="setting-1">
-                <input type="checkbox" name="" id="" /><label>Homebrew</label>
+                <input type="checkbox" v-model="homebrew" name="" id="" /><label>Homebrew</label>
               </div>
             </div>
 
@@ -185,13 +185,265 @@
           </div>
         </div>
       </div>
-      <button class="okamp">Opret</button>
+      <button class="okamp" @click="updateUser()" style="cursor:pointer">Opret</button>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+data() {
+  return {
+    username:null,
+    name:null,
+    city:null,
+    postNr:null,
+    dob:null,
+    gm:false,
+    player:false,
+
+    modern:false,
+    scifi:false,
+    fantasy:false,
+    homebrew:false,
+
+    barbarian: false,
+    bard: false,
+    cleric: false,
+    druid: false,
+    fighter: false,
+    monk: false,
+    paladin: false,
+    sorcerer: false,
+    ranger: false,
+    rogue: false,
+    warlock: false,
+    wizard: false,
+    artificer: false,
+    tempID:null,
+    password:null,
+    email:null,
+
+    roles:[],
+    classes:[],
+    settings:[]
+    
+  }
+},
+
+created() {
+  this.tempID = sessionStorage.getItem("tempID");
+  this.email = sessionStorage.getItem("email")
+  this.password = sessionStorage.getItem("pass")
+  if(this.tempID == null){
+    this.$router.push("login");
+  } 
+},
+
+methods: {
+  updateUser(){
+
+     if(this.dob != null)
+    {
+      var today = new Date();
+      var birthdate = new Date(this.dob);
+      var age = today.getFullYear() - birthdate.getFullYear();
+      var m = today.getMonth() - birthdate.getMonth();
+      if(m < 0 || (m == 0 && today.getDate() < birthdate.getDate())) {
+        age--;
+      }
+    } 
+
+    if(this.gm == true)
+      {
+        this.roles.push("GM");
+      }
+      if(this.player == true)
+      {
+        this.roles.push("player");
+      }
+
+          if(this.modern == true)
+      {
+        this.settings.push("modern");
+      }
+
+      if(this.scifi == true)
+      {
+        this.settings.push("sci-fi");
+      }
+
+      if(this.fantasy == true)
+      {
+        this.settings.push("fantasy");
+      }
+
+      if(this.homebrew == true)
+      {
+        this.settings.push("homebrew");
+      }
+
+       if(this.barbarian == true)
+      {
+        this.classes.push("barbarian");
+      }
+       if(this.bard == true)
+      {
+        this.classes.push("bard");
+      }
+       if(this.cleric == true)
+      {
+        this.classes.push("cleric");
+      }
+       if(this.druid == true)
+      {
+        this.classes.push("druid");
+      }
+       if(this.fighter == true)
+      {
+        this.classes.push("fighter");
+      }
+       if(this.monk == true)
+      {
+        this.classes.push("monk");
+      }
+       if(this.paladin == true)
+      {
+        this.classes.push("paladin");
+      }
+       if(this.sorcerer == true)
+      {
+        this.classes.push("sorcerer");
+      }
+       if(this.ranger == true)
+      {
+        this.classes.push("ranger");
+      }
+       if(this.rogue == true)
+      {
+        this.classes.push("rogue");
+      }
+       if(this.warlock == true)
+      {
+        this.classes.push("warlock");
+      }
+       if(this.rogue == true)
+      {
+        this.classes.push("wizard");
+      }
+       if(this.artificer == true)
+      {
+        this.classes.push("artificer");
+      }
+
+          const requestOptions = {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username:this.username,
+          name:this.name,
+          city:this.city,
+          zipcode:this.postNr,
+
+          classes:this.classes,
+          settings:this.settings,
+          roles: this.roles,
+
+          age: age,
+
+        }),
+      };
+      fetch(
+        "https://dandd-api.herokuapp.com/api/users/" + this.tempID,
+        requestOptions
+      )
+        .then((response) => {
+          if (response.ok) {
+            alert ("profil er blevet oprettet")
+            this.loginUser()
+          } else {
+            alert(
+              "Server returned " +
+                response.status +
+                " : " +
+                response.statusText,
+              (this.error = "Something went wrong")
+            );
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
+  },
+
+    loginUser() {
+      sessionStorage.clear()
+      
+      const requestOptions = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: this.email,
+          password: this.password,
+        }),
+      };
+      fetch(
+        "https://dandd-api.herokuapp.com/api/user/Login",
+        requestOptions
+      ).then((response) =>
+        response
+          .json()
+          .then((data) => ({
+            data: data,
+            status: response.status,
+          }))
+          .then((response) => {
+            if (response.data) {
+
+              if (!response.data.token) {
+                alert("Email and Password does not match");
+              } else {
+                //sets logged in user and token in session.
+                sessionStorage.setItem(
+                  "token",
+                  response.data.token
+                );
+                 sessionStorage.setItem(
+                  "user",
+                  response.data.user
+                );
+                sessionStorage.setItem("user_id", response.data.id);
+                const token = sessionStorage.getItem("token");
+                const userID = sessionStorage.getItem("user_id");
+                if (token != null && userID != null) {
+                  alert(this.email + " Has been logged in");
+                  //emit event tells parent(app) that token is set.
+                  this.$emit('eventname', token)
+                  this.$router.push( {name:'Home'});
+                } else {
+                  alert("Something went wrong");
+                }
+              }
+            } else {
+              alert(
+                "Server returned " +
+                  response.status +
+                  " : " +
+                  response.statusText
+              );
+            }
+          })
+      );
+    },
+  
+},
+
+};
 </script>
 
 <style scoped>
