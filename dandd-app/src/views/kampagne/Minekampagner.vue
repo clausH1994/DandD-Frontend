@@ -8,15 +8,21 @@
       <div class="filler"></div>
 
       <div class="knap">
-        <button class="okamp">Tilbage</button>
+        <button class="okamp" onclick="history.back()">Tilbage</button>
       </div>
     </div>
 
-    <div class="">
-      <button class="bar-item tst-button" v-on:click="openKam('t-kam')">
+    <div class="bar">
+      <button
+        class="bar-item tst-button tablink "
+        v-on:click="openKam($event, 't-kam')"
+      >
         Tilmeldte Kampanger
       </button>
-      <button class="bar-item tst-button" v-on:click="openKam('e-kam')">
+      <button
+        class="bar-item tst-button tablink paper"
+        v-on:click="openKam($event,'e-kam')"
+      >
         Egne Kampagner
       </button>
     </div>
@@ -36,7 +42,7 @@
                 <input type="checkbox" name="" id="" /><label>Privat</label>
               </div>
             </td>
-            <td>              
+            <td>
               <button class="kam-btn">Delete</button>
               <button class="kam-btn">Roller</button>
               <button class="kam-btn">Kalender</button>
@@ -57,7 +63,7 @@
                 <input type="checkbox" name="" id="" /><label>Privat</label>
               </div>
             </td>
-            <td>              
+            <td>
               <button class="kam-btn">Delete</button>
               <button class="kam-btn">Roller</button>
               <button class="kam-btn">Kalender</button>
@@ -78,7 +84,7 @@
                 <input type="checkbox" name="" id="" /><label>Privat</label>
               </div>
             </td>
-            <td>              
+            <td>
               <button class="kam-btn">Delete</button>
               <button class="kam-btn">Roller</button>
               <button class="kam-btn">Kalender</button>
@@ -106,9 +112,7 @@
       </div>
     </div>
     <div>
-      <button class="okamp">
-        Opret
-      </button>
+      <button class="okamp">Opret</button>
     </div>
   </div>
 </template>
@@ -116,13 +120,18 @@
 <script>
 export default {
   methods: {
-    openKam(tabName) {
-      var i;
-      var x = document.getElementsByClassName("Campaign");
+    openKam(evt, tabName) {
+      var i, x, tablinks;
+      x = document.getElementsByClassName("Campaign");
       for (i = 0; i < x.length; i++) {
         x[i].style.display = "none";
       }
+      tablinks = document.getElementsByClassName("tablink");
+      for (i = 0; i < x.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" paper", "");
+      }
       document.getElementById(tabName).style.display = "inline-block";
+      evt.currentTarget.className += " paper";
     },
   },
 };
@@ -135,6 +144,12 @@ export default {
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
+}
+
+.bar {
+  margin: 0 auto;
+  text-align: left;
+  width: 65%;
 }
 
 .content {
@@ -155,10 +170,10 @@ export default {
   background-color: #dedbc4 !important;
 }
 
-.red,
+.dndred,
 .hover-red:hover {
   color: #fff !important;
-  background-color: #f44336 !important;
+  background-color: #b93b3b !important;
 }
 
 table {
@@ -195,8 +210,8 @@ table:last-child {
   padding: 8px 16px;
   overflow: hidden;
   text-decoration: none;
-  color: #000;
-  background-color: #dedbc4;
+  color: #fff;
+  background-color: #b93b3b;
   text-align: center;
   cursor: pointer;
   white-space: nowrap;
