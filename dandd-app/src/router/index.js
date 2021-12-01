@@ -26,7 +26,8 @@ const routes = [
   {
     path: '/kampagnedetails',
     name: 'Kampagnedetails',
-    component: Kampagnedetails
+    component: Kampagnedetails,
+    props: true
   },
   {
     path: '/redigerkampagne',
@@ -36,7 +37,7 @@ const routes = [
   {
     path: '/minekampagner',
     name: 'Minekampagner',
-    component: Minekampagner
+    component: Minekampagner,
   },
   {
     path: '/login',

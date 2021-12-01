@@ -1,19 +1,23 @@
 <template>
   <div class="makecampaign">
-    <div class="top">
-      <div class="overskrift">
-        <h1>Kampagner</h1>
+    <form v-on:submit.prevent="createCampaign()">
+      <div class="top">
+        <div class="overskrift">
+          <h1>Kampagner</h1>
+        </div>
+        <div class="filler"></div>
+        <div class="knap">
+          <button
+            class="okamp"
+            onclick="history.back()"
+            style="cursor: pointer"
+          >
+            Tilbage
+          </button>
+        </div>
       </div>
-      <div class="filler"></div>
-      <div class="knap">
-        <button class="okamp" onclick="history.back()" style="cursor: pointer">
-          Tilbage
-        </button>
-      </div>
-    </div>
-    <div class="container">
-      <div class="card">
-        <form action="">
+      <div class="container">
+        <div class="card">
           <input
             class="input"
             type="text"
@@ -22,7 +26,7 @@
             required
           />
 
-          <select class="input" v-model="edition">
+          <select class="input" v-model="edition" required>
             <option value="" disabled hidden>Edition</option>
             <option value="1st">1st</option>
             <option value="2nd">2nd</option>
@@ -45,7 +49,7 @@
             <option value="Homebrew">Homebrew</option>
           </select>
 
-          <select class="input" v-model="maxPlayers">
+          <select class="input" v-model="maxPlayers" required>
             <option value="" disabled selected hidden>Antal Deltager</option>
             <option value="1">1</option>
             <option value="2">2</option>
@@ -67,212 +71,206 @@
             /><label for="online">Online</label>
           </div>
           <input
+            v-if="!online"
             class="input"
             type="text"
             placeholder="City"
             v-model="city"
-            required
           />
           <input
+            v-if="!online"
             class="input"
             id="zipcode"
             type="text"
             placeholder="Postnr"
             v-model="zipcode"
-            required
           />
-        </form>
-      </div>
-      <div class="cardHolder">
-        <div class="card2">
-          <textarea
-            class="textArea"
-            v-model="rules"
-            rows="7"
-            placeholder="Regler:"
-          ></textarea>
         </div>
-        <div class="card2">
-          <textarea
-            class="textArea"
-            v-model="notes"
-            rows="7"
-            placeholder="Extra noter:"
-          ></textarea>
-        </div>
-      </div>
-      <div class="cardHolder">
-        <div class="card2">
-          <textarea
-            class="textArea"
-            v-model="tools"
-            rows="3"
-            placeholder="Værktøjer:"
-          ></textarea>
-        </div>
-
-        <div class="card2">
-          <h2>Søger GM/DM</h2>
-          <div class="checkboxes-placement">
-            <div>
-              <input
-                type="checkbox"
-                v-model="gm"
-                name="gm"
-                class="checkboxes"
-              /><label class="labels" for="gm">GM/DM</label>
-            </div>
+        <div class="cardHolder">
+          <div class="card2">
+            <textarea
+              class="textArea"
+              v-model="rules"
+              rows="7"
+              placeholder="Regler:"
+            ></textarea>
           </div>
-
-          <h2>Søger Classes</h2>
-          <div class="checkboxes-area">
-            <div class="checkboxes-placement">
-              <div>
-                <input
-                  class="checkboxes"
-                  type="checkbox"
-                  v-model="barbarian"
-                  name=""
-                  id=""
-                /><label class="labels">Barbarian</label>
-              </div>
-
-              <div>
-                <input
-                  class="checkboxes"
-                  type="checkbox"
-                  v-model="druid"
-                  name=""
-                  id=""
-                /><label class="labels">Druid</label>
-              </div>
-
-              <div>
-                <input
-                  class="checkboxes"
-                  type="checkbox"
-                  v-model="paladin"
-                  name=""
-                  id=""
-                /><label class="labels">Paladin</label>
-              </div>
-
-              <div>
-                <input
-                  class="checkboxes"
-                  type="checkbox"
-                  v-model="sorcerer"
-                  name=""
-                  id=""
-                /><label class="labels">Sorcerer</label>
-              </div>
-
-              <div>
-                <input
-                  class="checkboxes"
-                  type="checkbox"
-                  v-model="artificer"
-                  name=""
-                  id=""
-                /><label class="labels">Artificer</label>
-              </div>
-            </div>
-
-            <div class="checkboxes-placement">
-              <div>
-                <input
-                  class="checkboxes"
-                  type="checkbox"
-                  v-model="bard"
-                  name=""
-                  id=""
-                /><label class="labels">Bard</label>
-              </div>
-
-              <div>
-                <input
-                  class="checkboxes"
-                  type="checkbox"
-                  v-model="fighter"
-                  name=""
-                  id=""
-                /><label class="labels">Fighter</label>
-              </div>
-
-              <div>
-                <input
-                  class="checkboxes"
-                  type="checkbox"
-                  v-model="ranger"
-                  name=""
-                  id=""
-                /><label class="labels">Ranger</label>
-              </div>
-
-              <div>
-                <input
-                  class="checkboxes"
-                  type="checkbox"
-                  v-model="warlock"
-                  name=""
-                  id=""
-                /><label class="labels">Warlock</label>
-              </div>
-            </div>
-
-            <div class="checkboxes-placement">
-              <div>
-                <input
-                  class="checkboxes"
-                  type="checkbox"
-                  v-model="cleric"
-                  name=""
-                  id=""
-                /><label class="labels">Cleric</label>
-              </div>
-
-              <div>
-                <input
-                  class="checkboxes"
-                  type="checkbox"
-                  v-model="monk"
-                  name=""
-                  id=""
-                /><label class="labels">Monk</label>
-              </div>
-
-              <div>
-                <input
-                  class="checkboxes"
-                  type="checkbox"
-                  v-model="rogue"
-                  name=""
-                  id=""
-                /><label class="labels">Rogue</label>
-              </div>
-
-              <div>
-                <input
-                  class="checkboxes"
-                  type="checkbox"
-                  v-model="wizard"
-                  name=""
-                  id=""
-                /><label class="labels">Wizard</label>
-              </div>
-            </div>
+          <div class="card2">
+            <textarea
+              class="textArea"
+              v-model="notes"
+              rows="7"
+              placeholder="Extra noter:"
+            ></textarea>
           </div>
         </div>
-      </div>
-    </div>
+        <div class="cardHolder">
+          <div class="card2">
+            <textarea
+              class="textArea"
+              v-model="tools"
+              rows="3"
+              placeholder="Værktøjer:"
+            ></textarea>
+          </div>
 
-    <button
-      class="okamp btnCreate"
-      style="cursor: pointer"
-      @click="createCampaign()"
-    >
-      Opret
-    </button>
+          <div class="card2">
+            <h2>Søger GM/DM</h2>
+            <div class="checkboxes-placement">
+              <div>
+                <input
+                  type="checkbox"
+                  v-model="gm"
+                  name="gm"
+                  class="checkboxes"
+                /><label class="labels" for="gm">GM/DM</label>
+              </div>
+            </div>
+
+            <h2>Søger Classes</h2>
+            <div class="checkboxes-area">
+              <div class="checkboxes-placement">
+                <div>
+                  <input
+                    class="checkboxes"
+                    type="checkbox"
+                    v-model="barbarian"
+                    name=""
+                    id=""
+                  /><label class="labels">Barbarian</label>
+                </div>
+
+                <div>
+                  <input
+                    class="checkboxes"
+                    type="checkbox"
+                    v-model="druid"
+                    name=""
+                    id=""
+                  /><label class="labels">Druid</label>
+                </div>
+
+                <div>
+                  <input
+                    class="checkboxes"
+                    type="checkbox"
+                    v-model="paladin"
+                    name=""
+                    id=""
+                  /><label class="labels">Paladin</label>
+                </div>
+
+                <div>
+                  <input
+                    class="checkboxes"
+                    type="checkbox"
+                    v-model="sorcerer"
+                    name=""
+                    id=""
+                  /><label class="labels">Sorcerer</label>
+                </div>
+
+                <div>
+                  <input
+                    class="checkboxes"
+                    type="checkbox"
+                    v-model="artificer"
+                    name=""
+                    id=""
+                  /><label class="labels">Artificer</label>
+                </div>
+              </div>
+
+              <div class="checkboxes-placement">
+                <div>
+                  <input
+                    class="checkboxes"
+                    type="checkbox"
+                    v-model="bard"
+                    name=""
+                    id=""
+                  /><label class="labels">Bard</label>
+                </div>
+
+                <div>
+                  <input
+                    class="checkboxes"
+                    type="checkbox"
+                    v-model="fighter"
+                    name=""
+                    id=""
+                  /><label class="labels">Fighter</label>
+                </div>
+
+                <div>
+                  <input
+                    class="checkboxes"
+                    type="checkbox"
+                    v-model="ranger"
+                    name=""
+                    id=""
+                  /><label class="labels">Ranger</label>
+                </div>
+
+                <div>
+                  <input
+                    class="checkboxes"
+                    type="checkbox"
+                    v-model="warlock"
+                    name=""
+                    id=""
+                  /><label class="labels">Warlock</label>
+                </div>
+              </div>
+
+              <div class="checkboxes-placement">
+                <div>
+                  <input
+                    class="checkboxes"
+                    type="checkbox"
+                    v-model="cleric"
+                    name=""
+                    id=""
+                  /><label class="labels">Cleric</label>
+                </div>
+
+                <div>
+                  <input
+                    class="checkboxes"
+                    type="checkbox"
+                    v-model="monk"
+                    name=""
+                    id=""
+                  /><label class="labels">Monk</label>
+                </div>
+
+                <div>
+                  <input
+                    class="checkboxes"
+                    type="checkbox"
+                    v-model="rogue"
+                    name=""
+                    id=""
+                  /><label class="labels">Rogue</label>
+                </div>
+
+                <div>
+                  <input
+                    class="checkboxes"
+                    type="checkbox"
+                    v-model="wizard"
+                    name=""
+                    id=""
+                  /><label class="labels">Wizard</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button class="okamp btnCreate" style="cursor: pointer">Opret</button>
+    </form>
   </div>
 </template>
 
@@ -303,9 +301,8 @@ export default {
     tools: null,
     online: false,
     wishedClasses: [],
-    listOfPlayer:[],
-    dates:[],
-
+    listOfPlayer: [],
+    dates: [],
 
     gm: false,
     barbarian: false,
@@ -325,64 +322,65 @@ export default {
 
   methods: {
     createCampaign() {
-      if(this.gm == true)
-      {
+      if (this.rules == null) {
+        this.rules = "";
+      }
+
+      if (this.notes == null) {
+        this.notes = "";
+      }
+
+      if (this.tools == null) {
+        this.tools = "";
+      }
+
+      if (this.city == null) {
+        this.city = "";
+      }
+
+      if (this.gm == true) {
         this.wishedClasses.push("GM");
       }
-       if(this.barbarian == true)
-      {
+      if (this.barbarian == true) {
         this.wishedClasses.push("barbarian");
       }
-       if(this.bard == true)
-      {
+      if (this.bard == true) {
         this.wishedClasses.push("bard");
       }
-       if(this.cleric == true)
-      {
+      if (this.cleric == true) {
         this.wishedClasses.push("cleric");
       }
-       if(this.druid == true)
-      {
+      if (this.druid == true) {
         this.wishedClasses.push("druid");
       }
-       if(this.fighter == true)
-      {
+      if (this.fighter == true) {
         this.wishedClasses.push("fighter");
       }
-       if(this.monk == true)
-      {
+      if (this.monk == true) {
         this.wishedClasses.push("monk");
       }
-       if(this.paladin == true)
-      {
+      if (this.paladin == true) {
         this.wishedClasses.push("paladin");
       }
-       if(this.sorcerer == true)
-      {
+      if (this.sorcerer == true) {
         this.wishedClasses.push("sorcerer");
       }
-       if(this.ranger == true)
-      {
+      if (this.ranger == true) {
         this.wishedClasses.push("ranger");
       }
-       if(this.rogue == true)
-      {
+      if (this.rogue == true) {
         this.wishedClasses.push("rogue");
       }
-       if(this.warlock == true)
-      {
+      if (this.warlock == true) {
         this.wishedClasses.push("warlock");
       }
-       if(this.rogue == true)
-      {
+      if (this.rogue == true) {
         this.wishedClasses.push("wizard");
       }
-       if(this.artificer == true)
-      {
+      if (this.artificer == true) {
         this.wishedClasses.push("artificer");
       }
 
-    
       if (this.token != null && this.user != null) {
         const requestOptions = {
           method: "POST",
@@ -393,7 +391,7 @@ export default {
           body: JSON.stringify({
             ownerID: this.user._id,
             ownerName: this.user.username,
-            title: this.title,
+            titel: this.title,
             edition: this.edition,
             setting: this.setting,
             maxPlayers: this.maxPlayers,
@@ -407,7 +405,7 @@ export default {
 
             wishedClasses: this.wishedClasses,
             dates: this.dates,
-            listOfPlayer: this.listOfPlayer
+            listOfPlayer: this.listOfPlayer,
           }),
         };
         fetch(
@@ -422,9 +420,10 @@ export default {
             }))
             .then((response) => {
               if (response.data) {
-               // this.projectID = response.data[0]._id;
-                //this.addProjectToUser(this.projectID);
-                console.log("Det virker!!");
+                this.$router.push({
+                  name: 'Kampagnedetails',
+                  params: { id: response.data[0]._id }
+                });
               } else {
                 alert(
                   "Server returned " +
@@ -436,7 +435,6 @@ export default {
             })
         );
       }
-
     },
   },
 };
