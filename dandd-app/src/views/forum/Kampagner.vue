@@ -6,7 +6,9 @@
       </div>
       <div class="filler"></div>
       <div class="knap">
+          <router-link to="/forumforside">
     <button class="okamp">Tilbage</button>
+          </router-link>
       </div>
     </div>
 
@@ -87,8 +89,9 @@
             </ul>
         </div>
 
-
     </div>
+
+    <button class="opost">Opret Post</button>
 
   </div> 
 </template>
@@ -111,8 +114,7 @@ export default {
 .contentforum {
   display: flex;
   justify-content: center;
-  flex-wrap: wrap;
-  padding-bottom: 100px;
+  padding-bottom: 20px;
 }
 
 .contentforum h2 {
@@ -169,6 +171,22 @@ hr {
   height: 1px;
   background-color: black;
   border: none;
+}
+
+.okamp {
+    cursor: pointer;
+}
+
+button.opost {
+  background-color: #B93B3B;
+  color: white;
+  font-family: 'Charm', cursive;
+  font-size: 20px;
+  height: 55px;
+  width: 150px;
+  border-radius: 12px;
+  border: none;
+  margin-bottom: 80px;
 }
 
 </style>
