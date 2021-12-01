@@ -18,22 +18,22 @@
           <h4 class="check" @click="openEdition = !openEdition">Edition</h4>
           <div class="edition" v-if="openEdition">
             <div>
-            <input type="checkbox" name="" id=""><label>1st</label>
+            <input type="checkbox" name="1st" id="1st"><label>1st</label>
             </div>
             <div>
-            <input type="checkbox" name="" id=""><label>2nd</label>
+            <input type="checkbox" name="2nd" id="2nd"><label>2nd</label>
             </div>
             <div>
-            <input type="checkbox" name="" id=""><label>3rd</label>
+            <input type="checkbox" name="3rd" id="3rd"><label>3rd</label>
             </div>
             <div>
-            <input type="checkbox" name="" id=""><label>3.5</label>
+            <input type="checkbox" name="3.5" id="3.5"><label>3.5</label>
             </div>
             <div>
-            <input type="checkbox" name="" id=""><label>4th</label>
+            <input type="checkbox" name="4th" id="4th"><label>4th</label>
             </div>
             <div>
-            <input type="checkbox" name="" id=""><label>5th</label>
+            <input type="checkbox" name="5th" id="5th"><label>5th</label>
             </div>
           </div>
         </div>
@@ -41,16 +41,16 @@
           <h4 class="check" @click="openSetting = !openSetting">Fortrukne Setting</h4>
           <div class="setting" v-if="openSetting">
             <div>
-            <input type="checkbox" name="" id=""><label>Modern</label>
+            <input type="checkbox" name="mordern" id="modern"><label>Modern</label>
             </div>
             <div>
-            <input type="checkbox" name="" id=""><label>Sci-fi</label>
+            <input type="checkbox" name="sci-fi" id="sci-fi"><label>Sci-fi</label>
             </div>
             <div>
-            <input type="checkbox" name="" id=""><label>Fantasy</label>
+            <input type="checkbox" name="fantasy" id="fantasy"><label>Fantasy</label>
             </div>
             <div>
-            <input type="checkbox" name="" id=""><label>Homebrew</label>
+            <input type="checkbox" name="homebrew" id="homebrew"><label>Homebrew</label>
             </div>
           </div>
         </div>
@@ -58,43 +58,43 @@
           <h4 class="check" @click="openClasses = !openClasses">Ønskede Classes</h4>
           <div class="classes" v-if="openClasses">
             <div>
-            <input type="checkbox" name="" id=""><label>Barbarian</label>
+            <input type="checkbox" name="barbarian" id="barbarian"><label>Barbarian</label>
             </div>
             <div>
-            <input type="checkbox" name="" id=""><label>Bard</label>
+            <input type="checkbox" name="bard" id="bard"><label>Bard</label>
             </div>
             <div>
-            <input type="checkbox" name="" id=""><label>Cleric</label>
+            <input type="checkbox" name="cleric" id="cleric"><label>Cleric</label>
             </div>
             <div>
-            <input type="checkbox" name="" id=""><label>Druid</label>
+            <input type="checkbox" name="druid" id="druid"><label>Druid</label>
             </div>
             <div>
-            <input type="checkbox" name="" id=""><label>Fighter</label>
+            <input type="checkbox" name="fighter" id="fighter"><label>Fighter</label>
             </div>
             <div>
-            <input type="checkbox" name="" id=""><label>Monk</label>
+            <input type="checkbox" name="monk" id="monk"><label>Monk</label>
             </div>
             <div>
-            <input type="checkbox" name="" id=""><label>Paladin</label>
+            <input type="checkbox" name="paladin" id="paladin"><label>Paladin</label>
             </div>
             <div>
-            <input type="checkbox" name="" id=""><label>Ranger</label>
+            <input type="checkbox" name="ranger" id="ranger"><label>Ranger</label>
             </div>
             <div>
-            <input type="checkbox" name="" id=""><label>Rogue</label>
+            <input type="checkbox" name="rogue" id="rogue"><label>Rogue</label>
             </div>
             <div>
-            <input type="checkbox" name="" id=""><label>Sorcerer</label>
+            <input type="checkbox" name="sorcerer" id="sorcerer"><label>Sorcerer</label>
             </div>
             <div>
-            <input type="checkbox" name="" id=""><label>Warlock</label>
+            <input type="checkbox" name="warlock" id="warlock"><label>Warlock</label>
             </div>
             <div>
-            <input type="checkbox" name="" id=""><label>Wizard</label>
+            <input type="checkbox" name="wizard" id="wizard"><label>Wizard</label>
             </div>
             <div>
-            <input type="checkbox" name="" id=""><label>Artificer</label>
+            <input type="checkbox" name="artificer" id="artificer"><label>Artificer</label>
             </div>
           </div>
         </div>
@@ -176,8 +176,8 @@
               <p class="ccp"><b>Ejer:</b></p>
                 </div>
                 <div class="test2">
-              <p class="ccp" v-if="campaign.owner.length < 15 ">{{ campaign.owner }}</p>
-              <p class="ccp" v-else>{{ campaign.owner.substring(0,15)+"..." }}</p>
+              <p class="ccp" v-if="campaign.ownerName.length < 15 ">{{ campaign.ownerName }}</p>
+              <p class="ccp" v-else>{{ campaign.ownerName.substring(0,15)+"..." }}</p>
                 </div>
               </div>
               </li>
@@ -187,8 +187,8 @@
               <p class="ccp"><b>Regler:</b></p>
                 </div>
                 <div class="test2">
-              <p class="ccp" v-if="campaign.rules.length < 80 ">{{ campaign.rules }}</p>
-              <p class="ccp" v-else>{{ campaign.rules.substring(0,80)+"..." }}</p>
+              <p class="ccp" v-if="campaign.rules.length < 40 ">{{ campaign.rules }}</p>
+              <p class="ccp" v-else>{{ campaign.rules.substring(0,40)+"..." }}</p>
                 </div>
               </div>
               </li>
