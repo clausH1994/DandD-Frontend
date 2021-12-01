@@ -1,5 +1,6 @@
 <template>
   <div>
+    <form v-on:submit.prevent="updateUser()">
     <div class="registrer">
       <div class="top">
         <div class="overskrift"></div>
@@ -8,13 +9,13 @@
       </div>
       <div class="placement">
         <div class="outerBox">
-          <div class="register">
+          <div class="register" >
             <h3>Opret Profil</h3>
-            <input v-model="username" placeholder="Brugernavn" />
+            <input v-model="username" placeholder="Brugernavn" required />
             <input v-model="name" placeholder="Navn" />
-            <input v-model="city" placeholder="By" />
-            <input v-model="postNr" placeholder="Post nr" />
-            <input type="date" v-model="dob" id="birthday" name="Date of Birth" />
+            <input v-model="city" placeholder="By" required />
+            <input v-model="postNr" placeholder="Post nr" required/>
+            <input type="date" v-model="dob" id="birthday" name="Date of Birth" required />
             <div class="setting-1">
               <input type="checkbox" v-model="gm" name="" id="" /><label>GM/DM</label>
               <input type="checkbox" v-model="player" name="" id="" /><label>Player</label>
@@ -185,8 +186,9 @@
           </div>
         </div>
       </div>
-      <button class="okamp" @click="updateUser()" style="cursor:pointer">Opret</button>
+      <button class="okamp" type="submit" style="cursor:pointer">Opret</button>
     </div>
+    </form>
   </div>
 </template>
 
@@ -226,7 +228,7 @@ data() {
 
     roles:[],
     classes:[],
-    settings:[]
+    settings:[],
     
   }
 },
@@ -253,6 +255,9 @@ methods: {
         age--;
       }
     } 
+    if(this.name == null) {
+      this.name = "";
+    }
 
     if(this.gm == true)
       {

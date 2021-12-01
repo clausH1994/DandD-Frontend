@@ -9,26 +9,26 @@
     </div>
         <div class="placement">
         <div class="outerBox">
-        <div class="register">
+        <form class="register" v-on:submit.prevent="validate()">
             <h3>REGISTRER</h3>
-           <input v-model="rEmail" :rules="emailRules" placeholder="Email">
-            <input v-model="passwordR" :rules="passwordRules" placeholder="Password" type="password">
-            <input v-model="bPassword" :rules="passwordRules" placeholder="Bekræft Password" type="password">
-            <button class="btn-reg" @click="validate()">Register</button>
+           <input v-model="rEmail" placeholder="Email" required>
+            <input v-model="passwordR"  placeholder="Password" type="password" required>
+            <input v-model="bPassword"  placeholder="Bekræft Password" type="password" required>
+            <button class="btn-reg">Register</button>
             <button class="social">Facebook</button>
             <button class="social">Google</button>
-        </div>
+        </form>
         </div>
         <div class="spacer"></div>
         <div class="outerBox">
-        <div class="register">
+        <form class="register" v-on:submit.prevent="loginUser()" >
             <h3>LOGIN</h3>
-           <input v-model="email" placeholder="Email" :rules="emailRules">
-            <input v-model="password" placeholder="Password" :rules="passwordRules" type="password">
-            <button class="btn-reg" @click="loginUser()">Login</button>
+           <input v-model="email" placeholder="Email" required>
+            <input v-model="password" placeholder="Password" type="password" required>
+            <button class="btn-reg">Login</button>
             <button class="social">Facebook</button>
             <button class="social">Google</button>
-        </div>
+        </form>
         </div>
       </div>   
    </div> 
@@ -42,19 +42,11 @@
 
     email: "",
     rEmail:"",
-    emailRules: [
-      (v) => !!v  || "E-mail is required",
-      (v) => /.+@.+..+/.test(v) || "Wrong E-mail",
-    ],
     checkbox: false,
 
     password: "",
     passwordR:"",
     bPassword:"",
-    passwordRules: [
-      (v) => !!v || "Password is required",
-      (v) => (v && v.length <= 6) || "password is incorrect, please try again",
-    ],
         }),
         methods: {
             //validates user input and call registerUser()
