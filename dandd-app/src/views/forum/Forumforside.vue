@@ -290,6 +290,7 @@ export default {
 .contentforum h2 {
   color: black;
   text-decoration: underline;
+  font-size: 28px;
 }
 
 .forumcard {
