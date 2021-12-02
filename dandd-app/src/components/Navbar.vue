@@ -3,7 +3,7 @@
     <div class="navleft">
     Logo
     <router-link to="/">Kampagner</router-link>
-    <router-link to="/forumforside">Forum</router-link>
+    <router-link to="/forum" :class="{'link-active': subIsActive('/forum')}">Forum</router-link>
     </div>
     <div class="navright">
     <router-link to="/minekampagner">Mine Kampagner</router-link>
@@ -18,6 +18,19 @@
 <script>
 export default {
     name: 'Navbar',
+      data () {
+    return {
+      
+      }
+    },
+  methods: {
+    subIsActive(input) {
+    const paths = Array.isArray(input) ? input : [input]
+    return paths.some(path => {
+    return this.$route.path.indexOf(path) === 0 // current path starts with this path string
+    })
+    }
+  },
 }
 </script>
 
@@ -51,6 +64,10 @@ export default {
   display: inline-block;
   position: absolute;
   right: 5%;
+}
+
+.link-active {
+  color: black !important;
 }
 
 </style>

@@ -6,7 +6,7 @@
       </div>
       <div class="filler"></div>
       <div class="knap">
-          <router-link to="/forumforside">
+          <router-link to="/forum">
     <button class="okamp">Tilbage</button>
           </router-link>
       </div>

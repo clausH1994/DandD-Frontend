@@ -68,27 +68,27 @@ const routes = [
     component: Kalender
   },
   {
-    path: '/forumforside',
+    path: '/forum',
     name: 'Forumforside',
     component: Forumforside
   },
   {
-    path: '/kampagner',
+    path: '/forum/kampagner',
     name: 'Kampagner',
     component: Kampagner
   },
   {
-    path: '/karaktere',
+    path: '/forum/karaktere',
     name: 'Karaktere',
     component: Karaktere
   },
   {
-    path: '/worldbuilding',
+    path: '/forum/worldbuilding',
     name: 'Worldbuilding',
     component: Worldbuilding
   },
   {
-    path: '/customrules',
+    path: '/forum/customrules',
     name: 'Customrules',
     component: Customrules
   },

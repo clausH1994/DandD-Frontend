@@ -13,7 +13,7 @@
     <div class="contentforum">
 
     <div class="forumcard">
-      <router-link to="/kampagner">
+      <router-link to="/forum/kampagner">
             <h2>Kampagner</h2>
             </router-link>
             <ul class="campcard">
@@ -75,7 +75,7 @@
         </div>
 
         <div class="forumcard">
-          <router-link to="/karaktere">
+          <router-link to="/forum/karaktere">
             <h2>Karaktere</h2>
           </router-link>
             <ul class="campcard">
@@ -137,7 +137,7 @@
         </div>
 
             <div class="forumcard">
-              <router-link to="/worldbuilding">
+              <router-link to="/forum/worldbuilding">
             <h2>World Building</h2>
               </router-link>
             <ul class="campcard">
@@ -199,7 +199,7 @@
         </div>
 
             <div class="forumcard">
-              <router-link to="/customrules">
+              <router-link to="/forum/customrules">
             <h2>Custom rules</h2>
               </router-link>
             <ul class="campcard">
