@@ -17,40 +17,62 @@
             <p>4/5{{ numberOfplayers }}/{{ maxPlayers }}</p>
           </div>
           <h3>Ejer</h3>
-          <p> {{ ownerName }}</p>
+          <p>{{ ownerName }}</p>
           <h3>GM/DM</h3>
-          <p>SlayerFire22</p>
+          <div v-for="player in listOfPlayers" v-bind:key="player.playerID">
+            <div class="textline2">
+              <p class="playerName" v-if="player.role == 'GM'">
+                {{ player.playerName }}
+              </p>
+              <img
+                v-if="player.role == 'GM'"
+                class="roles"
+                :src="getImgUrl(player.role)"
+                v-bind:alt="wish"
+              />
+            </div>
+          </div>
           <h3>Players</h3>
-          <div class="textline">
-            <p>anotherPlayer1</p>
-          </div>
-          <div class="textline">
-            <p>anotherPlayer2</p>
-          </div>
-          <div class="textline">
-            <p>anotherPlayer3</p>
+          <div v-for="player in listOfPlayers" v-bind:key="player.playerID">
+            <div v-if="player.role != 'GM'" class="textline2">
+              <p class="playerName">{{ player.playerName }}</p>
+              <img
+                class="roles"
+                :src="getImgUrl(player.role)"
+                v-bind:alt="wish"
+              />
+            </div>
           </div>
         </div>
         <div class="card bottomCards">
           <h3>Lokation</h3>
-          <p v-if="!online"> {{ city }}, {{ zipcode }}</p>
-          <p v-if="online"> online</p>
+          <p v-if="!online">{{ city }}, {{ zipcode }}</p>
+          <p v-if="online">online</p>
         </div>
       </div>
 
       <div class="cardHolder">
         <div class="card">
-          <h2>{{titel}}</h2>
+          <h2>{{ titel }}</h2>
           <div class="textline">
             <h3>Edition:</h3>
-            <p> {{ edition }} edition</p>
+            <p>{{ edition }} edition</p>
           </div>
           <div class="textline">
             <h3>Setting:</h3>
-            <p> {{ setting }}</p>
+            <p>{{ setting }}</p>
           </div>
 
           <h3>Ønskede Classes:</h3>
+          <div class="wishes">
+            <div
+              class="wishBox"
+              v-for="wish in wishedClasses"
+              v-bind:key="wish.id"
+            >
+              <img :src="getImgUrl(wish)" v-bind:alt="wish" />
+            </div>
+          </div>
         </div>
         <div class="card bottomCards">
           <h3>Regler:</h3>
@@ -63,7 +85,6 @@
           <h3>Ekstra Noter::</h3>
           <p>
             {{ notes }}
-            
           </p>
         </div>
         <div class="card bottomCards">
@@ -80,7 +101,8 @@
 <script>
 export default {
   created() {
-    this.id = this.$route.params.id;
+    //this.id = this.$route.params.id;
+    this.id = "61a77f6258295764f502c78c";
     if (this.id) {
       this.getCampaign();
     } else {
@@ -102,7 +124,10 @@ export default {
       rules: null,
       notes: null,
       tools: null,
-      online: false
+      online: false,
+
+      wishedClasses: [],
+      listOfPlayers: [],
     };
   },
 
@@ -120,7 +145,6 @@ export default {
           }))
           .then((response) => {
             if (response.data) {
-              console.log(response.data);
               this.titel = response.data.titel;
               this.ownerName = response.data.ownerName;
               this.city = response.data.city;
@@ -131,8 +155,11 @@ export default {
               this.setting = response.data.setting;
               this.rules = response.data.rules;
               this.notes = response.data.notes;
-              this.tools = response.data.rules;
+              this.tools = response.data.tools;
               this.online = response.data.online;
+
+              this.wishedClasses = response.data.wishedClasses;
+              this.listOfPlayers = response.data.listOfPlayers;
             } else {
               alert(
                 "Server returned " +
@@ -143,6 +170,10 @@ export default {
             }
           })
       );
+    },
+
+    getImgUrl(wish) {
+      return require("../../assets/classIcon/" + wish + ".svg");
     },
   },
 };
@@ -196,11 +227,37 @@ export default {
   margin-bottom: 10px;
 }
 
+.textline2 {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 40%;
+}
+
 .amountField {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
   margin-right: 10px;
+}
+
+.wishes {
+  display: flex;
+}
+
+.wishBox {
+  margin-right: 5px;
+  margin-top: 5px;
+}
+
+.roles {
+  height: 25px;
+  width: 25px;
+}
+
+.playerName {
+  width: 100%;
 }
 
 h2 {
@@ -210,7 +267,7 @@ h2 {
   margin-bottom: 0;
   text-decoration: underline;
   text-align: left;
-  text-transform: capitalize ;
+  text-transform: capitalize;
 }
 
 h3 {
@@ -220,7 +277,7 @@ h3 {
   font-size: 20px;
   text-align: left;
   margin-right: 30px;
-  text-transform: capitalize ;
+  text-transform: capitalize;
 }
 
 p {
@@ -228,6 +285,11 @@ p {
   text-align: left;
   margin-top: 0;
   margin-bottom: 0;
-  text-transform: capitalize ;
+  text-transform: capitalize;
+}
+
+img {
+  height: 40px;
+  width: 40px;
 }
 </style>
