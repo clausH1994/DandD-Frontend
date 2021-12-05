@@ -14,14 +14,14 @@
 
     <div class="bar">
       <button
-        class="bar-item tst-button tablink "
+        class="bar-item tst-button tablink"
         v-on:click="openKam($event, 't-kam')"
       >
         Tilmeldte Kampanger
       </button>
       <button
         class="bar-item tst-button tablink paper"
-        v-on:click="openKam($event,'e-kam')"
+        v-on:click="openKam($event, 'e-kam')"
       >
         Egne Kampagner
       </button>
@@ -29,78 +29,50 @@
 
     <div class="content">
       <div id="e-kam" class="Campaign paper">
-        <table>
+        <table v-for="campaign in owned" v-bind:key="campaign._id">
           <tr>
             <td>
-              <div class="kam-text"><p>Icewind dale</p></div>
-            </td>
-            <td>
-              <div class="kam-text"><p>af slayerfire22</p></div>
-            </td>
-            <td>
               <div class="kam-text">
-                <input type="checkbox" name="" id="" /><label>Privat</label>
+                <p>{{ campaign.titel }}</p>
               </div>
             </td>
             <td>
-              <button class="kam-btn">Delete</button>
-              <button class="kam-btn">Roller</button>
-              <button class="kam-btn">Kalender</button>
-              <button class="kam-btn">Rediger</button>
-            </td>
-          </tr>
-        </table>
-        <table>
-          <tr>
-            <td>
-              <div class="kam-text"><p>Icewind dale</p></div>
-            </td>
-            <td>
-              <div class="kam-text"><p>af slayerfire22</p></div>
-            </td>
-            <td>
               <div class="kam-text">
-                <input type="checkbox" name="" id="" /><label>Privat</label>
+                <p>af {{ campaign.ownerName }}</p>
               </div>
             </td>
             <td>
-              <button class="kam-btn">Delete</button>
-              <button class="kam-btn">Roller</button>
-              <button class="kam-btn">Kalender</button>
-              <button class="kam-btn">Rediger</button>
-            </td>
-          </tr>
-        </table>
-        <table>
-          <tr>
-            <td>
-              <div class="kam-text"><p>Icewind dale</p></div>
-            </td>
-            <td>
-              <div class="kam-text"><p>af slayerfire22</p></div>
-            </td>
-            <td>
               <div class="kam-text">
-                <input type="checkbox" name="" id="" /><label>Privat</label>
+                <input
+                  type="checkbox"
+                  name=""
+                  id=""
+                  checked="campaign.private"
+                  v-model="campaign.private"
+                /><label>Privat</label>
               </div>
             </td>
             <td>
-              <button class="kam-btn">Delete</button>
-              <button class="kam-btn">Roller</button>
-              <button class="kam-btn">Kalender</button>
-              <button class="kam-btn">Rediger</button>
+              <button class="kam-btn" v-on:click="deleteCampaign(campaign._id)">
+                Delete
+              </button>
+              <button class="kam-btn" v-on:click="roles(campaign._id)">
+                Roller
+              </button>
+              <button class="kam-btn" v-on:click="calendar(campaign._id)">Kalender</button>
+              <button class="kam-btn" v-on:click="edit(campaign._id)">Rediger</button>
             </td>
           </tr>
         </table>
       </div>
 
       <div id="t-kam" class="Campaign paper" style="display: none">
-        <table>
+        <table v-for="campaign in added" v-bind:key="campaign._id">
           <tr>
-            <td><p>Icewind dale</p></td>
-            <td><p>af slayerfire22</p></td>
+            <td><p>{{ campaign.titel }}</p></td>
+            <td><p>af {{campaign.ownerName}}</p></td>
             <td>
-              <p>Privat</p>
+              <p v-if="campaign.private">Privat</p>
             </td>
             <td>
               <button class="kam-btn">Forlad</button>
@@ -119,7 +91,97 @@
 
 <script>
 export default {
+  data() {
+    return {
+      campaigns: [],
+      owned: [],
+      userID: null,
+      token: null,
+      added: [],
+    };
+  },
+
   methods: {
+    getCampaigns() {
+      this.userID;
+      fetch("https://dandd-api.herokuapp.com/api/campaigns/", {
+        method: "GET",
+      }).then((response) =>
+        response
+          .json()
+          .then((data) => ({
+            data: data,
+            status: response.status,
+          }))
+          .then((response) => {
+            if (response.data) {
+              this.campaigns = response.data;
+              this.filterCampaigns();
+            } else {
+              alert(
+                "Server returned " +
+                  response.status +
+                  " : " +
+                  response.statusText
+              );
+            }
+          })
+      );
+    },
+
+    filterCampaigns() {
+      this.campaigns.forEach((campaign) => {
+        if (this.userID == campaign.ownerID) {
+          this.owned.push(campaign);
+        }
+        
+        campaign.listOfPlayers.forEach(player => {
+          console.log(player.playerID)
+          if (this.userID == player.playerID) {
+            this.added.push(campaign)
+
+          }
+        });
+      });
+       console.log(this.added);
+    },
+
+    
+
+    deleteCampaign(_id) {
+      if (confirm("Er du sikker på du vil slette denne kampagne")) {
+        const requestOptions = {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            "auth-token": this.token,
+          },
+        };
+        fetch(
+          "https://dandd-api.herokuapp.com/api/campaigns/" + _id,
+          requestOptions
+        )
+          .then((response) => {
+            if (response.ok) {
+              this.owned = [];
+              this.getCampaigns();
+              return response.json();
+            } else {
+              alert(
+                "Server returned " +
+                  response.status +
+                  " : " +
+                  response.statusText,
+                (this.error = "Something went wrong")
+              );
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    },
+
     openKam(evt, tabName) {
       var i, x, tablinks;
       x = document.getElementsByClassName("Campaign");
@@ -133,6 +195,35 @@ export default {
       document.getElementById(tabName).style.display = "inline-block";
       evt.currentTarget.className += " paper";
     },
+
+    roles(_id) {
+      this.$router.push({
+        name: "Roller",
+        params: { id: _id },
+      });
+    },
+    calendar(_id) {
+      this.$router.push({
+        name: "Kalender",
+        params: { id: _id },
+      });
+    },
+    edit(_id) {
+      this.$router.push({
+        name: "Redigerkampagne",
+        params: { id: _id },
+      });
+    }
+  },
+
+  created() {
+    this.token = sessionStorage.getItem("token");
+    this.userID = sessionStorage.getItem("user_id");
+    if (this.userID == null) {
+      this.$router.push("/login");
+    } else {
+      this.getCampaigns();
+    }
   },
 };
 </script>

@@ -14,7 +14,10 @@
 
 <script>
 export default {
-
+created() {
+  this.id = this.$route.params.id;
+  console.log(this.id)
+}
 }
 </script>
 

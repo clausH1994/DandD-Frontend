@@ -10,6 +10,7 @@ import Registrer from '../views/profile/Registrer.vue'
 import Rediger from '../views/profile/Rediger.vue'
 import Kalender from '../views/Kalender.vue'
 import Forumforside from '../views/forum/Forumforside.vue'
+import Roller from '../views/kampagne/Roller.vue'
 
 
 const routes = [
@@ -37,6 +38,11 @@ const routes = [
     path: '/minekampagner',
     name: 'Minekampagner',
     component: Minekampagner
+  },
+  {
+    path: '/roller',
+    name: 'Roller',
+    component: Roller
   },
   {
     path: '/login',
