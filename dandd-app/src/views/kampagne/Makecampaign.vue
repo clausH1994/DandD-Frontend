@@ -49,7 +49,7 @@
             <option value="Homebrew">Homebrew</option>
           </select>
 
-          <select class="input" v-model="maxPlayers" required>
+          <select class="input" v-model="maxPlayer" required>
             <option value="" disabled selected hidden>Antal Deltager</option>
             <option value="1">1</option>
             <option value="2">2</option>
@@ -293,7 +293,7 @@ export default {
     title: null,
     edition: "",
     setting: "",
-    maxPlayers: "",
+    maxPlayer: "",
     city: null,
     zipcode: null,
     rules: null,
@@ -374,7 +374,7 @@ export default {
       if (this.warlock == true) {
         this.wishedClasses.push("warlock");
       }
-      if (this.rogue == true) {
+      if (this.wizard == true) {
         this.wishedClasses.push("wizard");
       }
       if (this.artificer == true) {
@@ -394,7 +394,7 @@ export default {
             titel: this.title,
             edition: this.edition,
             setting: this.setting,
-            maxPlayers: this.maxPlayers,
+            maxPlayer: this.maxPlayer,
             city: this.city,
             zipcode: this.zipcode,
             rules: this.rules,

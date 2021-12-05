@@ -14,7 +14,7 @@
           <div class="amountField">
             <p></p>
             <h3>Deltagere</h3>
-            <p>4/5{{ numberOfplayers }}/{{ maxPlayers }}</p>
+            <p>{{ numberOfPlayers }}/{{ maxPlayer }}</p>
           </div>
           <h3>Ejer</h3>
           <p>{{ ownerName }}</p>
@@ -101,8 +101,8 @@
 <script>
 export default {
   created() {
-    //this.id = this.$route.params.id;
-    this.id = "61a77f6258295764f502c78c";
+    this.id = this.$route.params.id;
+    //this.id = "61a77f6258295764f502c78c";
     if (this.id) {
       this.getCampaign();
     } else {
@@ -118,7 +118,7 @@ export default {
       city: null,
       zipcode: null,
       edition: null,
-      maxPlayers: null,
+      maxPlayer: null,
       numberOfplayers: null,
       setting: null,
       rules: null,
@@ -150,7 +150,7 @@ export default {
               this.city = response.data.city;
               this.zipcode = response.data.zipcode;
               this.edition = response.data.edition;
-              this.maxPlayers = response.data.maxPlayers;
+              this.maxPlayer = response.data.maxPlayer;
               this.numberOfplayers = response.data.numberOfplayers;
               this.setting = response.data.setting;
               this.rules = response.data.rules;

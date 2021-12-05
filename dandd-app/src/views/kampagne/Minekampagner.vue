@@ -60,7 +60,7 @@
                 Roller
               </button>
               <button class="kam-btn" v-on:click="calendar(campaign._id)">Kalender</button>
-              <button class="kam-btn" v-on:click="edit(campaign._id)">Rediger</button>
+              <button class="kam-btn" v-on:click="edit(campaign)">Rediger</button>
             </td>
           </tr>
         </table>
@@ -208,10 +208,10 @@ export default {
         params: { id: _id },
       });
     },
-    edit(_id) {
+    edit(campaign) {
       this.$router.push({
         name: "Redigerkampagne",
-        params: { id: _id },
+        params: { campaign: JSON.stringify(campaign) },
       });
     }
   },

@@ -50,7 +50,7 @@
             <option value="Homebrew">Homebrew</option>
           </select>
 
-          <select class="input" v-model="maxPlayers" required>
+          <select class="input" v-model="maxPlayer" required>
             <option value="" disabled selected hidden>Antal Deltager</option>
             <option value="1">1</option>
             <option value="2">2</option>
@@ -269,32 +269,97 @@
           </div>
         </div>
       </div>
-      <button class="okamp btnCreate" style="cursor: pointer">Opret</button>
+      <button class="okamp btnCreate" style="cursor: pointer">Redigere</button>
     </form>
   </div>
 </template>
 
 <script>
 export default {
-   created() {
+  created() {
     this.token = sessionStorage.getItem("token");
     this.user = JSON.parse(sessionStorage.getItem("user"));
-    this.campaignId = this.$route.params.id
-    if (this.token == null || this.user == null || this.campaignId == null) {
+    this.campaign = JSON.parse(this.$route.params.campaign);
+    if (this.token == null || this.user == null) {
       this.$router.push("Login");
+    } else if (this.campaign == null) {
+      this.$router.push("minekampagner");
     } else {
-      //
+      this.title = this.campaign.titel;
+      this.edition = this.campaign.edition;
+      this.setting = this.campaign.setting;
+      this.maxPlayer = this.campaign.maxPlayer;
+      this.city = this.campaign.city;
+      this.zipcode = this.campaign.zipcode;
+      this.rules = this.campaign.rules;
+      this.notes = this.campaign.notes;
+      this.tools = this.campaign.tools;
+      this.online = this.campaign.online;
+      this.wishedClasses = this.campaign.wishedClasses;
+      this.listOfPlayer = this.campaign.listOfPlayer;
+      this.dates = this.campaign.dates;
+
+      this.wishedClasses.forEach((clas) => {
+        if (clas == "GM") {
+          this.gm = true;
+        }
+
+        if (clas == "barbarian") {
+          this.barbarian = true;
+        }
+
+        if (clas == "bard") {
+          this.bard = true;
+        }
+        if (clas == "cleric") {
+          this.cleric = true;
+        }
+        if (clas == "druid") {
+          this.druid = true;
+        }
+        if (clas == "fighter") {
+          this.fighter = true;
+        }
+        if (clas == "monk") {
+          this.monk = true;
+        }
+        if (clas == "paladin") {
+          this.paladin = true;
+        }
+        if (clas == "sorcerer") {
+          this.sorcerer = true;
+        }
+        if (clas == "ranger") {
+          this.ranger = true;
+        }
+        if (clas == "rogue") {
+          this.rogue = true;
+        }
+
+        if (clas == "warlock") {
+          this.warlock = true;
+        }
+
+        if (clas == "wizard") {
+          this.wizard = true;
+        }
+
+        if (clas == "artificer") {
+          this.artificer = true;
+        }
+      });
     }
   },
 
   data: () => ({
     user: null,
     token: null,
+    campaign: null,
 
     title: null,
     edition: "",
     setting: "",
-    maxPlayers: "",
+    maxPlayer: "",
     city: null,
     zipcode: null,
     rules: null,
@@ -320,10 +385,134 @@ export default {
     wizard: false,
     artificer: false,
   }),
+
+  methods: {
+
+    updateCampaign() {
+      this.wishedClasses = [];
+
+      if (this.rules == null) {
+        this.rules = "";
+      }
+
+      if (this.notes == null) {
+        this.notes = "";
+      }
+
+      if (this.tools == null) {
+        this.tools = "";
+      }
+
+      if (this.city == null) {
+        this.city = "";
+      }
+
+      if (this.gm == true) {
+        this.wishedClasses.push("GM");
+      }
+      if (this.barbarian == true) {
+        this.wishedClasses.push("barbarian");
+      }
+      if (this.bard == true) {
+        this.wishedClasses.push("bard");
+      }
+      if (this.cleric == true) {
+        this.wishedClasses.push("cleric");
+      }
+      if (this.druid == true) {
+        this.wishedClasses.push("druid");
+      }
+      if (this.fighter == true) {
+        this.wishedClasses.push("fighter");
+      }
+      if (this.monk == true) {
+        this.wishedClasses.push("monk");
+      }
+      if (this.paladin == true) {
+        this.wishedClasses.push("paladin");
+      }
+      if (this.sorcerer == true) {
+        this.wishedClasses.push("sorcerer");
+      }
+      if (this.ranger == true) {
+        this.wishedClasses.push("ranger");
+      }
+      if (this.rogue == true) {
+        this.wishedClasses.push("rogue");
+      }
+      if (this.warlock == true) {
+        this.wishedClasses.push("warlock");
+      }
+      if (this.wizard == true) {
+        this.wishedClasses.push("wizard");
+      }
+      if (this.artificer == true) {
+        this.wishedClasses.push("artificer");
+      }
+
+      if (this.token != null && this.user != null) {
+        const requestOptions = {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            "auth-token": this.token,
+          },
+          body: JSON.stringify({
+            ownerID: this.user._id,
+            ownerName: this.user.username,
+            titel: this.title,
+            edition: this.edition,
+            setting: this.setting,
+            maxPlayer: this.maxPlayer,
+            city: this.city,
+            zipcode: this.zipcode,
+            rules: this.rules,
+            notes: this.notes,
+            tools: this.tools,
+            online: this.online,
+            private: false,
+
+            wishedClasses: this.wishedClasses,
+            dates: this.dates,
+            listOfPlayer: this.listOfPlayer,
+          }),
+        };
+        fetch(
+          "https://dandd-api.herokuapp.com/api/campaigns/" + this.campaign._id,
+          requestOptions
+        ).then((response) =>
+          response
+            .json()
+            .then((data) => ({
+              data: data,
+              status: response.status,
+            }))
+            .then((response) => {
+              if (response.data) {
+                this.$router.push({
+                  name: "Kampagnedetails",
+                  params: { id: this.campaign._id },
+                });
+              } else {
+                alert(
+                  "Server returned " +
+                    response.status +
+                    " : " +
+                    response.statusText
+                );
+              }
+            })
+        );
+      }
+    },
+
+
+
+  },
 };
 </script>
 
-<style>
+<style scoped>
 .redigerkampagne {
   background-image: url(../../assets/campaignbackground.png);
   background-position: center;

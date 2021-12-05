@@ -47,7 +47,7 @@
           <router-link to="/minekampagner">Mine Kampagner</router-link>
         </button>
         <button>
-          <router-link to="/rediger">Redigere Profil</router-link>
+          <router-link :to="{ name: 'Rediger', params: {user: JSON.stringify(user)}}">Redigere Profil</router-link>
         </button>
       </div>
     </div>
@@ -79,6 +79,8 @@ export default {
     roles: [],
     classes: null,
     setting: null,
+
+    user: null
   }),
 
   methods: {
@@ -98,13 +100,13 @@ export default {
           .then((response) => {
             if (response.data) {
               this.user = response.data;
-              this.username = response.username;
+              this.username = this.user.username;
               this.name = this.user.name;
               this.age = this.user.age;
               this.city = this.user.city;
               this.zipcode = this.user.zipcode;
               this.roles = this.user.roles;
-              this.classes = this.user.class;
+              this.classes = this.user.classes;
               this.setting = this.user.setting;
             } else {
               alert(
