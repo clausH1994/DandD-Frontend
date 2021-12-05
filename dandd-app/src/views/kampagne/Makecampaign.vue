@@ -114,7 +114,7 @@
             ></textarea>
           </div>
 
-          <div class="card2">
+          <div class="card2" >
             <h2>Søger GM/DM</h2>
             <div class="checkboxes-placement">
               <div>
@@ -479,6 +479,7 @@ export default {
   color: black;
   font-size: 24px;
   padding: 20px;
+  margin-top: 10px;
 }
 
 .input {
