@@ -10,10 +10,10 @@ import Registrer from '../views/profile/Registrer.vue'
 import Rediger from '../views/profile/Rediger.vue'
 import Kalender from '../views/Kalender.vue'
 import Forumforside from '../views/forum/Forumforside.vue'
-import Kampagner from '../views/forum/Kampagner.vue'
+import Forumlist from '../views/forum/Forumlist.vue'
+
 import Karaktere from '../views/forum/Karaktere.vue'
 import Worldbuilding from '../views/forum/Worldbuilding.vue'
-import Customrules from '../views/forum/Customrules.vue'
 
 
 const routes = [
@@ -73,9 +73,9 @@ const routes = [
     component: Forumforside
   },
   {
-    path: '/forum/kampagner',
-    name: 'Kampagner',
-    component: Kampagner
+    path: '/forums/:id',
+    name: 'Forumlist',
+    component: Forumlist,
   },
   {
     path: '/forum/karaktere',
@@ -86,11 +86,6 @@ const routes = [
     path: '/forum/worldbuilding',
     name: 'Worldbuilding',
     component: Worldbuilding
-  },
-  {
-    path: '/forum/customrules',
-    name: 'Customrules',
-    component: Customrules
   },
 ]
 

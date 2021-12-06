@@ -12,250 +12,22 @@
 
     <div class="contentforum">
 
-    <div class="forumcard">
-      <router-link to="/forum/kampagner">
-            <h2>Kampagner</h2>
+        <div class="forumcard" v-for="forum in forums" v-bind:key="forum.id">
+      <router-link :to="{ name: 'Forumlist', params: { id: forum.name }}">
+            <h2>{{ forum.name }}</h2>
             </router-link>
             <ul class="campcard">
-              <li>
+              <li v-for="listOfPosts in forum.listOfPosts" v-bind:key="listOfPosts.id">
               <div class="test">
                 <div class="test1">
-              <h3 class="ccp">Eksempel 1</h3>
+              <h3 class="ccp">{{ listOfPosts.title }}</h3>
                 </div>
                 <div class="test2">
-              <p class="ccp">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
+              <p class="ccp" v-if="listOfPosts.body.length < 100 ">{{ listOfPosts.body }}</p>
+              <p class="ccp" v-else>{{ listOfPosts.body.substring(0,100)+"..."  }}</p>
                 </div>
               </div>
-              </li>
               <hr>
-              <li>
-              <div class="test">
-                <div class="test1">
-              <h3 class="ccp">Eksempel 2</h3>
-                </div>
-                <div class="test2">
-              <p class="ccp">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
-                </div>
-              </div>
-              </li>
-              <hr>
-              <li>
-              <div class="test">
-                <div class="test1">
-              <h3 class="ccp">Eksempel 3</h3>
-                </div>
-                <div class="test2">
-              <p class="ccp">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
-                </div>
-              </div>
-              </li>
-              <hr>
-              <li>
-              <div class="test">
-                <div class="test1">
-              <h3 class="ccp">Eksempel 4</h3>
-                </div>
-                <div class="test2">
-              <p class="ccp">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
-                </div>
-              </div>
-              </li>
-              <hr>
-              <li>
-              <div class="test">
-                <div class="test1">
-              <h3 class="ccp">Eksempel 5</h3>
-                </div>
-                <div class="test2">
-              <p class="ccp">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
-                </div>
-              </div>
-              </li>
-            </ul>
-        </div>
-
-        <div class="forumcard">
-          <router-link to="/forum/karaktere">
-            <h2>Karaktere</h2>
-          </router-link>
-            <ul class="campcard">
-              <li>
-              <div class="test">
-                <div class="test1">
-              <h3 class="ccp">Eksempel 1</h3>
-                </div>
-                <div class="test2">
-              <p class="ccp">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
-                </div>
-              </div>
-              </li>
-              <hr>
-              <li>
-              <div class="test">
-                <div class="test1">
-              <h3 class="ccp">Eksempel 2</h3>
-                </div>
-                <div class="test2">
-              <p class="ccp">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
-                </div>
-              </div>
-              </li>
-              <hr>
-              <li>
-              <div class="test">
-                <div class="test1">
-              <h3 class="ccp">Eksempel 3</h3>
-                </div>
-                <div class="test2">
-              <p class="ccp">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
-                </div>
-              </div>
-              </li>
-              <hr>
-              <li>
-              <div class="test">
-                <div class="test1">
-              <h3 class="ccp">Eksempel 4</h3>
-                </div>
-                <div class="test2">
-              <p class="ccp">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
-                </div>
-              </div>
-              </li>
-              <hr>
-              <li>
-              <div class="test">
-                <div class="test1">
-              <h3 class="ccp"><b>Eksempel 5</b></h3>
-                </div>
-                <div class="test2">
-              <p class="ccp">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
-                </div>
-              </div>
-              </li>
-            </ul>
-        </div>
-
-            <div class="forumcard">
-              <router-link to="/forum/worldbuilding">
-            <h2>World Building</h2>
-              </router-link>
-            <ul class="campcard">
-              <li>
-              <div class="test">
-                <div class="test1">
-              <h3 class="ccp">Eksempel 1</h3>
-                </div>
-                <div class="test2">
-              <p class="ccp">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
-                </div>
-              </div>
-              </li>
-              <hr>
-              <li>
-              <div class="test">
-                <div class="test1">
-              <h3 class="ccp">Eksempel 2</h3>
-                </div>
-                <div class="test2">
-              <p class="ccp">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
-                </div>
-              </div>
-              </li>
-              <hr>
-              <li>
-              <div class="test">
-                <div class="test1">
-              <h3 class="ccp">Eksempel 3</h3>
-                </div>
-                <div class="test2">
-              <p class="ccp">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
-                </div>
-              </div>
-              </li>
-              <hr>
-              <li>
-              <div class="test">
-                <div class="test1">
-              <h3 class="ccp">Eksempel 4</h3>
-                </div>
-                <div class="test2">
-              <p class="ccp">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
-                </div>
-              </div>
-              </li>
-              <hr>
-              <li>
-              <div class="test">
-                <div class="test1">
-              <h3 class="ccp">Eksempel 5</h3>
-                </div>
-                <div class="test2">
-              <p class="ccp">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
-                </div>
-              </div>
-              </li>
-            </ul>
-        </div>
-
-            <div class="forumcard">
-              <router-link to="/forum/customrules">
-            <h2>Custom rules</h2>
-              </router-link>
-            <ul class="campcard">
-              <li>
-              <div class="test">
-                <div class="test1">
-              <h3 class="ccp">Eksempel 1</h3>
-                </div>
-                <div class="test2">
-              <p class="ccp">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
-                </div>
-              </div>
-              </li>
-              <hr>
-              <li>
-              <div class="test">
-                <div class="test1">
-              <h3 class="ccp">Eksempel 2</h3>
-                </div>
-                <div class="test2">
-              <p class="ccp">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
-                </div>
-              </div>
-              </li>
-              <hr>
-              <li>
-              <div class="test">
-                <div class="test1">
-              <h3 class="ccp">Eksempel 3</h3>
-                </div>
-                <div class="test2">
-              <p class="ccp">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
-                </div>
-              </div>
-              </li>
-              <hr>
-              <li>
-              <div class="test">
-                <div class="test1">
-              <h3 class="ccp">Eksempel 4</h3>
-                </div>
-                <div class="test2">
-              <p class="ccp">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
-                </div>
-              </div>
-              </li>
-              <hr>
-              <li>
-              <div class="test">
-                <div class="test1">
-              <h3 class="ccp">Eksempel 5</h3>
-                </div>
-                <div class="test2">
-              <p class="ccp">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
-                </div>
-              </div>
               </li>
             </ul>
         </div>
@@ -267,6 +39,46 @@
 
 <script>
 export default {
+    
+    data () {
+    return {
+      forums: [],
+    };
+    },
+
+
+methods: {
+  getForums() {
+      this.userID;
+      fetch("https://dandd-api.herokuapp.com/api/forums/" , {
+        method: "GET",
+      }).then((response) =>
+        response
+          .json()
+          .then((data) => ({
+            data: data,
+            status: response.status,
+          }))
+          .then((response) => {
+            if (response.data) {
+              this.forums = response.data;
+              console.log(response.data);
+            } else {
+              alert(
+                "Server returned " +
+                  response.status +
+                  " : " +
+                  response.statusText
+              );
+            }
+          })
+      );
+    },
+},
+
+created() {
+  this.getForums();
+}
 
 }
 </script>
