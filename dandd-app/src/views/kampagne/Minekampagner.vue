@@ -56,7 +56,7 @@
               <button class="kam-btn" v-on:click="deleteCampaign(campaign._id)">
                 Delete
               </button>
-              <button class="kam-btn" v-on:click="roles(campaign._id)">
+              <button class="kam-btn" v-on:click="roles(campaign)">
                 Roller
               </button>
               <button class="kam-btn" v-on:click="calendar(campaign._id)">Kalender</button>
@@ -136,7 +136,6 @@ export default {
         }
         
         campaign.listOfPlayers.forEach(player => {
-          console.log(player.playerID)
           if (this.userID == player.playerID) {
             this.added.push(campaign)
 
@@ -196,10 +195,10 @@ export default {
       evt.currentTarget.className += " paper";
     },
 
-    roles(_id) {
+    roles(campaign) {
       this.$router.push({
         name: "Roller",
-        params: { id: _id },
+        params: { campaign: JSON.stringify(campaign) },
       });
     },
     calendar(_id) {

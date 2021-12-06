@@ -106,7 +106,7 @@ export default {
     if (this.id) {
       this.getCampaign();
     } else {
-      // this.$router.push("/")
+       this.$router.push("/")
     }
   },
 

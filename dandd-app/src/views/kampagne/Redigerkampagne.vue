@@ -1,22 +1,17 @@
 <template>
   <div class="redigerkampagne">
-    <form v-on:submit.prevent="updateCampaign()">
-      <div class="top">
-        <div class="overskrift">
-          <h1>Kampagner</h1>
-        </div>
-        <div class="filler"></div>
-        <div class="knap">
-          <button
-            class="okamp"
-            onclick="history.back()"
-            style="cursor: pointer"
-          >
-            Tilbage
-          </button>
-        </div>
+    <div class="top">
+      <div class="overskrift">
+        <h1>Kampagner</h1>
       </div>
-
+      <div class="filler"></div>
+      <div class="knap">
+        <button class="okamp" onclick="history.back()" style="cursor: pointer">
+          Tilbage
+        </button>
+      </div>
+    </div>
+    <form v-on:submit.prevent="updateCampaign()">
       <div class="container">
         <div class="card">
           <input
@@ -387,7 +382,6 @@ export default {
   }),
 
   methods: {
-
     updateCampaign() {
       this.wishedClasses = [];
 
@@ -505,9 +499,6 @@ export default {
         );
       }
     },
-
-
-
   },
 };
 </script>
