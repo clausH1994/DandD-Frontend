@@ -291,7 +291,7 @@ export default {
       this.tools = this.campaign.tools;
       this.online = this.campaign.online;
       this.wishedClasses = this.campaign.wishedClasses;
-      this.listOfPlayer = this.campaign.listOfPlayer;
+      this.listOfPlayers = this.campaign.listOfPlayers;
       this.dates = this.campaign.dates;
 
       this.wishedClasses.forEach((clas) => {
@@ -362,7 +362,7 @@ export default {
     tools: null,
     online: false,
     wishedClasses: [],
-    listOfPlayer: [],
+    listOfPlayers: [],
     dates: [],
 
     gm: false,
@@ -468,7 +468,7 @@ export default {
 
             wishedClasses: this.wishedClasses,
             dates: this.dates,
-            listOfPlayer: this.listOfPlayer,
+            listOfPlayers: this.listOfPlayers,
           }),
         };
         fetch(
@@ -499,6 +499,8 @@ export default {
         );
       }
     },
+
+
   },
 };
 </script>

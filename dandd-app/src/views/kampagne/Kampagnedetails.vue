@@ -20,15 +20,14 @@
           <p>{{ ownerName }}</p>
           <h3>GM/DM</h3>
           <div v-for="player in listOfPlayers" v-bind:key="player.playerID">
-            <div class="textline2">
-              <p class="playerName" v-if="player.role == 'GM'">
+            <div v-if="player.role == 'GM'" class="textline2">
+              <p class="playerName">
                 {{ player.playerName }}
               </p>
               <img
                 v-if="player.role == 'GM'"
                 class="roles"
                 :src="getImgUrl(player.role)"
-                v-bind:alt="wish"
               />
             </div>
           </div>
@@ -36,11 +35,7 @@
           <div v-for="player in listOfPlayers" v-bind:key="player.playerID">
             <div v-if="player.role != 'GM'" class="textline2">
               <p class="playerName">{{ player.playerName }}</p>
-              <img
-                class="roles"
-                :src="getImgUrl(player.role)"
-                v-bind:alt="wish"
-              />
+              <img class="roles" :src="getImgUrl(player.role)" />
             </div>
           </div>
         </div>
@@ -106,7 +101,7 @@ export default {
     if (this.id) {
       this.getCampaign();
     } else {
-       this.$router.push("/")
+      this.$router.push("/");
     }
   },
 
@@ -119,7 +114,7 @@ export default {
       zipcode: null,
       edition: null,
       maxPlayer: null,
-      numberOfplayers: null,
+      numberOfPlayers: null,
       setting: null,
       rules: null,
       notes: null,
@@ -160,6 +155,7 @@ export default {
 
               this.wishedClasses = response.data.wishedClasses;
               this.listOfPlayers = response.data.listOfPlayers;
+              this.numberOfPlayers = this.listOfPlayers.length;
             } else {
               alert(
                 "Server returned " +
@@ -173,6 +169,9 @@ export default {
     },
 
     getImgUrl(wish) {
+      if (wish == "") {
+        wish = "question-solid";
+      }
       return require("../../assets/classIcon/" + wish + ".svg");
     },
   },
@@ -258,6 +257,8 @@ export default {
 
 .playerName {
   width: 100%;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 h2 {
@@ -284,7 +285,7 @@ p {
   font-size: 16px;
   text-align: left;
   margin-top: 0;
-  margin-bottom: 0;
+  margin-bottom: 5px;
   text-transform: capitalize;
 }
 

@@ -301,7 +301,7 @@ export default {
     tools: null,
     online: false,
     wishedClasses: [],
-    listOfPlayer: [],
+    listOfPlayers: [],
     dates: [],
 
     gm: false,
@@ -381,6 +381,16 @@ export default {
         this.wishedClasses.push("artificer");
       }
 
+      if(this.user)
+      {
+        var player = {}
+        player.playerID = this.user._id;
+        player.playerName = this.user.username;
+        player.role = "GM";
+
+        this.listOfPlayers.push(player);
+      }
+
       if (this.token != null && this.user != null) {
         const requestOptions = {
           method: "POST",
@@ -405,7 +415,7 @@ export default {
 
             wishedClasses: this.wishedClasses,
             dates: this.dates,
-            listOfPlayer: this.listOfPlayer,
+            listOfPlayers: this.listOfPlayers,
           }),
         };
         fetch(

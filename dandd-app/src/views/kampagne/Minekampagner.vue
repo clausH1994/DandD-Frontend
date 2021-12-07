@@ -137,8 +137,10 @@ export default {
         
         campaign.listOfPlayers.forEach(player => {
           if (this.userID == player.playerID) {
-            this.added.push(campaign)
-
+            if(this.userID != campaign.ownerID)
+            {
+              this.added.push(campaign)
+            }
           }
         });
       });
@@ -163,6 +165,7 @@ export default {
           .then((response) => {
             if (response.ok) {
               this.owned = [];
+              this.added = [];
               this.getCampaigns();
               return response.json();
             } else {

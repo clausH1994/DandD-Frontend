@@ -14,38 +14,256 @@
 
     <div class="card">
       <div class="amountField">
-        <h2>{{ title }}</h2>
-        <h3>Deltagere</h3>
-        <p>
-          &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ numberOfPlayers }}/{{
-            maxPlayer
-          }}
-        </p>
+        <h2 class="title">{{ title }}</h2>
+        <h3 class="del">Deltagere</h3>
+        <p class="number">{{ numberOfPlayers }}/{{ maxPlayer }}</p>
       </div>
       <h3>Ejer</h3>
       <p>{{ ownerName }}</p>
-      <h3>GM/DM</h3>
+      <div class="titleline">
+        <h3 class="playerName">GM/DM</h3>
+
+        <div class="chosen"></div>
+        <div class="selectors">
+          <p class="label">Rolle</p>
+        </div>
+        <div>
+          <p class="label">GM/DM</p>
+        </div>
+        <div class="remove">
+          <p class="label">Fjern</p>
+        </div>
+      </div>
       <div v-for="player in listOfPlayers" v-bind:key="player.playerID">
         <div v-if="player.role == 'GM'" class="textline">
           <p class="playerName">
             {{ player.playerName }}
           </p>
+          <div class="chosen">
+            <img
+              v-if="player.role == 'GM'"
+              class="role"
+              :src="getImgUrl(player.role)"
+            />
+          </div>
+          <div class="selectors">
+            <img
+              v-on:click="roleChange(player, 'barbarian')"
+              class="roles"
+              src="../../assets/classIcon/barbarian.svg"
+              alt=""
+            />
+            <img
+              v-on:click="roleChange(player, 'bard')"
+              class="roles"
+              src="../../assets/classIcon/bard.svg"
+              alt=""
+            />
+            <img
+              v-on:click="roleChange(player, 'cleric')"
+              class="roles"
+              src="../../assets/classIcon/cleric.svg"
+              alt=""
+            />
+            <img
+              v-on:click="roleChange(player, 'druid')"
+              class="roles"
+              src="../../assets/classIcon/druid.svg"
+              alt=""
+            />
+            <img
+              v-on:click="roleChange(player, 'fighter')"
+              class="roles"
+              src="../../assets/classIcon/fighter.svg"
+              alt=""
+            />
+            <img
+              v-on:click="roleChange(player, 'monk')"
+              class="roles"
+              src="../../assets/classIcon/monk.svg"
+              alt=""
+            />
+            <img
+              v-on:click="roleChange(player, 'paladin')"
+              class="roles"
+              src="../../assets/classIcon/paladin.svg"
+              alt=""
+            />
+            <img
+              v-on:click="roleChange(player, 'ranger')"
+              class="roles"
+              src="../../assets/classIcon/ranger.svg"
+              alt=""
+            />
+            <img
+              v-on:click="roleChange(player, 'rogue')"
+              class="roles"
+              src="../../assets/classIcon/rogue.svg"
+              alt=""
+            />
+            <img
+              v-on:click="roleChange(player, 'sorcerer')"
+              class="roles"
+              src="../../assets/classIcon/sorcerer.svg"
+              alt=""
+            />
+            <img
+              v-on:click="roleChange(player, 'warlock')"
+              class="roles"
+              src="../../assets/classIcon/warlock.svg"
+              alt=""
+            />
+            <img
+              v-on:click="roleChange(player, 'wizard')"
+              class="roles"
+              src="../../assets/classIcon/wizard.svg"
+              alt=""
+            />
+            <img
+              v-on:click="roleChange(player, 'artificer')"
+              class="roles"
+              src="../../assets/classIcon/artificer.svg"
+              alt=""
+            />
+          </div>
           <img
-            v-if="player.role == 'GM'"
+            v-bind:class="{ picked: player.role == 'GM' }"
             class="roles"
-            :src="getImgUrl(player.role)"
+            src="../../assets/classIcon/GM.svg"
+            alt=""
           />
+          <div class="remove">
+            <button
+              v-if="player.playerID != campaign.ownerID"
+              class="btnRemove"
+              v-on:click="removeUser(player)"
+            >
+              X
+            </button>
+            <div
+              v-if="player.playerID == campaign.ownerID"
+              class="btnRemove"
+            ></div>
+          </div>
         </div>
       </div>
       <h3>Players</h3>
       <div v-for="player in listOfPlayers" v-bind:key="player.playerID">
         <div v-if="player.role != 'GM'" class="textline">
           <p class="playerName">{{ player.playerName }}</p>
+          <img class="role" :src="getImgUrl(player.role)" />
+          <div class="selectors">
+            <img
+              v-on:click="roleChange(player, 'barbarian')"
+              v-bind:class="{ picked: player.role == 'barbarian' }"
+              class="roles"
+              src="../../assets/classIcon/barbarian.svg"
+              alt=""
+            />
+            <img
+              v-on:click="roleChange(player, 'bard')"
+              v-bind:class="{ picked: player.role == 'bard' }"
+              class="roles"
+              src="../../assets/classIcon/bard.svg"
+              alt=""
+            />
+            <img
+              v-on:click="roleChange(player, 'cleric')"
+              v-bind:class="{ picked: player.role == 'cleric' }"
+              class="roles"
+              src="../../assets/classIcon/cleric.svg"
+              alt=""
+            />
+            <img
+              v-on:click="roleChange(player, 'druid')"
+              v-bind:class="{ picked: player.role == 'druid' }"
+              class="roles"
+              src="../../assets/classIcon/druid.svg"
+              alt=""
+            />
+            <img
+              v-on:click="roleChange(player, 'fighter')"
+              v-bind:class="{ picked: player.role == 'fighter' }"
+              class="roles"
+              src="../../assets/classIcon/fighter.svg"
+              alt=""
+            />
+            <img
+              v-on:click="roleChange(player, 'monk')"
+              v-bind:class="{ picked: player.role == 'monk' }"
+              class="roles"
+              src="../../assets/classIcon/monk.svg"
+              alt=""
+            />
+            <img
+              v-on:click="roleChange(player, 'paladin')"
+              v-bind:class="{ picked: player.role == 'paladin' }"
+              class="roles"
+              src="../../assets/classIcon/paladin.svg"
+              alt=""
+            />
+            <img
+              v-on:click="roleChange(player, 'ranger')"
+              v-bind:class="{ picked: player.role == 'ranger' }"
+              class="roles"
+              src="../../assets/classIcon/ranger.svg"
+              alt=""
+            />
+            <img
+              v-on:click="roleChange(player, 'rogue')"
+              v-bind:class="{ picked: player.role == 'rogue' }"
+              class="roles"
+              src="../../assets/classIcon/rogue.svg"
+              alt=""
+            />
+            <img
+              v-on:click="roleChange(player, 'sorcerer')"
+              v-bind:class="{ picked: player.role == 'sorcerer' }"
+              class="roles"
+              src="../../assets/classIcon/sorcerer.svg"
+              alt=""
+            />
+            <img
+              v-on:click="roleChange(player, 'warlock')"
+              v-bind:class="{ picked: player.role == 'warlock' }"
+              class="roles"
+              src="../../assets/classIcon/warlock.svg"
+              alt=""
+            />
+            <img
+              v-on:click="roleChange(player, 'wizard')"
+              v-bind:class="{ picked: player.role == 'wizard' }"
+              class="roles"
+              src="../../assets/classIcon/wizard.svg"
+              alt=""
+            />
+            <img
+              v-on:click="roleChange(player, 'artificer')"
+              v-bind:class="{ picked: player.role == 'artificer' }"
+              class="roles"
+              src="../../assets/classIcon/artificer.svg"
+              alt=""
+            />
+          </div>
           <img
-            v-if="player.role != ''"
+            v-on:click="roleChange(player, 'GM')"
             class="roles"
-            :src="getImgUrl(player.role)"
+            src="../../assets/classIcon/GM.svg"
+            alt=""
           />
+          <div class="remove">
+            <button
+              v-if="player.playerID != campaign.ownerID"
+              class="btnRemove"
+              v-on:click="removeUser(player)"
+            >
+              X
+            </button>
+            <div
+              v-if="player.playerID == campaign.ownerID"
+              class="btnRemove"
+            ></div>
+          </div>
         </div>
       </div>
       <form v-on:submit.prevent="addUser()">
@@ -68,7 +286,7 @@
       </form>
     </div>
 
-    <button class="btnSave">Gem</button>
+    <button class="btnSave" v-on:click="updateCampaign()">Gem</button>
   </div>
 </template>
         
@@ -113,6 +331,10 @@ export default {
 
   methods: {
     getImgUrl(wish) {
+      if (wish == "") {
+        wish = "question-solid";
+      }
+
       return require("../../assets/classIcon/" + wish + ".svg");
     },
 
@@ -155,6 +377,7 @@ export default {
             player.role = "";
 
             this.listOfPlayers.push(player);
+            this.numberOfPlayers = this.listOfPlayers.length;
             this.pickedUser = "";
             this.removeFromList(player);
           }
@@ -167,25 +390,88 @@ export default {
 
       users.forEach((user) => {
         this.listOfPlayers.forEach((player) => {
-          if (user.username != player.playerName) {
+          if (user._id != player.playerID) {
             i++;
-         
           }
         });
         if (i == this.listOfPlayers.length) {
           this.allUsers.push(user);
-          
         }
         i = 0;
       });
     },
 
     removeFromList(player) {
-  
-     var index = this.allUsers.map(function (user) { return user.username; }).indexOf(player.playerName);
-    
+      var index = this.allUsers
+        .map(function (user) {
+          return user.username;
+        })
+        .indexOf(player.playerName);
+
       this.allUsers.splice(index, 1);
     },
+
+    removeUser(player) {
+      var index = this.listOfPlayers
+        .map(function (user) {
+          return user.playerID;
+        })
+        .indexOf(player.playerID);
+
+      this.listOfPlayers.splice(index, 1);
+      this.numberOfPlayers = this.listOfPlayers.length;
+      var user = {};
+      user.username = player.playerName;
+      user._id = player.playerID;
+
+      this.allUsers.push(user);
+    },
+
+    roleChange(player, role) {
+      player.role = role;
+    },
+
+    updateCampaign() {
+
+      const requestOptions = {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "auth-token": this.token,
+        },
+        body: JSON.stringify({
+          listOfPlayers: this.listOfPlayers,
+        }),
+      };
+      fetch(
+        "https://dandd-api.herokuapp.com/api/campaigns/" + this.campaign._id,
+        requestOptions
+      ).then((response) =>
+        response
+          .json()
+          .then((data) => ({
+            data: data,
+            status: response.status,
+          }))
+          .then((response) => {
+            if (response.data) {
+              this.$router.push({
+                name: "Kampagnedetails",
+                params: { id: this.campaign._id },
+              });
+            } else {
+              alert(
+                "Server returned " +
+                  response.status +
+                  " : " +
+                  response.statusText
+              );
+            }
+          })
+      );
+    },
+
+
   },
 };
 </script>
@@ -211,6 +497,19 @@ export default {
   margin: 0 auto;
 }
 
+.title {
+  width: 35%;
+}
+
+.del {
+  width: 20%;
+}
+
+.number {
+  text-align: right;
+  width: 25%;
+}
+
 .amountField {
   display: flex;
   justify-content: space-between;
@@ -221,18 +520,56 @@ export default {
 .textline {
   display: flex;
   align-items: center;
-  margin-top: 10px;
+
   margin-bottom: 10px;
-  width: 25%;
+
+  /* justify-content: space-between; */
+  /* width: 25%; */
+}
+
+.titleline {
+  display: flex;
+  align-items: center;
+}
+
+.role {
+  height: 25px;
+  width: 25px;
 }
 
 .roles {
   height: 25px;
   width: 25px;
+  align-content: center;
+  cursor: pointer;
 }
 
 .playerName {
-  width: 100%;
+  width: 20%;
+}
+
+.chosen {
+  width: 5%;
+}
+
+.selectors {
+  width: 60%;
+}
+
+.remove {
+  width: 20%;
+}
+
+.label {
+  text-align: center;
+}
+
+.btnRemove {
+  border: none;
+  background-color: #dedbc4;
+  color: #b93b3b;
+  font-size: 20px;
+  cursor: pointer;
 }
 
 .btnAdd {
@@ -252,6 +589,13 @@ export default {
   font-size: 30px;
   width: 10%;
   font-family: "Charm", cursive;
+  cursor: pointer;
+}
+
+.picked {
+  /* color: #b93b3b !important; */
+  filter: invert(24%) sepia(62%) saturate(2054%) hue-rotate(337deg)
+    brightness(99%) contrast(84%);
 }
 
 h3 {
@@ -285,6 +629,6 @@ p {
 }
 
 input {
-  width: 100%;
+  width: 25%;
 }
 </style>
