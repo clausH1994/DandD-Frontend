@@ -9,7 +9,8 @@
     <router-link to="/minekampagner">Mine Kampagner</router-link>
     <router-link to="/chat">Chat</router-link>
     <router-link to="/profil">Profil</router-link>
-    <router-link to="/logud">Log ud</router-link>
+    <button class="logout" v-on:click="logout()">Log ud</button>
+    <router-link to="/login">Login</router-link>
     </div>
   </div>
   <router-view/>
@@ -18,6 +19,12 @@
 <script>
 export default {
     name: 'Navbar',
+  methods: {
+    logout(){
+      sessionStorage.clear();
+      alert("successfuld logout")
+    }
+  },  
 }
 </script>
 
@@ -51,6 +58,16 @@ export default {
   display: inline-block;
   position: absolute;
   right: 5%;
+}
+
+.logout {
+  background-color: #A05353;
+  color: white;
+  border: none;
+  font-size: 25px;
+  cursor: pointer;
+  font-family: 'charm', cursive;
+  font-weight: bold;
 }
 
 </style>
