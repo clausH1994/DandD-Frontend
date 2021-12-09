@@ -38,7 +38,7 @@ export default {
 #nav {
   background-color: #A05353;
   color: white;
-  padding: 30px;
+  padding: 15px;
   font-size: 25px;
   text-decoration: none;
   display: flex;
@@ -64,6 +64,7 @@ export default {
   display: inline-block;
   position: absolute;
   right: 5%;
+  margin-top: 15px;
 }
 
 .logout {
