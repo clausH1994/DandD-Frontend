@@ -284,6 +284,8 @@ methods: {
 created() {
   this.getCampaigns();
 }
+
+/* lav filter basered på getCampaigns og array fra checkboxes på siden for at kun vise ting der er valgt i checkbox som filter */
 };
 
 </script>
