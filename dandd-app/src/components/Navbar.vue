@@ -1,9 +1,11 @@
 <template>
   <div id="nav">
-    <div class="navleft">
-      <router-link to="/"> 
+    <div class="navLogo">
+    <router-link to="/"> 
     <img class="logo" src="..\assets\logo.svg" alt="">
     </router-link>
+    </div>
+    <div class="navleft">
     <router-link to="/">Kampagner</router-link>
     <router-link to="/forumforside">Forum</router-link>
     </div>
@@ -31,10 +33,12 @@ export default {
 </script>
 
 <style>
+
 .logo {
   width: 220px;
   height: 60px;
 }
+
 #nav {
   background-color: #A05353;
   color: white;
@@ -55,9 +59,13 @@ export default {
   color: black;
 }
 
+.navLogo {
+  margin-left: 5%;
+}
+
 .navleft {
   display: inline-block;
-  margin-left: 5%;
+  margin-top: 15px;
 }
 
 .navright {
