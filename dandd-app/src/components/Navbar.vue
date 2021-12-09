@@ -1,7 +1,9 @@
 <template>
   <div id="nav">
     <div class="navleft">
+      <router-link to="/"> 
     <img class="logo" src="..\assets\logo.svg" alt="">
+    </router-link>
     <router-link to="/">Kampagner</router-link>
     <router-link to="/forumforside">Forum</router-link>
     </div>
