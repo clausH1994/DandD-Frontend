@@ -1,7 +1,7 @@
 <template>
   <div id="nav">
     <div class="navleft">
-    Logo
+    <img class="logo" src="..\assets\logo.svg" alt="">
     <router-link to="/">Kampagner</router-link>
     <router-link to="/forumforside">Forum</router-link>
     </div>
@@ -29,6 +29,10 @@ export default {
 </script>
 
 <style>
+.logo {
+  width: 220px;
+  height: 60px;
+}
 #nav {
   background-color: #A05353;
   color: white;
