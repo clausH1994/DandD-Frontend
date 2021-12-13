@@ -49,6 +49,7 @@
                   id=""
                   checked="campaign.private"
                   v-model="campaign.private"
+                  v-on:click="updatePrivate(campaign)"
                 /><label>Privat</label>
               </div>
             </td>
@@ -59,8 +60,12 @@
               <button class="kam-btn" v-on:click="roles(campaign)">
                 Roller
               </button>
-              <button class="kam-btn" v-on:click="calendar(campaign._id)">Kalender</button>
-              <button class="kam-btn" v-on:click="edit(campaign)">Rediger</button>
+              <button class="kam-btn" v-on:click="calendar(campaign._id)">
+                Kalender
+              </button>
+              <button class="kam-btn" v-on:click="edit(campaign)">
+                Rediger
+              </button>
             </td>
           </tr>
         </table>
@@ -69,13 +74,19 @@
       <div id="t-kam" class="Campaign paper" style="display: none">
         <table v-for="campaign in added" v-bind:key="campaign._id">
           <tr>
-            <td><p>{{ campaign.titel }}</p></td>
-            <td><p>af {{campaign.ownerName}}</p></td>
+            <td>
+              <p>{{ campaign.titel }}</p>
+            </td>
+            <td>
+              <p>af {{ campaign.ownerName }}</p>
+            </td>
             <td>
               <p v-if="campaign.private">Privat</p>
             </td>
             <td>
-              <button class="kam-btn">Forlad</button>
+              <button class="kam-btn" v-on:click="leaveCampaign(campaign)">
+                Forlad
+              </button>
               <button class="kam-btn">Kalender</button>
               <button class="kam-btn">Kontakt</button>
             </td>
@@ -98,12 +109,12 @@ export default {
       userID: null,
       token: null,
       added: [],
+      listOfPlayers: [],
     };
   },
 
   methods: {
     getCampaigns() {
-      this.userID;
       fetch("https://dandd-api.herokuapp.com/api/campaigns/", {
         method: "GET",
       }).then((response) =>
@@ -129,25 +140,113 @@ export default {
       );
     },
 
+    updatePrivate(campaign) {
+      const privat = !campaign.private
+       const requestOptions = {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "auth-token": this.token,
+        },
+        body: JSON.stringify({
+          private: privat,
+        }),
+      };
+      fetch(
+        "https://dandd-api.herokuapp.com/api/campaigns/" + campaign._id,
+        requestOptions
+      ).then((response) =>
+        response
+          .json()
+          .then((data) => ({
+            data: data,
+            status: response.status,
+          }))
+          .then((response) => {
+            if (response.data) {
+              //
+            } else {
+              alert(
+                "Server returned " +
+                  response.status +
+                  " : " +
+                  response.statusText
+              );
+            }
+          })
+      );
+
+    },
+
     filterCampaigns() {
       this.campaigns.forEach((campaign) => {
         if (this.userID == campaign.ownerID) {
           this.owned.push(campaign);
         }
-        
-        campaign.listOfPlayers.forEach(player => {
+
+        campaign.listOfPlayers.forEach((player) => {
           if (this.userID == player.playerID) {
-            if(this.userID != campaign.ownerID)
-            {
-              this.added.push(campaign)
+            if (this.userID != campaign.ownerID) {
+              this.added.push(campaign);
             }
           }
         });
       });
-       console.log(this.added);
     },
 
-    
+    leaveCampaign(campaign) {
+       if (confirm("Er du sikker på du vil forlade denne kampagne")) {
+      const playerList = campaign.listOfPlayers;
+      var index = playerList
+        .map(function (user) {
+          return user.playerID;
+        })
+        .indexOf(this.userID);
+
+      playerList.splice(index, 1);
+
+      this.updateCampaign(playerList, campaign);
+       }
+
+    },
+
+    updateCampaign(playerList, campaign) {
+      const requestOptions = {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "auth-token": this.token,
+        },
+        body: JSON.stringify({
+          listOfPlayers: playerList,
+        }),
+      };
+      fetch(
+        "https://dandd-api.herokuapp.com/api/campaigns/" + campaign._id,
+        requestOptions
+      ).then((response) =>
+        response
+          .json()
+          .then((data) => ({
+            data: data,
+            status: response.status,
+          }))
+          .then((response) => {
+            if (response.data) {
+              this.owned = [];
+              this.added = [];
+              this.getCampaigns();
+            } else {
+              alert(
+                "Server returned " +
+                  response.status +
+                  " : " +
+                  response.statusText
+              );
+            }
+          })
+      );
+    },
 
     deleteCampaign(_id) {
       if (confirm("Er du sikker på du vil slette denne kampagne")) {
@@ -215,7 +314,7 @@ export default {
         name: "Redigerkampagne",
         params: { campaign: JSON.stringify(campaign) },
       });
-    }
+    },
   },
 
   created() {
