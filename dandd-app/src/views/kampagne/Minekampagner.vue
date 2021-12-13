@@ -101,9 +101,13 @@
 </template>
 
 <script>
+import CampaignCon from "../../controller/campaignController";
+
 export default {
   data() {
     return {
+      campaignCon: new CampaignCon(),
+
       campaigns: [],
       owned: [],
       userID: null,
@@ -114,68 +118,25 @@ export default {
   },
 
   methods: {
-    getCampaigns() {
-      fetch("https://dandd-api.herokuapp.com/api/campaigns/", {
-        method: "GET",
-      }).then((response) =>
-        response
-          .json()
-          .then((data) => ({
-            data: data,
-            status: response.status,
-          }))
-          .then((response) => {
-            if (response.data) {
-              this.campaigns = response.data;
-              this.filterCampaigns();
-            } else {
-              alert(
-                "Server returned " +
-                  response.status +
-                  " : " +
-                  response.statusText
-              );
-            }
-          })
-      );
+    async getCampaigns() {
+      this.campaigns = await this.campaignCon.readCampaigns();
+      this.filterCampaigns();
     },
 
-    updatePrivate(campaign) {
-      const privat = !campaign.private
-       const requestOptions = {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          "auth-token": this.token,
-        },
-        body: JSON.stringify({
-          private: privat,
-        }),
-      };
-      fetch(
-        "https://dandd-api.herokuapp.com/api/campaigns/" + campaign._id,
-        requestOptions
-      ).then((response) =>
-        response
-          .json()
-          .then((data) => ({
-            data: data,
-            status: response.status,
-          }))
-          .then((response) => {
-            if (response.data) {
-              //
-            } else {
-              alert(
-                "Server returned " +
-                  response.status +
-                  " : " +
-                  response.statusText
-              );
-            }
-          })
+    async updatePrivate(campaign) {
+      campaign.private = !campaign.private;
+
+      const response = await this.campaignCon.updateCampaign(
+        this.token,
+        campaign,
+        campaign._id
       );
 
+      if (response == "campaign was succesfully updated") {
+        //alert("Privat status opdateret");
+      } else {
+        alert(response.message);
+      }
     },
 
     filterCampaigns() {
@@ -194,92 +155,45 @@ export default {
       });
     },
 
-    leaveCampaign(campaign) {
-       if (confirm("Er du sikker på du vil forlade denne kampagne")) {
-      const playerList = campaign.listOfPlayers;
-      var index = playerList
-        .map(function (user) {
-          return user.playerID;
-        })
-        .indexOf(this.userID);
-
-      playerList.splice(index, 1);
-
-      this.updateCampaign(playerList, campaign);
-       }
-
-    },
-
-    updateCampaign(playerList, campaign) {
-      const requestOptions = {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          "auth-token": this.token,
-        },
-        body: JSON.stringify({
-          listOfPlayers: playerList,
-        }),
-      };
-      fetch(
-        "https://dandd-api.herokuapp.com/api/campaigns/" + campaign._id,
-        requestOptions
-      ).then((response) =>
-        response
-          .json()
-          .then((data) => ({
-            data: data,
-            status: response.status,
-          }))
-          .then((response) => {
-            if (response.data) {
-              this.owned = [];
-              this.added = [];
-              this.getCampaigns();
-            } else {
-              alert(
-                "Server returned " +
-                  response.status +
-                  " : " +
-                  response.statusText
-              );
-            }
+    async leaveCampaign(campaign) {
+      if (confirm("Er du sikker på du vil forlade denne kampagne")) {
+        const playerList = campaign.listOfPlayers;
+        var index = playerList
+          .map(function (user) {
+            return user.playerID;
           })
-      );
+          .indexOf(this.userID);
+
+        playerList.splice(index, 1);
+
+        campaign.listOfPlayers = playerList;
+
+        const response = await this.campaignCon.updateCampaign(
+          this.token,
+          campaign,
+          campaign._id
+        );
+        if (response.message == "campaign was succesfully updated") {
+          this.owned = [];
+          this.added = [];
+          this.getCampaigns();
+        } else {
+          alert(response.message);
+        }
+      }
     },
 
-    deleteCampaign(_id) {
+    async deleteCampaign(_id) {
       if (confirm("Er du sikker på du vil slette denne kampagne")) {
-        const requestOptions = {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-            "auth-token": this.token,
-          },
-        };
-        fetch(
-          "https://dandd-api.herokuapp.com/api/campaigns/" + _id,
-          requestOptions
-        )
-          .then((response) => {
-            if (response.ok) {
-              this.owned = [];
-              this.added = [];
-              this.getCampaigns();
-              return response.json();
-            } else {
-              alert(
-                "Server returned " +
-                  response.status +
-                  " : " +
-                  response.statusText,
-                (this.error = "Something went wrong")
-              );
-            }
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+        const response = await this.campaignCon.deleteCampaign(this.token, _id);
+        if (response.message == "Campaign was succesfully deleted") {
+          alert("Kampagnen er slettet");
+          this.owned = [];
+          this.added = [];
+          this.getCampaigns();
+        } else {
+          alert(response.message);
+        }
       }
     },
 

@@ -286,13 +286,16 @@
       </form>
     </div>
 
-    <button class="btnSave" v-on:click="updateCampaign()">Gem</button>
+    <button class="btnSave" v-on:click="updateCampaign(campaign)">Gem</button>
   </div>
 </template>
         
 <script>
+import CampaignCon from "../../controller/campaignController";
+import userCon from "../../controller/userController";
+
 export default {
-  created() {
+  async created() {
     this.token = sessionStorage.getItem("token");
     this.user = JSON.parse(sessionStorage.getItem("user"));
     this.campaign = JSON.parse(this.$route.params.campaign);
@@ -308,12 +311,16 @@ export default {
       this.listOfPlayers = this.campaign.listOfPlayers;
       this.numberOfPlayers = this.campaign.listOfPlayers.length;
 
-      this.getUsers();
+      const users = await this.userCon.readUsers(this.token);
+      this.filterUser(users);
     }
   },
 
   data() {
     return {
+      campaignCon: new CampaignCon(),
+      userCon: new userCon(),
+
       token: null,
       user: null,
       campaign: null,
@@ -336,33 +343,6 @@ export default {
       }
 
       return require("../../assets/classIcon/" + wish + ".svg");
-    },
-
-    getUsers() {
-      this.userID;
-      fetch("https://dandd-api.herokuapp.com/api/users/", {
-        method: "GET",
-        headers: { "auth-token": this.token },
-      }).then((response) =>
-        response
-          .json()
-          .then((data) => ({
-            data: data,
-            status: response.status,
-          }))
-          .then((response) => {
-            if (response.data) {
-              this.filterUser(response.data);
-            } else {
-              alert(
-                "Server returned " +
-                  response.status +
-                  " : " +
-                  response.statusText
-              );
-            }
-          })
-      );
     },
 
     addUser() {
@@ -431,47 +411,22 @@ export default {
       player.role = role;
     },
 
-    updateCampaign() {
-
-      const requestOptions = {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          "auth-token": this.token,
-        },
-        body: JSON.stringify({
-          listOfPlayers: this.listOfPlayers,
-        }),
-      };
-      fetch(
-        "https://dandd-api.herokuapp.com/api/campaigns/" + this.campaign._id,
-        requestOptions
-      ).then((response) =>
-        response
-          .json()
-          .then((data) => ({
-            data: data,
-            status: response.status,
-          }))
-          .then((response) => {
-            if (response.data) {
-              this.$router.push({
-                name: "Kampagnedetails",
-                params: { id: this.campaign._id },
-              });
-            } else {
-              alert(
-                "Server returned " +
-                  response.status +
-                  " : " +
-                  response.statusText
-              );
-            }
-          })
+    async updateCampaign(campaign) {
+      const response = await this.campaignCon.updateCampaign(
+        this.token,
+        campaign,
+        campaign._id
       );
+      if (response.message == "campaign was succesfully updated") {
+        alert("Roller er blevet opdateret");
+        this.$router.push({
+          name: "Kampagnedetails",
+          params: { id: campaign._id },
+        });
+      } else {
+        alert(response.message);
+      }
     },
-
-
   },
 };
 </script>

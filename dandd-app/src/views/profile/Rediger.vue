@@ -217,6 +217,8 @@
   </div>
 </template>
 <script>
+import UserCon from "../../controller/userController";
+
 export default {
   // run when page is created and check if the user are logged in.
   // calls getLoginUser()
@@ -316,6 +318,8 @@ export default {
 
   data() {
     return {
+      userCon: new UserCon(),
+
       user: null,
       username: null,
       name: null,
@@ -354,7 +358,7 @@ export default {
   },
 
   methods: {
-    updateUser() {
+    async updateUser() {
       // if (this.dob != null) {
       //   var today = new Date();
       //   var birthdate = new Date(this.dob);
@@ -438,45 +442,25 @@ export default {
         this.classes.push("artificer");
       }
 
-      const requestOptions = {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          username: this.username,
-          name: this.name,
-          city: this.city,
-          zipcode: this.postNr,
+      const user = {};
 
-          classes: this.classes,
-          setting: this.setting,
-          roles: this.roles,
+      user.username = this.username;
+      user.name = this.name;
+      user.age = age;
+      user.city = this.city;
+      user.postNr = this.postNr;
 
-          age: age,
-        }),
-      };
-      fetch(
-        "https://dandd-api.herokuapp.com/api/users/" + this.user._id,
-        requestOptions
-      )
-        .then((response) => {
-          if (response.ok) {
-            alert("profil er blevet redigeret");
-            this.$router.push("profil")
-          } else {
-            alert(
-              "Server returned " +
-                response.status +
-                " : " +
-                response.statusText,
-              (this.error = "Something went wrong")
-            );
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      user.roles = this.roles;
+      user.classes = this.classes;
+      user.setting = this.setting;
+
+      const response = await this.userCon.updateUser(user, this.userID);
+      if (response.message == "User was succesfully updated") {
+        alert("profil er blevet redigeret");
+        this.$router.push("profil");
+      } else {
+        alert(response.message);
+      }
     },
   },
 };

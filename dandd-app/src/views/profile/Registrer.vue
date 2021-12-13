@@ -218,7 +218,11 @@
 </template>
 
 <script>
+import UserCon from "../../controller/userController";
+
 export default {
+  userCon: new UserCon(),
+
   data() {
     return {
       username: null,
@@ -267,7 +271,7 @@ export default {
   },
 
   methods: {
-    updateUser() {
+    async updateUser() {
       if (this.dob != null) {
         var today = new Date();
         var birthdate = new Date(this.dob);
@@ -277,6 +281,7 @@ export default {
           age--;
         }
       }
+
       if (this.name == null) {
         this.name = "";
       }
@@ -284,6 +289,7 @@ export default {
       if (this.gm == true) {
         this.roles.push("GM");
       }
+
       if (this.player == true) {
         this.roles.push("player");
       }
@@ -344,45 +350,24 @@ export default {
         this.classes.push("artificer");
       }
 
-      const requestOptions = {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          username: this.username,
-          name: this.name,
-          city: this.city,
-          zipcode: this.postNr,
+      const user = {};
 
-          classes: this.classes,
-          setting: this.setting,
-          roles: this.roles,
+      user.name = this.name;
+      user.age = age;
+      user.city = this.city;
+      user.postNr = this.postNr;
 
-          age: age,
-        }),
-      };
-      fetch(
-        "https://dandd-api.herokuapp.com/api/users/" + this.tempID,
-        requestOptions
-      )
-        .then((response) => {
-          if (response.ok) {
-            alert("profil er blevet oprettet");
-            this.loginUser();
-          } else {
-            alert(
-              "Server returned " +
-                response.status +
-                " : " +
-                response.statusText,
-              (this.error = "Something went wrong")
-            );
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      user.roles = this.roles;
+      user.classes = this.classes;
+      user.setting = this.setting;
+
+      const response = await this.userCon.updateUser(user, this.tempID);
+      if (response.message == "User was succesfully updated") {
+        alert("profil er blevet oprettet");
+        this.loginUser();
+      } else {
+        alert(response.message);
+      }
     },
 
     loginUser() {

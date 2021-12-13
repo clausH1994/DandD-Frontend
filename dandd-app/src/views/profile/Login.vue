@@ -48,8 +48,12 @@
 </template>
 
 <script>
+import AuthCon from "../../controller/userController";
+
 export default {
   data: () => ({
+    authCon: new AuthCon(),
+
     valid: true,
     show1: false,
 
