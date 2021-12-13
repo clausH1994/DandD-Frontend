@@ -29,20 +29,15 @@
 
     <div class="content">
       <div id="e-kam" class="Campaign paper">
-        <table v-for="campaign in owned" v-bind:key="campaign._id">
-          <tr>
+        <table>
+          <tr v-for="campaign in owned" v-bind:key="campaign._id"> 
             <td>
-              <div class="kam-text">
-                <p>{{ campaign.titel }}</p>
-              </div>
+                {{ campaign.titel }}
             </td>
             <td>
-              <div class="kam-text">
                 <p>af {{ campaign.ownerName }}</p>
-              </div>
             </td>
             <td>
-              <div class="kam-text">
                 <input
                   type="checkbox"
                   name=""
@@ -51,7 +46,6 @@
                   v-model="campaign.private"
                   v-on:click="updatePrivate(campaign)"
                 /><label>Privat</label>
-              </div>
             </td>
             <td>
               <button class="kam-btn" v-on:click="deleteCampaign(campaign._id)">
@@ -72,16 +66,17 @@
       </div>
 
       <div id="t-kam" class="Campaign paper" style="display: none">
-        <table v-for="campaign in added" v-bind:key="campaign._id">
-          <tr>
+        <table>
+          <tr v-for="campaign in added" v-bind:key="campaign._id">
             <td>
-              <p>{{ campaign.titel }}</p>
+              {{ campaign.titel }}
             </td>
             <td>
               <p>af {{ campaign.ownerName }}</p>
             </td>
             <td>
-              <p v-if="campaign.private">Privat</p>
+              <p v-if="campaign.private">Privat</p> 
+              <p v-if="!campaign.private">Not Private</p>
             </td>
             <td>
               <button class="kam-btn" v-on:click="leaveCampaign(campaign)">
@@ -141,8 +136,8 @@ export default {
     },
 
     updatePrivate(campaign) {
-      const privat = !campaign.private
-       const requestOptions = {
+      const privat = !campaign.private;
+      const requestOptions = {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -175,7 +170,6 @@ export default {
             }
           })
       );
-
     },
 
     filterCampaigns() {
@@ -195,19 +189,18 @@ export default {
     },
 
     leaveCampaign(campaign) {
-       if (confirm("Er du sikker på du vil forlade denne kampagne")) {
-      const playerList = campaign.listOfPlayers;
-      var index = playerList
-        .map(function (user) {
-          return user.playerID;
-        })
-        .indexOf(this.userID);
+      if (confirm("Er du sikker på du vil forlade denne kampagne")) {
+        const playerList = campaign.listOfPlayers;
+        var index = playerList
+          .map(function (user) {
+            return user.playerID;
+          })
+          .indexOf(this.userID);
 
-      playerList.splice(index, 1);
+        playerList.splice(index, 1);
 
-      this.updateCampaign(playerList, campaign);
-       }
-
+        this.updateCampaign(playerList, campaign);
+      }
     },
 
     updateCampaign(playerList, campaign) {
@@ -371,14 +364,26 @@ export default {
 table {
   width: 100%;
   table-layout: auto;
-  border-top: solid 1px;
+  border-collapse: collapse;
+}
+
+td {
+  min-width: 190px;
+}
+
+th,td {
+  text-align: left;
 }
 
 table:first-child {
   margin-top: 20px;
 }
 
-table:last-child {
+tr {
+  border-top: solid 1px black !important;
+}
+
+tr:last-child {
   margin-bottom: 20px;
   border-bottom: solid 1px;
 }
