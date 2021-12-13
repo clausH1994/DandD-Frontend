@@ -29,6 +29,7 @@ export default class UserCon {
 
     async updateUser(user, id) {
         try {
+            
             const requestOptions = {
                 method: "PUT",
                 headers: {
@@ -56,4 +57,6 @@ export default class UserCon {
             alert(error);
         }
     }
+
+    
 }

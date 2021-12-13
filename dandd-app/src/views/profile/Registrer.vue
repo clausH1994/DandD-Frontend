@@ -219,12 +219,14 @@
 
 <script>
 import UserCon from "../../controller/userController";
+import AuthCon from "../../controller/authController";
 
 export default {
-  userCon: new UserCon(),
-
   data() {
     return {
+      userCon: new UserCon(),
+      authCon: new AuthCon(),
+
       username: null,
       name: null,
       city: null,
@@ -362,6 +364,7 @@ export default {
       user.setting = this.setting;
 
       const response = await this.userCon.updateUser(user, this.tempID);
+
       if (response.message == "User was succesfully updated") {
         alert("profil er blevet oprettet");
         this.loginUser();
@@ -370,59 +373,28 @@ export default {
       }
     },
 
-    loginUser() {
+    async loginUser() {
       sessionStorage.clear();
-
-      const requestOptions = {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: this.email,
-          password: this.password,
-        }),
-      };
-      fetch(
-        "https://dandd-api.herokuapp.com/api/user/Login",
-        requestOptions
-      ).then((response) =>
-        response
-          .json()
-          .then((data) => ({
-            data: data,
-            status: response.status,
-          }))
-          .then((response) => {
-            if (response.data) {
-              if (!response.data.token) {
-                alert("Email and Password does not match");
-              } else {
-                //sets logged in user and token in session.
-                sessionStorage.setItem("token", response.data.token);
-                sessionStorage.setItem("user", response.data.user);
-                sessionStorage.setItem("user_id", response.data.id);
-                const token = sessionStorage.getItem("token");
-                const userID = sessionStorage.getItem("user_id");
-                if (token != null && userID != null) {
-                  alert(this.email + " Has been logged in");
-                  //emit event tells parent(app) that token is set.
-                  this.$emit("eventname", token);
-                  this.$router.push({ name: "Home" });
-                } else {
-                  alert("Something went wrong");
-                }
-              }
-            } else {
-              alert(
-                "Server returned " +
-                  response.status +
-                  " : " +
-                  response.statusText
-              );
-            }
-          })
-      );
+      console.log("no way home");
+      const response = await this.authCon.login(this.email, this.password);
+      //sets logged in user and token in session.
+      if (response.error == null) {
+        sessionStorage.setItem("token", response.token);
+        sessionStorage.setItem("user", JSON.stringify(response.user));
+        sessionStorage.setItem("user_id", response.id);
+        const token = sessionStorage.getItem("token");
+        const userID = sessionStorage.getItem("user_id");
+        if (token != null && userID != null) {
+          alert(this.email + " Has been logged in");
+          //emit event tells parent(app) that token is set.
+          this.$emit("eventname", token);
+          this.$router.push({ name: "Home" });
+        } else {
+          alert("Something went wrong");
+        }
+      } else {
+        alert(response.error);
+      }
     },
   },
 };
