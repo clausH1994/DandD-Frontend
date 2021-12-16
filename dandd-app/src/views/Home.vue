@@ -15,7 +15,7 @@
     <div class="contenthome">
       <div class="filter" id="filterBox">
         <h3>Advanced Filter</h3>
-        <input type="text" v-model="filterCampaigns" placeholder="Søg" /><br />
+        <input class="inputfelt" type="text" v-model="filterCampaigns" placeholder="Søg" /><br />
         <div class="checkboxes">
           <h4 class="check" @click="openEdition = !openEdition">Edition</h4>
           <div class="edition" v-if="openEdition">
@@ -64,73 +64,10 @@
         </div>
 
         <h4>Lokation</h4>
-        <input type="text" v-model="filterLocations" placeholder=" Søg Lokation" />
+        <input class="inputfelt" type="text" v-model="filterLocations" placeholder=" Søg Lokation" />
       </div>
 
       <div class="maincontent">
-        <div class="campaigncard">
-          <h3>Header</h3>
-          <ul class="campcard">
-            <li>
-              <div class="test">
-                <div class="test1">
-                  <p class="ccp"><b>Ejer:</b></p>
-                </div>
-                <div class="test2">
-                  <p class="ccp">Slayerfire22</p>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="test">
-                <div class="test1">
-                  <p class="ccp"><b>Regler:</b></p>
-                </div>
-                <div class="test2">
-                  <p class="ccp">
-                    This group follows the PHB with some minor homebrew
-                  </p>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="test">
-                <div class="test1">
-                  <p class="ccp"><b>Setting:</b></p>
-                </div>
-                <div class="test2">
-                  <p class="ccp">Fantasy</p>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="test">
-                <div class="test1">
-                  <p class="ccp"><b>Edition:</b></p>
-                </div>
-                <div class="test2">
-                  <p class="ccp">5th Edition</p>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="camproller">
-                <p class="ccp"><b>Ønskede Classes:</b></p>
-                <p class="ccp">Display icons here</p>
-              </div>
-            </li>
-            <li>
-              <div class="test">
-                <div class="test1">
-                  <p class="ccp"><b>Lokation</b></p>
-                </div>
-                <div class="test2">
-                  <p class="ccp">2100 København Ø</p>
-                </div>
-              </div>
-            </li>
-          </ul>
-        </div>
 
         <div
           class="campaigncard"
@@ -195,7 +132,7 @@
             <li>
               <div class="camproller">
                 <p class="ccp"><b>Ønskede Classes:</b></p>
-                <p class="ccp">{{ campaign.wishedClasses }}</p>
+                <div class="wishedclassicons" v-for="wish in campaign.wishedClasses" v-bind:key="wish.id"><img :src="getImgUrl(wish)" v-bind:alt="wish" /></div>
               </div>
             </li>
             <li>
@@ -327,6 +264,13 @@ export default {
       }
     },
 
+    getImgUrl(wish) {
+      if (wish == "") {
+        wish = "question-solid";
+      }
+      return require("../assets/classIcon/" + wish + ".svg");
+    },
+
   },
 
   watch: {
@@ -367,6 +311,7 @@ export default {
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
+  min-height: 90vh;
 }
 
 .contenthome {
@@ -458,4 +403,18 @@ ul.campcard {
 .ccp {
   margin: 2px;
 }
+
+.wishedclassicons {
+  display: inline-flex;
+}
+
+img {
+  height: 20px;
+  width: 20px;
+}
+
+.inputfelt {
+  border-radius: 5px;
+}
+
 </style>

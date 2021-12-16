@@ -7,7 +7,6 @@
     </div>
     <div class="navright">
     <router-link to="/minekampagner">Mine Kampagner</router-link>
-    <router-link to="/chat">Chat</router-link>
     <router-link to="/profil">Profil</router-link>
     <router-link to="/logud">Log ud</router-link>
     </div>
