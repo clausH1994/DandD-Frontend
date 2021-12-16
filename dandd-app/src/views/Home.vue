@@ -6,14 +6,16 @@
       </div>
       <div class="filler"></div>
       <div class="knap">
+        <router-link to="/makecampaign">
         <button class="okamp">Opret Kampagne</button>
+        </router-link>
       </div>
     </div>
 
     <div class="contenthome">
       <div class="filter" id="filterBox">
         <h3>Advanced Filter</h3>
-        <input type="text" placeholder="Søgefilter" /><br />
+        <input type="text" v-model="filterCampaigns" placeholder="Søg" /><br />
         <div class="checkboxes">
           <h4 class="check" @click="openEdition = !openEdition">Edition</h4>
           <div class="edition" v-if="openEdition">
@@ -62,7 +64,7 @@
         </div>
 
         <h4>Lokation</h4>
-        <input type="text" placeholder="Lokation" />
+        <input type="text" v-model="filterLocations" placeholder=" Søg Lokation" />
       </div>
 
       <div class="maincontent">
@@ -132,7 +134,7 @@
 
         <div
           class="campaigncard"
-          v-for="campaign in campaigns"
+          v-for="campaign in sortedCampaigns"
           v-bind:key="campaign.id"
           v-show="
             visible(campaign.edition, campaign.setting, campaign.wishedClasses)
@@ -201,8 +203,11 @@
                 <div class="test1">
                   <p class="ccp"><b>Lokation:</b></p>
                 </div>
-                <div class="test2">
-                  <p class="ccp">{{ campaign.zipcode }} {{ campaign.city }}</p>
+                <div class="test3">
+                  <p class="ccp" v-if="campaign.zipcode != 0">
+                    {{ campaign.zipcode }}
+                  </p>
+                  <p class="ccp">{{ campaign.city }}</p>
                 </div>
               </div>
             </li>
@@ -225,25 +230,35 @@ export default {
       openSetting: false,
       openClasses: false,
       campaigns: [],
+      sortedCampaigns: [],
       checked: {
         edition: [],
         setting: [],
         wishedClasses: [],
       },
+      filterCampaigns: '',
+      filterLocations: '',
     };
   },
 
   computed: {
     edition: function () {
-      return this.available("edition").sort((a, b) => a - b);
+      return this.available("edition").sort((a, b) => (a < b ? -1 : 1));
     },
     setting: function () {
-      return this.available("setting").sort((a, b) => a - b);
+      return this.available("setting").sort((a, b) => (a < b ? -1 : 1));
     },
     wishedClasses: function () {
       return this.available("wishedClasses").sort((a, b) => (a < b ? -1 : 1));
     },
+
   },
+
+/*   watch: {
+    search(value) {
+      this.doSearch(value);
+    }
+  }, */
 
   methods: {
     getCampaigns() {
@@ -260,6 +275,7 @@ export default {
           .then((response) => {
             if (response.data) {
               this.campaigns = response.data;
+              this.sortedCampaigns = response.data;
               console.log(response.data);
             } else {
               alert(
@@ -310,6 +326,22 @@ export default {
         return false;
       }
     },
+
+  },
+
+  watch: {
+    filterCampaigns: function() {
+         this.sortedCampaigns = this.campaigns.filter(campaigns => {
+         return campaigns.titel.toLowerCase().includes(this.filterCampaigns.toLowerCase()) ||
+         campaigns.ownerName.toLowerCase().includes(this.filterCampaigns.toLowerCase())
+         });
+    },
+
+    filterLocations: function() {
+         this.sortedCampaigns = this.campaigns.filter(campaigns => {
+         return campaigns.city.toLowerCase().includes(this.filterLocations.toLowerCase())
+         });
+    },
   },
 
   filters: {
@@ -324,8 +356,8 @@ export default {
     this.getCampaigns();
   },
 
-  /* lav filter basered på getCampaigns og array fra checkboxes på siden for at kun vise ting der er valgt i checkbox som filter */
-};
+}
+
 </script>
 
 <style scoped>
@@ -413,6 +445,10 @@ ul.campcard {
 .test2 {
   width: 55%;
   overflow-wrap: break-word;
+}
+.test3 {
+  width: 55%;
+  display: flex;
 }
 
 .camproller {
