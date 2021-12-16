@@ -10,6 +10,7 @@
         <button class="okamp">Opret Kampagne</button>
         </router-link>
       </div>
+
     </div>
 
     <div class="contenthome">
@@ -191,12 +192,6 @@ export default {
 
   },
 
-/*   watch: {
-    search(value) {
-      this.doSearch(value);
-    }
-  }, */
-
   methods: {
     getCampaigns() {
       this.userID;
@@ -298,6 +293,7 @@ export default {
 
   created() {
     this.getCampaigns();
+
   },
 
 }
@@ -346,15 +342,6 @@ h4.check:hover {
 h4 {
   display: table-cell;
   font-size: 20px;
-}
-
-.edition {
-}
-
-.setting {
-}
-
-.classes {
 }
 
 .campaigncard {
