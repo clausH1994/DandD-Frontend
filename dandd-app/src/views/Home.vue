@@ -5,7 +5,7 @@
         <h1>Kampagner</h1>
       </div>
       <div class="filler"></div>
-      <div class="knap">
+      <div class="knap" v-if="isLogged">
         <router-link to="/makecampaign">
         <button class="okamp">Opret Kampagne</button>
         </router-link>
@@ -176,6 +176,7 @@ export default {
       },
       filterCampaigns: '',
       filterLocations: '',
+      isLogged: false,
     };
   },
 
@@ -293,6 +294,14 @@ export default {
 
   created() {
     this.getCampaigns();
+
+    this.token = sessionStorage.getItem("token");
+    this.user = JSON.parse(sessionStorage.getItem("user"));
+    if (this.token == null || this.user == null) {
+      this.isLogged = false;
+    } else {
+      this.isLogged = true;
+    }
 
   },
 
