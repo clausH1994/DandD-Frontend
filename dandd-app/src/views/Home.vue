@@ -325,8 +325,9 @@ export default {
 }
 
 .filter {
-  width: 20%;
+  width: 15%;
   text-align: left;
+  margin-left: 50px;
 }
 
 .filter h3 {
@@ -407,6 +408,7 @@ ul.campcard {
 img {
   height: 20px;
   width: 20px;
+  padding: 5px;
 }
 
 .inputfelt {

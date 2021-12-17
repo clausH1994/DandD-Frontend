@@ -12,8 +12,8 @@
     <div class="navright">
     <router-link to="/minekampagner">Mine Kampagner</router-link>
     <router-link to="/profil">Profil</router-link>
-    <button class="logout" v-on:click="logout()">Log ud</button>
-    <router-link to="/login">Login</router-link>
+    <router-link to="/login" v-if="!isLogged">Login</router-link>
+    <button class="logout" v-else v-on:click="logout()">Log ud</button>
     </div>
   </div>
   <router-view/>
@@ -22,12 +22,30 @@
 <script>
 export default {
     name: 'Navbar',
+
+  data() {
+    return {
+    isLogged: false,
+    }
+  },
+
   methods: {
     logout(){
       sessionStorage.clear();
       alert("successfuld logout")
     }
-  },  
+
+  },
+
+  created() {
+    this.token = sessionStorage.getItem("token");
+    this.user = JSON.parse(sessionStorage.getItem("user"));
+    if (this.token == null || this.user == null) {
+      this.isLogged = false;
+    } else {
+      this.isLogged = true;
+    }
+  }
 }
 </script>
 
@@ -70,7 +88,7 @@ export default {
 .navright {
   display: inline-block;
   position: absolute;
-  right: 5%;
+  right: 10%;
   margin-top: 15px;
 }
 
