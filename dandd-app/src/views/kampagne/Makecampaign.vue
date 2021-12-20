@@ -325,7 +325,7 @@ export default {
   }),
 
   methods: {
-  async  createCampaign() {
+    async createCampaign() {
       if (this.rules == null) {
         this.rules = "";
       }
@@ -338,13 +338,14 @@ export default {
         this.tools = "";
       }
 
-      if (this.city == null || this.zipcode == "") {
+      if (this.city == null || this.city == "" || this.online == true) {
         this.city = "Online";
+        this.online = true;
       }
 
-      if(this.zipcode == null || this.zipcode == "")
-      {
+      if (this.zipcode == null || this.zipcode == "" || this.online == true) {
         this.zipcode = 0;
+        this.online = true;
       }
 
       if (this.gm == true) {
@@ -420,7 +421,10 @@ export default {
         campaign.dates = this.dates;
         campaign.listOfPlayers = this.listOfPlayers;
 
-        const response = await this.campaignCon.createCampaign(this.token, campaign);
+        const response = await this.campaignCon.createCampaign(
+          this.token,
+          campaign
+        );
         console.log(response);
 
         if (response[0]._id) {
@@ -430,8 +434,6 @@ export default {
             params: { id: response[0]._id },
           });
         }
-
-       
       }
     },
   },
