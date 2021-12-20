@@ -78,6 +78,7 @@
             visible(campaign.edition, campaign.setting, campaign.wishedClasses)
           "
         >
+        <router-link class="link" :to="{ name: 'Kampagnedetails', params: { id: campaign._id }}">
           <h3>{{ campaign.titel }}</h3>
           <ul class="campcard">
             <li>
@@ -150,6 +151,7 @@
               </div>
             </li>
           </ul>
+        </router-link>
         </div>
       </div>
     </div>
@@ -176,7 +178,7 @@ export default {
       },
       filterCampaigns: '',
       filterLocations: '',
-      isLogged: false,
+      // isLogged: false,
     };
   },
 
@@ -190,6 +192,10 @@ export default {
     wishedClasses: function () {
       return this.available("wishedClasses").sort((a, b) => (a < b ? -1 : 1));
     },
+
+    isLogged() {
+      return this.$store.getters.getIsLogged;
+    }
 
   },
 
@@ -292,16 +298,16 @@ export default {
     },
   },
 
-  created() {
+   created() {
     this.getCampaigns();
 
-    this.token = sessionStorage.getItem("token");
+/*     this.token = sessionStorage.getItem("token");
     this.user = JSON.parse(sessionStorage.getItem("user"));
     if (this.token == null || this.user == null) {
       this.isLogged = false;
     } else {
       this.isLogged = true;
-    }
+    } */
 
   },
 
@@ -413,6 +419,11 @@ img {
 
 .inputfelt {
   border-radius: 5px;
+}
+
+.link {
+  text-decoration: none;
+  color: black;
 }
 
 </style>

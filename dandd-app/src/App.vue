@@ -7,10 +7,25 @@
 <script>
 import Navbar from './components/Navbar.vue'
 import Footer from './components/Footer.vue'
+//import { mapActions } from 'vuex'
 
 export default {
   name: 'Home',
-  components: { Navbar, Footer }
+  components: { Navbar, Footer },
+
+/* methods: {
+    ...mapActions (["setIsLogged"])
+  }, */
+
+mounted() {
+    this.$store.dispatch("setIsLogged");
+  },
+
+computed: {
+    isLogged() {
+      return this.$store.getters.getIsLogged;
+    }
+  },
 }
 </script>
 

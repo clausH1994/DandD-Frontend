@@ -20,12 +20,14 @@
 </template>
 
 <script>
+//import { mapActions } from 'vuex'
+
 export default {
     name: 'Navbar',
 
   data() {
     return {
-    isLogged: false,
+    //isLogged: false,
     }
   },
 
@@ -33,11 +35,28 @@ export default {
     logout(){
       sessionStorage.clear();
       alert("successfuld logout")
-    }
+    },
 
+/*     ...mapActions(['setIsLogged']),
+    checkIsLogged() {
+    this.setIsLogged();
+    } */
+/*     checkIsLogged() {
+      this.$store.dispatch("getIsLogged")
+    } */
   },
 
-  created() {
+  computed: {
+    isLogged() {
+      return this.$store.getters.getIsLogged;
+    }
+  },
+
+/*   mounted() {
+    this.isLogged = this.$store.getters.getIsLogged;
+  }, */
+
+/*   created() {
     this.token = sessionStorage.getItem("token");
     this.user = JSON.parse(sessionStorage.getItem("user"));
     if (this.token == null || this.user == null) {
@@ -45,7 +64,7 @@ export default {
     } else {
       this.isLogged = true;
     }
-  }
+  } */
 }
 </script>
 
