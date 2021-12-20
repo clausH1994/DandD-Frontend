@@ -15,27 +15,31 @@
     <div class="contentforum">
 
     <div class="forumcard">
-            <h2>{{ name }}</h2>
-            <ul class="campcard">
-              <li v-for="post in listOfPosts" v-bind:key="post.id">
-                <router-link class="link" :to="{ name: 'Postdetail', params: { post: JSON.stringify(post), name: post.title }}">
+      <h2>{{ post.title }}</h2>
+        <div class="campcard">
+          <div class="test">
+            <div class="test2">
+              <p class="ccp">{{ post.body }}</p>
+            <div>
+              <p class="forumsignature">Af {{ post.owner }}</p>
+            </div>
+            </div>
+          </div>
+        <hr>
+        </div>
+    </div>
+        <div class="forumcard">
+          <div class="campcard">
               <div class="test">
                 <div class="test1">
-              <h3 class="ccp">{{ post.title }}</h3>
-                </div>
-                <div class="test2">
               <p class="ccp">{{ post.body }}</p>
-                </div>
                 <div>
                     <p class="forumsignature">Af {{ post.owner }}</p>
                 </div>
+                </div>
               </div>
-              </router-link>
-              <hr>
-              </li>
-            </ul>
-    </div>
-
+          </div>
+        </div>
     </div>
 
     <button class="opost">Opret Post</button>
@@ -50,15 +54,14 @@ export default {
     return {
       forums: [],
       id: null,
-      name: null,
+      title: null,
       owner: null,
-      listOfPosts: [],
     };
     },
 
 
 methods: {
-  getForum() {
+  getPost() {
       fetch("https://dandd-api.herokuapp.com/api/forums/" + this.id, {
         method: "GET",
       }).then((response) =>
@@ -70,9 +73,8 @@ methods: {
           }))
           .then((response) => {
             if (response.data) {
-              this.name = response.data.name;
+              this.title = response.data.title;
               this.owner = response.data.owner;
-              this.listOfPosts = response.data.listOfPosts;
               console.log(response.data);
             } else {
               alert(
@@ -92,10 +94,13 @@ created() {
   this.id = this.$route.params.id;
     //this.id = "61a77f6258295764f502c78c";
   if (this.id) {
-    this.getForum();
+    this.getPost();
   } else {
     //this.$router.push("/");
   }
+
+  this.post = JSON.parse(this.$route.params.post);
+
 },
 
 }
@@ -113,6 +118,7 @@ created() {
 .contentforum {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   padding-bottom: 20px;
 }
 
@@ -128,16 +134,14 @@ created() {
     border-radius: 15px/90px;
     padding-bottom: 5px;
     color: black;
-    margin-bottom: 20px;
-    margin: 25px;
+    margin-bottom: 10px;
 }
 
 .forumcard h3 {
   padding-top: 5px;
 }
 
-ul.campcard {
-  list-style-type: none;
+.campcard {
   text-align: left;
   padding-left: 15px;
   padding-right: 15px;
@@ -148,7 +152,7 @@ ul.campcard {
 }
 
 .test1 {
-  
+  padding: 5px;
 }
 
 .test2 {
@@ -165,6 +169,7 @@ ul.campcard {
 
 .forumsignature {
     font-size: 12px;
+    padding-left: 5px;
 }
 
 hr {
@@ -187,11 +192,6 @@ button.opost {
   border-radius: 12px;
   border: none;
   margin-bottom: 80px;
-}
-
-.link {
-  text-decoration: none;
-  color: black;
 }
 
 </style>

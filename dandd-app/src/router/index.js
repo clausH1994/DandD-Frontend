@@ -11,8 +11,8 @@ import Rediger from '../views/profile/Rediger.vue'
 import Kalender from '../views/Kalender.vue'
 import Forumforside from '../views/forum/Forumforside.vue'
 import Forumlist from '../views/forum/Forumlist.vue'
+import Postdetail from '../views/forum/Postdetail.vue'
 
-import Karaktere from '../views/forum/Karaktere.vue'
 import Worldbuilding from '../views/forum/Worldbuilding.vue'
 
 
@@ -73,14 +73,14 @@ const routes = [
     component: Forumforside
   },
   {
-    path: '/forums/:id',
+    path: '/forums/:name',
     name: 'Forumlist',
     component: Forumlist,
   },
   {
-    path: '/forum/karaktere',
-    name: 'Karaktere',
-    component: Karaktere
+    path: '/forum/post:name',
+    name: 'Postdetail',
+    component: Postdetail
   },
   {
     path: '/forum/worldbuilding',

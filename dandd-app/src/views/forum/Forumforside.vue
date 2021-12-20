@@ -13,7 +13,7 @@
     <div class="contentforum">
 
         <div class="forumcard" v-for="forum in forums" v-bind:key="forum.id">
-      <router-link :to="{ name: 'Forumlist', params: { id: forum.name }}">
+      <router-link :to="{ name: 'Forumlist', params: { id: forum._id, name: forum.name }}">
             <h2>{{ forum.name }}</h2>
             </router-link>
             <ul class="campcard">
