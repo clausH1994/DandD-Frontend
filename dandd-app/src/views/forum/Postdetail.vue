@@ -43,8 +43,9 @@
         </div>
     </div>
 
-    <textarea class="forumarea" name="forumPost" id="" placeholder="Skriv reply her!">
+    <textarea class="forumarea" name="forumPost" id="" rows="4" placeholder="Skriv reply her!">
     </textarea>
+    <br>
     <button class="opost">Post Reply</button>
 
   </div> 
@@ -198,7 +199,12 @@ button.opost {
 }
 
 .forumarea {
-  border-radius: 12px;
+  width: 83%;
+  padding: 5px;
+  margin: 5px;
+  resize: none;
+  border-radius: 15px/90px;
+  border: 1px solid;
 }
 
 </style>
