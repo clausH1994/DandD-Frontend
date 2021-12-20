@@ -404,8 +404,12 @@ export default {
         this.tools = "";
       }
 
-      if (this.city == null) {
-        this.city = "";
+      if (this.city == null || this.zipcode == "") {
+        this.city = "Online";
+      }
+
+      if (this.zipcode == null || this.zipcode == "") {
+        this.zipcode = 0;
       }
 
       if (this.gm == true) {
@@ -466,30 +470,29 @@ export default {
         campaign.notes = this.notes;
         campaign.tools = this.tools;
         campaign.online = this.online;
-        campaign.private = this.private
+        campaign.private = this.private;
 
         campaign.wishedClasses = this.wishedClasses;
         campaign.dates = this.dates;
         campaign.listOfPlayers = this.listOfPlayers;
 
-       const response = await this.campaignCon.updateCampaign(this.token, campaign, this.campaign._id);
-      
-       if (response.message == "campaign was succesfully updated") {
+        const response = await this.campaignCon.updateCampaign(
+          this.token,
+          campaign,
+          this.campaign._id
+        );
+
+        if (response.message == "campaign was succesfully updated") {
           alert("Kampagnen er blevet opdateret");
           this.$router.push({
             name: "Kampagnedetails",
             params: { id: this.campaign._id },
           });
-        }
-        else
-        {
+        } else {
           alert(response.message);
         }
-      
       }
     },
-
-
   },
 };
 </script>

@@ -338,11 +338,11 @@ export default {
         this.tools = "";
       }
 
-      if (this.city == null) {
+      if (this.city == null || this.zipcode == "") {
         this.city = "Online";
       }
 
-      if(this.zipcode == null)
+      if(this.zipcode == null || this.zipcode == "")
       {
         this.zipcode = 0;
       }
