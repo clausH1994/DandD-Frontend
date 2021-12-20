@@ -339,7 +339,12 @@ export default {
       }
 
       if (this.city == null) {
-        this.city = "";
+        this.city = "Online";
+      }
+
+      if(this.zipcode == null)
+      {
+        this.zipcode = 0;
       }
 
       if (this.gm == true) {
