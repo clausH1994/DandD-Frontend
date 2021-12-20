@@ -38,11 +38,14 @@
                 </div>
                 </div>
               </div>
+              <hr>
           </div>
         </div>
     </div>
 
-    <button class="opost">Opret Post</button>
+    <textarea class="forumarea" name="forumPost" id="" placeholder="Skriv reply her!">
+    </textarea>
+    <button class="opost">Post Reply</button>
 
   </div> 
 </template>
@@ -192,6 +195,10 @@ button.opost {
   border-radius: 12px;
   border: none;
   margin-bottom: 80px;
+}
+
+.forumarea {
+  border-radius: 12px;
 }
 
 </style>

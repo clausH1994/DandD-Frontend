@@ -12,8 +12,7 @@ import Kalender from '../views/Kalender.vue'
 import Forumforside from '../views/forum/Forumforside.vue'
 import Forumlist from '../views/forum/Forumlist.vue'
 import Postdetail from '../views/forum/Postdetail.vue'
-
-import Worldbuilding from '../views/forum/Worldbuilding.vue'
+import Makeforumpost from '../views/forum/Makeforumpost.vue'
 
 
 const routes = [
@@ -73,7 +72,7 @@ const routes = [
     component: Forumforside
   },
   {
-    path: '/forums/:name',
+    path: '/forum/:name',
     name: 'Forumlist',
     component: Forumlist,
   },
@@ -83,9 +82,9 @@ const routes = [
     component: Postdetail
   },
   {
-    path: '/forum/worldbuilding',
-    name: 'Worldbuilding',
-    component: Worldbuilding
+    path: '/forum/makeforumpost',
+    name: 'Makeforumpost',
+    component: Makeforumpost
   },
 ]
 
