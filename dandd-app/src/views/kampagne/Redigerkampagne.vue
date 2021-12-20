@@ -404,12 +404,14 @@ export default {
         this.tools = "";
       }
 
-      if (this.city == null || this.zipcode == "") {
+      if (this.city == null || this.city == "" || this.online == true) {
         this.city = "Online";
+        this.online = true;
       }
 
-      if (this.zipcode == null || this.zipcode == "") {
+      if (this.zipcode == null || this.zipcode == "" || this.online == true) {
         this.zipcode = 0;
+        this.online = true;
       }
 
       if (this.gm == true) {
