@@ -38,7 +38,9 @@
 
     </div>
 
+    <router-link :to="{ name: 'Makeforumpost', params: { id: this.id }}">
     <button class="opost">Opret Post</button>
+    </router-link>
 
   </div> 
 </template>
@@ -72,6 +74,7 @@ methods: {
           }))
           .then((response) => {
             if (response.data) {
+              this.forums = response.data;
               this.name = response.data.name;
               this.owner = response.data.owner;
               this.date = response.data.date;
