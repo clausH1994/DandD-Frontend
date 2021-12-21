@@ -27,7 +27,7 @@
               <p class="ccp">{{ post.body }}</p>
                 </div>
                 <div>
-                    <p class="forumsignature">Af {{ post.owner }}</p>
+                    <p class="forumsignature">Af {{ post.owner }} {{ post.date }}</p>
                 </div>
               </div>
               </router-link>
@@ -52,7 +52,9 @@ export default {
       id: null,
       name: null,
       owner: null,
+      date: null,
       listOfPosts: [],
+      listOfReplies: [],
     };
     },
 
@@ -72,7 +74,9 @@ methods: {
             if (response.data) {
               this.name = response.data.name;
               this.owner = response.data.owner;
+              this.date = response.data.date;
               this.listOfPosts = response.data.listOfPosts;
+              this.listOfReplies = response.data.listOfReplies;
               console.log(response.data);
             } else {
               alert(

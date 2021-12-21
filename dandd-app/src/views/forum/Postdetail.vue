@@ -13,7 +13,7 @@
     </div>
 
     <div class="contentforum">
-
+      <!-- The actual forum post -->
     <div class="forumcard">
       <h2>{{ post.title }}</h2>
         <div class="campcard">
@@ -21,25 +21,28 @@
             <div class="test2">
               <p class="ccp">{{ post.body }}</p>
             <div>
-              <p class="forumsignature">Af {{ post.owner }}</p>
+              <p class="forumsignature">Af {{ post.owner }} {{ post.date }}</p>
             </div>
             </div>
           </div>
         <hr>
         </div>
     </div>
+    <!-- The forum replies -->
         <div class="forumcard">
-          <div class="campcard">
+          <ul class="campcard">
+            <li v-for="reply in post.listOfReplies" v-bind:key="reply.id">
               <div class="test">
                 <div class="test1">
-              <p class="ccp">{{ post.body }}</p>
+              <p class="ccp">{{ reply.body }}</p>
                 <div>
-                    <p class="forumsignature">Af {{ post.owner }}</p>
+                    <p class="forumsignature">Af {{ reply.owner }} {{ reply.date }}</p>
                 </div>
                 </div>
               </div>
               <hr>
-          </div>
+            </li>
+          </ul>
         </div>
     </div>
 
@@ -60,6 +63,8 @@ export default {
       id: null,
       title: null,
       owner: null,
+      date: null,
+      listOfReplies: [],
     };
     },
 
@@ -79,7 +84,10 @@ methods: {
             if (response.data) {
               this.title = response.data.title;
               this.owner = response.data.owner;
+              this.date = response.data.date;
+              this.listOfReplies = response.data.listOfReplies;
               console.log(response.data);
+              console.log(response.data.listOfReplies);
             } else {
               alert(
                 "Server returned " +
