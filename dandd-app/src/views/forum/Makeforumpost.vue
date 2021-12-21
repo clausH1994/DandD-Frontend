@@ -66,7 +66,7 @@ export default {
 }
 
 .forumcard {
-    width: 85%;
+    width: 70%;
     background-color: #DEDBC4;
     border-radius: 15px/90px;
     padding-bottom: 5px;
@@ -106,6 +106,11 @@ export default {
   margin: 2px;
 }
 
+h3.ccp {
+  margin: 2px;
+  margin-left: 10px;
+}
+
 .forumsignature {
     font-size: 12px;
 }
@@ -129,10 +134,11 @@ button.opost {
   width: 150px;
   border-radius: 12px;
   border: none;
-  margin-bottom: 80px;
+  margin-bottom: 60px;
 }
 
 .inputfield {
+  height: 25px;
   width: 98%;
   padding: 5px;
   margin: 5px;
