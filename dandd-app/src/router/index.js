@@ -11,6 +11,9 @@ import Rediger from '../views/profile/Rediger.vue'
 import Kalender from '../views/Kalender.vue'
 import Forumforside from '../views/forum/Forumforside.vue'
 import Roller from '../views/kampagne/Roller.vue'
+import Forumlist from '../views/forum/Forumlist.vue'
+import Postdetail from '../views/forum/Postdetail.vue'
+import Makeforumpost from '../views/forum/Makeforumpost.vue'
 
 
 const routes = [
@@ -71,9 +74,24 @@ const routes = [
     component: Kalender
   },
   {
-    path: '/forumforside',
+    path: '/forum',
     name: 'Forumforside',
     component: Forumforside
+  },
+  {
+    path: '/forum/:name',
+    name: 'Forumlist',
+    component: Forumlist,
+  },
+  {
+    path: '/forum/post:name',
+    name: 'Postdetail',
+    component: Postdetail
+  },
+  {
+    path: '/forum/makeforumpost',
+    name: 'Makeforumpost',
+    component: Makeforumpost
   },
 ]
 

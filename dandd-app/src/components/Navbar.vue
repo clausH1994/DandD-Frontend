@@ -7,7 +7,7 @@
     </div>
     <div class="navleft">
     <router-link to="/">Kampagner</router-link>
-    <router-link to="/forumforside">Forum</router-link>
+    <router-link to="/forum" :class="{'link-active': subIsActive('/forum')}">Forum</router-link>
     </div>
     <div class="navright">
     <router-link to="/minekampagner">Mine Kampagner</router-link>
@@ -37,6 +37,13 @@ export default {
       alert("successfuld logout")
       this.$router.push("/")
     },
+
+    subIsActive(input) {
+      const paths = Array.isArray(input) ? input : [input]
+      return paths.some(path => {
+      return this.$route.path.indexOf(path) === 0 // current path starts with this path string
+      })
+    }
 
 /*     ...mapActions(['setIsLogged']),
     checkIsLogged() {
@@ -120,6 +127,10 @@ export default {
   cursor: pointer;
   font-family: 'charm', cursive;
   font-weight: bold;
+}
+
+.link-active {
+  color: black !important;
 }
 
 </style>

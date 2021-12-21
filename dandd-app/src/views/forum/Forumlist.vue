@@ -6,33 +6,41 @@
       </div>
       <div class="filler"></div>
       <div class="knap">
-    
+          <router-link to="/forum">
+    <button class="okamp">Tilbage</button>
+          </router-link>
       </div>
     </div>
 
     <div class="contentforum">
 
-        <div class="forumcard" v-for="forum in forums" v-bind:key="forum.id">
-      <router-link :to="{ name: 'Forumlist', params: { id: forum._id, name: forum.name }}">
-            <h2>{{ forum.name }}</h2>
-            </router-link>
+    <div class="forumcard">
+            <h2>{{ name }}</h2>
             <ul class="campcard">
-              <li v-for="listOfPosts in forum.listOfPosts" v-bind:key="listOfPosts.id">
+              <li v-for="post in listOfPosts" v-bind:key="post.id">
+                <router-link class="link" :to="{ name: 'Postdetail', params: { post: JSON.stringify(post), name: post.title }}">
               <div class="test">
                 <div class="test1">
-              <h3 class="ccp">{{ listOfPosts.title }}</h3>
+              <h3 class="ccp">{{ post.title }}</h3>
                 </div>
                 <div class="test2">
-              <p class="ccp" v-if="listOfPosts.body.length < 100 ">{{ listOfPosts.body }}</p>
-              <p class="ccp" v-else>{{ listOfPosts.body.substring(0,100)+"..."  }}</p>
+              <p class="ccp">{{ post.body }}</p>
+                </div>
+                <div>
+                    <p class="forumsignature">Af {{ post.owner }} {{ post.date }}</p>
                 </div>
               </div>
+              </router-link>
               <hr>
               </li>
             </ul>
-        </div>
+    </div>
 
     </div>
+
+    <router-link :to="{ name: 'Makeforumpost', params: { id: this.id }}">
+    <button class="opost">Opret Post</button>
+    </router-link>
 
   </div> 
 </template>
@@ -43,14 +51,19 @@ export default {
     data () {
     return {
       forums: [],
+      id: null,
+      name: null,
+      owner: null,
+      date: null,
+      listOfPosts: [],
+      listOfReplies: [],
     };
     },
 
 
 methods: {
-  getForums() {
-      this.userID;
-      fetch("https://dandd-api.herokuapp.com/api/forums/" , {
+  getForum() {
+      fetch("https://dandd-api.herokuapp.com/api/forums/" + this.id, {
         method: "GET",
       }).then((response) =>
         response
@@ -62,6 +75,11 @@ methods: {
           .then((response) => {
             if (response.data) {
               this.forums = response.data;
+              this.name = response.data.name;
+              this.owner = response.data.owner;
+              this.date = response.data.date;
+              this.listOfPosts = response.data.listOfPosts;
+              this.listOfReplies = response.data.listOfReplies;
               console.log(response.data);
             } else {
               alert(
@@ -77,8 +95,15 @@ methods: {
 },
 
 created() {
-  this.getForums();
-}
+
+  this.id = this.$route.params.id;
+    //this.id = "61a77f6258295764f502c78c";
+  if (this.id) {
+    this.getForum();
+  } else {
+    //this.$router.push("/");
+  }
+},
 
 }
 </script>
@@ -95,8 +120,7 @@ created() {
 .contentforum {
   display: flex;
   justify-content: center;
-  flex-wrap: wrap;
-  padding-bottom: 100px;
+  padding-bottom: 20px;
 }
 
 .contentforum h2 {
@@ -106,7 +130,7 @@ created() {
 }
 
 .forumcard {
-    width: 20%;
+    width: 85%;
     background-color: #DEDBC4;
     border-radius: 15px/90px;
     padding-bottom: 5px;
@@ -146,10 +170,35 @@ ul.campcard {
   margin: 2px;
 }
 
+.forumsignature {
+    font-size: 12px;
+}
+
 hr {
   height: 1px;
   background-color: black;
   border: none;
+}
+
+.okamp {
+    cursor: pointer;
+}
+
+button.opost {
+  background-color: #B93B3B;
+  color: white;
+  font-family: 'Charm', cursive;
+  font-size: 20px;
+  height: 55px;
+  width: 150px;
+  border-radius: 12px;
+  border: none;
+  margin-bottom: 80px;
+}
+
+.link {
+  text-decoration: none;
+  color: black;
 }
 
 </style>
