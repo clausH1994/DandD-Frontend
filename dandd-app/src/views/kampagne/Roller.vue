@@ -412,6 +412,7 @@ export default {
     },
 
     async updateCampaign(campaign) {
+      this.campaign.listOfPlayers = this.listOfPlayers;
       const response = await this.campaignCon.updateCampaign(
         this.token,
         campaign,
