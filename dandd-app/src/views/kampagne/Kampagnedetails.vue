@@ -94,12 +94,35 @@
 
 
 <script>
+import CampaignCon from "../../controller/campaignController";
+
 export default {
-  created() {
+  async created() {
+    
+    //
     this.id = this.$route.params.id;
     //this.id = "61a77f6258295764f502c78c";
     if (this.id) {
-      this.getCampaign();
+      const campaign = await this.campaignCon.readCampaignById(this.id);
+      
+      this.titel = campaign.titel;
+      this.ownerName = campaign.ownerName;
+      this.city = campaign.city;
+      this.zipcode = campaign.zipcode;
+      this.edition = campaign.edition;
+      this.maxPlayer = campaign.maxPlayer;
+      this.numberOfplayers = campaign.numberOfplayers;
+      this.setting = campaign.setting;
+      this.rules = campaign.rules;
+      this.notes = campaign.notes;
+      this.tools = campaign.tools;
+      this.online = campaign.online;
+
+      this.wishedClasses = campaign.wishedClasses;
+      this.listOfPlayers = campaign.listOfPlayers;
+      this.numberOfPlayers = this.listOfPlayers.length;
+
+     
     } else {
       this.$router.push("/");
     }
@@ -107,6 +130,8 @@ export default {
 
   data() {
     return {
+
+      campaignCon: new CampaignCon(),
       id: null,
       titel: null,
       ownerName: null,
@@ -127,46 +152,7 @@ export default {
   },
 
   methods: {
-    //gets logged in user from database.
-    getCampaign() {
-      fetch("https://dandd-api.herokuapp.com/api/campaigns/" + this.id, {
-        method: "GET",
-      }).then((response) =>
-        response
-          .json()
-          .then((data) => ({
-            data: data,
-            status: response.status,
-          }))
-          .then((response) => {
-            if (response.data) {
-              this.titel = response.data.titel;
-              this.ownerName = response.data.ownerName;
-              this.city = response.data.city;
-              this.zipcode = response.data.zipcode;
-              this.edition = response.data.edition;
-              this.maxPlayer = response.data.maxPlayer;
-              this.numberOfplayers = response.data.numberOfplayers;
-              this.setting = response.data.setting;
-              this.rules = response.data.rules;
-              this.notes = response.data.notes;
-              this.tools = response.data.tools;
-              this.online = response.data.online;
-
-              this.wishedClasses = response.data.wishedClasses;
-              this.listOfPlayers = response.data.listOfPlayers;
-              this.numberOfPlayers = this.listOfPlayers.length;
-            } else {
-              alert(
-                "Server returned " +
-                  response.status +
-                  " : " +
-                  response.statusText
-              );
-            }
-          })
-      );
-    },
+   
 
     getImgUrl(wish) {
       if (wish == "") {

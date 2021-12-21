@@ -47,7 +47,10 @@
           <router-link to="/minekampagner">Mine Kampagner</router-link>
         </button>
         <button>
-          <router-link :to="{ name: 'Rediger', params: {user: JSON.stringify(user)}}">Redigere Profil</router-link>
+          <router-link
+            :to="{ name: 'Rediger', params: { user: JSON.stringify(user) } }"
+            >Redigere Profil</router-link
+          >
         </button>
       </div>
     </div>
@@ -55,20 +58,36 @@
 </template>
 
 <script>
+import UserCon from "../../controller/userController";
+
 export default {
   // run when page is created and check if the user are logged in.
   // calls getLoginUser()
-  created() {
+  async created() {
     this.token = sessionStorage.getItem("token");
     this.userID = sessionStorage.getItem("user_id");
     if (this.token == null && this.userID == null) {
       this.$router.push("Login");
     } else {
-      this.getLoginUser();
+      //this.getLoginUser();
+
+      const theUser = await this.userCon.readUserById(this.token, this.userID);
+
+      this.user = theUser;
+      this.username = this.user.username;
+      this.name = this.user.name;
+      this.age = this.user.age;
+      this.city = this.user.city;
+      this.zipcode = this.user.zipcode;
+      this.roles = this.user.roles;
+      this.classes = this.user.classes;
+      this.setting = this.user.setting;
     }
   },
 
   data: () => ({
+    userCon: new UserCon(),
+
     userID: null,
     token: null,
     username: null,
@@ -80,46 +99,10 @@ export default {
     classes: null,
     setting: null,
 
-    user: null
+    user: null,
   }),
 
-  methods: {
-    //gets logged in user from database.
-    getLoginUser() {
-      this.userID;
-      fetch("https://dandd-api.herokuapp.com/api/users/" + this.userID, {
-        method: "GET",
-        headers: { "auth-token": this.token },
-      }).then((response) =>
-        response
-          .json()
-          .then((data) => ({
-            data: data,
-            status: response.status,
-          }))
-          .then((response) => {
-            if (response.data) {
-              this.user = response.data;
-              this.username = this.user.username;
-              this.name = this.user.name;
-              this.age = this.user.age;
-              this.city = this.user.city;
-              this.zipcode = this.user.zipcode;
-              this.roles = this.user.roles;
-              this.classes = this.user.classes;
-              this.setting = this.user.setting;
-            } else {
-              alert(
-                "Server returned " +
-                  response.status +
-                  " : " +
-                  response.statusText
-              );
-            }
-          })
-      );
-    },
-  },
+  methods: {},
 };
 </script>
 
@@ -154,15 +137,13 @@ export default {
   margin-left: 75px;
 }
 
-.list
-{
+.list {
   display: flex;
- 
 }
 
 p {
   font-size: 30px;
-   margin-top: 0
+  margin-top: 0;
 }
 
 button {

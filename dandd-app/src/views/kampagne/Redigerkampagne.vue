@@ -70,7 +70,7 @@
             v-if="!online"
             class="input"
             type="text"
-            placeholder="City"
+            placeholder="By"
             v-model="city"
           />
           <input
@@ -270,6 +270,8 @@
 </template>
 
 <script>
+import CampaignCon from "../../controller/campaignController";
+
 export default {
   created() {
     this.token = sessionStorage.getItem("token");
@@ -290,6 +292,8 @@ export default {
       this.notes = this.campaign.notes;
       this.tools = this.campaign.tools;
       this.online = this.campaign.online;
+      this.private = this.campaign.private;
+
       this.wishedClasses = this.campaign.wishedClasses;
       this.listOfPlayers = this.campaign.listOfPlayers;
       this.dates = this.campaign.dates;
@@ -298,11 +302,9 @@ export default {
         if (clas == "GM") {
           this.gm = true;
         }
-
         if (clas == "barbarian") {
           this.barbarian = true;
         }
-
         if (clas == "bard") {
           this.bard = true;
         }
@@ -330,15 +332,12 @@ export default {
         if (clas == "rogue") {
           this.rogue = true;
         }
-
         if (clas == "warlock") {
           this.warlock = true;
         }
-
         if (clas == "wizard") {
           this.wizard = true;
         }
-
         if (clas == "artificer") {
           this.artificer = true;
         }
@@ -347,6 +346,8 @@ export default {
   },
 
   data: () => ({
+    campaignCon: new CampaignCon(),
+
     user: null,
     token: null,
     campaign: null,
@@ -364,6 +365,7 @@ export default {
     wishedClasses: [],
     listOfPlayers: [],
     dates: [],
+    private: null,
 
     gm: false,
     barbarian: false,
@@ -382,7 +384,7 @@ export default {
   }),
 
   methods: {
-    updateCampaign() {
+    async updateCampaign() {
       this.wishedClasses = [];
 
       if (this.rules == null) {
@@ -397,8 +399,14 @@ export default {
         this.tools = "";
       }
 
-      if (this.city == null) {
-        this.city = "";
+      if (this.city == null || this.city == "" || this.online == true) {
+        this.city = "Online";
+        this.online = true;
+      }
+
+      if (this.zipcode == null || this.zipcode == "" || this.online == true) {
+        this.zipcode = 0;
+        this.online = true;
       }
 
       if (this.gm == true) {
@@ -445,62 +453,43 @@ export default {
       }
 
       if (this.token != null && this.user != null) {
-        const requestOptions = {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            "auth-token": this.token,
-          },
-          body: JSON.stringify({
-            ownerID: this.user._id,
-            ownerName: this.user.username,
-            titel: this.title,
-            edition: this.edition,
-            setting: this.setting,
-            maxPlayer: this.maxPlayer,
-            city: this.city,
-            zipcode: this.zipcode,
-            rules: this.rules,
-            notes: this.notes,
-            tools: this.tools,
-            online: this.online,
-            private: false,
+        const campaign = {};
 
-            wishedClasses: this.wishedClasses,
-            dates: this.dates,
-            listOfPlayers: this.listOfPlayers,
-          }),
-        };
-        fetch(
-          "https://dandd-api.herokuapp.com/api/campaigns/" + this.campaign._id,
-          requestOptions
-        ).then((response) =>
-          response
-            .json()
-            .then((data) => ({
-              data: data,
-              status: response.status,
-            }))
-            .then((response) => {
-              if (response.data) {
-                this.$router.push({
-                  name: "Kampagnedetails",
-                  params: { id: this.campaign._id },
-                });
-              } else {
-                alert(
-                  "Server returned " +
-                    response.status +
-                    " : " +
-                    response.statusText
-                );
-              }
-            })
+        campaign.ownerID = this.user._id;
+        campaign.ownerName = this.user.username;
+        campaign.titel = this.title;
+        campaign.edition = this.edition;
+        campaign.setting = this.setting;
+        campaign.maxPlayer = this.maxPlayer;
+        campaign.city = this.city;
+        campaign.zipcode = this.zipcode;
+        campaign.rules = this.rules;
+        campaign.notes = this.notes;
+        campaign.tools = this.tools;
+        campaign.online = this.online;
+        campaign.private = this.private;
+
+        campaign.wishedClasses = this.wishedClasses;
+        campaign.dates = this.dates;
+        campaign.listOfPlayers = this.listOfPlayers;
+
+        const response = await this.campaignCon.updateCampaign(
+          this.token,
+          campaign,
+          this.campaign._id
         );
+
+        if (response.message == "campaign was succesfully updated") {
+          alert("Kampagnen er blevet opdateret");
+          this.$router.push({
+            name: "Kampagnedetails",
+            params: { id: this.campaign._id },
+          });
+        } else {
+          alert(response.message);
+        }
       }
     },
-
-
   },
 };
 </script>

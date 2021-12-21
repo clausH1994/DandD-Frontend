@@ -48,8 +48,12 @@
 </template>
 
 <script>
+import AuthCon from "../../controller/authController";
+
 export default {
   data: () => ({
+    authCon: new AuthCon(),
+
     valid: true,
     show1: false,
 
@@ -63,110 +67,46 @@ export default {
   }),
   methods: {
     //validates user input and call registerUser()
-    validate() {
+    async validate() {
       if (this.passwordR != this.bPassword) {
         this.error = "Password does not match";
       } else {
-        this.registerUser();
-
-        //  this.$router.push("Login");
+        const response = await this.authCon.registerUser(
+          this.rEmail,
+          this.passwordR
+        );
+        if (response.error == null) {
+          sessionStorage.setItem("tempID", response.data);
+          sessionStorage.setItem("pass", this.passwordR);
+          sessionStorage.setItem("email", this.rEmail);
+          this.$router.push("Registrer");
+        } else {
+          alert(response.error);
+        }
       }
     },
 
-    //POST user in Database.
-    registerUser() {
-      const requestOptions = {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: this.rEmail,
-          password: this.passwordR,
-        }),
-      };
-      fetch("https://dandd-api.herokuapp.com/api/user/register", requestOptions)
-        .then((response) => {
-          if (response.ok) {
-            alert("User Registered");
-            response.json().then((data) => {
-              sessionStorage.setItem("tempID", data.data);
-              sessionStorage.setItem("pass", this.passwordR);
-              sessionStorage.setItem("email", this.rEmail);
-              this.$router.push("Registrer");
-            });
-
-            //return response.json();
-          } else {
-            alert(
-              "Server returned " +
-                response.status +
-                " : " +
-                response.statusText,
-              (this.error = "Something went wrong")
-            );
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-
     //checks if username and password match a user from the database.
-    loginUser() {
-      const requestOptions = {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: this.email,
-          password: this.password,
-        }),
-      };
-      fetch(
-        "https://dandd-api.herokuapp.com/api/user/Login",
-        requestOptions
-      ).then((response) =>
-        response
-          .json()
-          .then((data) => ({
-            data: data,
-            status: response.status,
-          }))
-          .then((response) => {
-            if (response.data) {
-              if (!response.data.token) {
-                alert("Email and Password does not match");
-              } else {
-                //sets logged in user and token in session.
-                sessionStorage.setItem("token", response.data.token);
-                sessionStorage.setItem(
-                  "user",
-                  JSON.stringify(response.data.user)
-                );
-                sessionStorage.setItem("user_id", response.data.id);
-                const token = sessionStorage.getItem("token");
-                const userID = sessionStorage.getItem("user_id");
-                if (token != null && userID != null) {
-                  alert(this.email + " Has been logged in");
-                  //emit event tells parent(app) that token is set.
-                  this.$emit("eventname", token);
-                  this.$router.push({ name: "Home" });
-                } else {
-                  alert("Something went wrong");
-                }
-              }
-            } else {
-              alert(
-                "Server returned " +
-                  response.status +
-                  " : " +
-                  response.statusText
-              );
-            }
-          })
-      );
+    async loginUser() {
+      const response = await this.authCon.login(this.email, this.password);
+      //sets logged in user and token in session.
+      if (response.error == null) {
+        sessionStorage.setItem("token", response.token);
+        sessionStorage.setItem("user", JSON.stringify(response.user));
+        sessionStorage.setItem("user_id", response.id);
+        const token = sessionStorage.getItem("token");
+        const userID = sessionStorage.getItem("user_id");
+        if (token != null && userID != null) {
+          alert(this.email + " Has been logged in");
+          //emit event tells parent(app) that token is set.
+          this.$emit("eventname", token);
+          this.$router.push({ name: "Home" });
+        } else {
+          alert("Something went wrong");
+        }
+      } else {
+        alert(response.error);
+      }
     },
   },
   //checks if username and password match a user from the database.

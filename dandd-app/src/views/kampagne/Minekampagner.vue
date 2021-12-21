@@ -29,28 +29,23 @@
 
     <div class="content">
       <div id="e-kam" class="Campaign paper">
-        <table v-for="campaign in owned" v-bind:key="campaign._id">
-          <tr>
+        <table>
+          <tr v-for="campaign in owned" v-bind:key="campaign._id"> 
             <td>
-              <div class="kam-text">
-                <p>{{ campaign.titel }}</p>
-              </div>
+                {{ campaign.titel }}
             </td>
             <td>
-              <div class="kam-text">
                 <p>af {{ campaign.ownerName }}</p>
-              </div>
             </td>
             <td>
-              <div class="kam-text">
                 <input
                   type="checkbox"
                   name=""
                   id=""
                   checked="campaign.private"
                   v-model="campaign.private"
+                  v-on:click="updatePrivate(campaign)"
                 /><label>Privat</label>
-              </div>
             </td>
             <td>
               <button class="kam-btn" v-on:click="deleteCampaign(campaign._id)">
@@ -59,23 +54,34 @@
               <button class="kam-btn" v-on:click="roles(campaign)">
                 Roller
               </button>
-              <button class="kam-btn" v-on:click="calendar(campaign._id)">Kalender</button>
-              <button class="kam-btn" v-on:click="edit(campaign)">Rediger</button>
+              <button class="kam-btn" v-on:click="calendar(campaign._id)">
+                Kalender
+              </button>
+              <button class="kam-btn" v-on:click="edit(campaign)">
+                Rediger
+              </button>
             </td>
           </tr>
         </table>
       </div>
 
       <div id="t-kam" class="Campaign paper" style="display: none">
-        <table v-for="campaign in added" v-bind:key="campaign._id">
-          <tr>
-            <td><p>{{ campaign.titel }}</p></td>
-            <td><p>af {{campaign.ownerName}}</p></td>
+        <table>
+          <tr v-for="campaign in added" v-bind:key="campaign._id">
             <td>
-              <p v-if="campaign.private">Privat</p>
+              {{ campaign.titel }}
             </td>
             <td>
-              <button class="kam-btn">Forlad</button>
+              <p>af {{ campaign.ownerName }}</p>
+            </td>
+            <td>
+              <p v-if="campaign.private">Privat</p> 
+              <p v-if="!campaign.private">Not Private</p>
+            </td>
+            <td>
+              <button class="kam-btn" v-on:click="leaveCampaign(campaign)">
+                Forlad
+              </button>
               <button class="kam-btn">Kalender</button>
               <button class="kam-btn">Kontakt</button>
             </td>
@@ -90,43 +96,42 @@
 </template>
 
 <script>
+import CampaignCon from "../../controller/campaignController";
+
 export default {
   data() {
     return {
+      campaignCon: new CampaignCon(),
+
       campaigns: [],
       owned: [],
       userID: null,
       token: null,
       added: [],
+      listOfPlayers: [],
     };
   },
 
   methods: {
-    getCampaigns() {
-      this.userID;
-      fetch("https://dandd-api.herokuapp.com/api/campaigns/", {
-        method: "GET",
-      }).then((response) =>
-        response
-          .json()
-          .then((data) => ({
-            data: data,
-            status: response.status,
-          }))
-          .then((response) => {
-            if (response.data) {
-              this.campaigns = response.data;
-              this.filterCampaigns();
-            } else {
-              alert(
-                "Server returned " +
-                  response.status +
-                  " : " +
-                  response.statusText
-              );
-            }
-          })
+    async getCampaigns() {
+      this.campaigns = await this.campaignCon.readCampaigns();
+      this.filterCampaigns();
+    },
+
+    async updatePrivate(campaign) {
+      campaign.private = !campaign.private;
+
+      const response = await this.campaignCon.updateCampaign(
+        this.token,
+        campaign,
+        campaign._id
       );
+
+      if (response == "campaign was succesfully updated") {
+        //alert("Privat status opdateret");
+      } else {
+        alert(response.message);
+      }
     },
 
     filterCampaigns() {
@@ -134,53 +139,56 @@ export default {
         if (this.userID == campaign.ownerID) {
           this.owned.push(campaign);
         }
-        
-        campaign.listOfPlayers.forEach(player => {
+
+        campaign.listOfPlayers.forEach((player) => {
           if (this.userID == player.playerID) {
-            if(this.userID != campaign.ownerID)
-            {
-              this.added.push(campaign)
+            if (this.userID != campaign.ownerID) {
+              this.added.push(campaign);
             }
           }
         });
       });
-       console.log(this.added);
     },
 
-    
-
-    deleteCampaign(_id) {
-      if (confirm("Er du sikker på du vil slette denne kampagne")) {
-        const requestOptions = {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-            "auth-token": this.token,
-          },
-        };
-        fetch(
-          "https://dandd-api.herokuapp.com/api/campaigns/" + _id,
-          requestOptions
-        )
-          .then((response) => {
-            if (response.ok) {
-              this.owned = [];
-              this.added = [];
-              this.getCampaigns();
-              return response.json();
-            } else {
-              alert(
-                "Server returned " +
-                  response.status +
-                  " : " +
-                  response.statusText,
-                (this.error = "Something went wrong")
-              );
-            }
+    async leaveCampaign(campaign) {
+      if (confirm("Er du sikker på du vil forlade denne kampagne")) {
+        const playerList = campaign.listOfPlayers;
+        var index = playerList
+          .map(function (user) {
+            return user.playerID;
           })
-          .catch((err) => {
-            console.log(err);
-          });
+          .indexOf(this.userID);
+
+        playerList.splice(index, 1);
+
+        campaign.listOfPlayers = playerList;
+
+        const response = await this.campaignCon.updateCampaign(
+          this.token,
+          campaign,
+          campaign._id
+        );
+        if (response.message == "campaign was succesfully updated") {
+          this.owned = [];
+          this.added = [];
+          this.getCampaigns();
+        } else {
+          alert(response.message);
+        }
+      }
+    },
+
+    async deleteCampaign(_id) {
+      if (confirm("Er du sikker på du vil slette denne kampagne")) {
+        const response = await this.campaignCon.deleteCampaign(this.token, _id);
+        if (response.message == "Campaign was succesfully deleted") {
+          alert("Kampagnen er slettet");
+          this.owned = [];
+          this.added = [];
+          this.getCampaigns();
+        } else {
+          alert(response.message);
+        }
       }
     },
 
@@ -215,7 +223,7 @@ export default {
         name: "Redigerkampagne",
         params: { campaign: JSON.stringify(campaign) },
       });
-    }
+    },
   },
 
   created() {
@@ -272,14 +280,26 @@ export default {
 table {
   width: 100%;
   table-layout: auto;
-  border-top: solid 1px;
+  border-collapse: collapse;
+}
+
+td {
+  min-width: 190px;
+}
+
+th,td {
+  text-align: left;
 }
 
 table:first-child {
   margin-top: 20px;
 }
 
-table:last-child {
+tr {
+  border-top: solid 1px black !important;
+}
+
+tr:last-child {
   margin-bottom: 20px;
   border-bottom: solid 1px;
 }
