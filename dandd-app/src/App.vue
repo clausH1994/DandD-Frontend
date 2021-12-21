@@ -21,6 +21,10 @@ mounted() {
     this.$store.dispatch("setIsLogged");
   },
 
+/* updated() {
+    this.$store.dispatch("setIsLogged");
+}, */
+
 computed: {
     isLogged() {
       return this.$store.getters.getIsLogged;
