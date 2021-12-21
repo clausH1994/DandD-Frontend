@@ -74,7 +74,7 @@
             v-if="!online"
             class="input"
             type="text"
-            placeholder="City"
+            placeholder="By"
             v-model="city"
           />
           <input
