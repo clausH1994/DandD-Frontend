@@ -302,11 +302,9 @@ export default {
         if (clas == "GM") {
           this.gm = true;
         }
-
         if (clas == "barbarian") {
           this.barbarian = true;
         }
-
         if (clas == "bard") {
           this.bard = true;
         }
@@ -334,15 +332,12 @@ export default {
         if (clas == "rogue") {
           this.rogue = true;
         }
-
         if (clas == "warlock") {
           this.warlock = true;
         }
-
         if (clas == "wizard") {
           this.wizard = true;
         }
-
         if (clas == "artificer") {
           this.artificer = true;
         }

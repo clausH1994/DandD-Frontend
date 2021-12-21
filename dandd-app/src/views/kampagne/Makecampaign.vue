@@ -425,7 +425,6 @@ export default {
           this.token,
           campaign
         );
-        console.log(response);
 
         if (response[0]._id) {
           alert("Kampagnen er blevet skabt");
