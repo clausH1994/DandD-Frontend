@@ -60,6 +60,12 @@ export default {
     }
   },
 
+  watch: {
+    isLogged: function() {
+      this.$forceUpdate();
+    }
+  },
+
 /*   mounted() {
     this.isLogged = this.$store.getters.getIsLogged;
   }, */

@@ -17,7 +17,7 @@ export default {
     ...mapActions (["setIsLogged"])
   }, */
 
-mounted() {
+created() {
     this.$store.dispatch("setIsLogged");
   },
 
@@ -30,6 +30,13 @@ computed: {
       return this.$store.getters.getIsLogged;
     }
   },
+
+/* watch: {
+   isLogged: function() {
+     this.$forceUpdate();
+   }
+}, */
+
 }
 </script>
 
