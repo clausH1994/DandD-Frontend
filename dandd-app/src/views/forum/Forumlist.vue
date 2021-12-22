@@ -18,8 +18,9 @@
             <h2>{{ name }}</h2>
             <ul class="campcard">
               <li v-for="post in listOfPosts" v-bind:key="post.id">
+                <div class="flex">
+                  <div class="test">
                 <router-link class="link" :to="{ name: 'Postdetail', params: { id: this.id, name: post.title }}">
-              <div class="test">
                 <div class="test1">
               <h3 class="ccp">{{ post.title }}</h3>
                 </div>
@@ -28,9 +29,13 @@
                 </div>
                 <div>
                     <p class="forumsignature">Af {{ post.owner }} {{ post.date }}</p>
-                </div>
-              </div>
+                </div>              
               </router-link>
+              </div>
+              <div class="right">
+              <button class="kam-btn" v-if="post.owner == this.username" v-on:click="removePost">Delete</button>
+              </div>
+              </div>
               <hr>
               </li>
             </ul>
@@ -46,15 +51,20 @@
 </template>
 
 <script>
+import ForumCon from '../../controller/forumController'
 export default {
     
     data () {
     return {
-      forums: [],
+      forumCon: new ForumCon(),
+
+      forum: [],
       id: null,
       name: null,
       owner: null,
       date: null,
+      user: {},
+      username: "",
       listOfPosts: [],
       listOfReplies: [],
     };
@@ -74,7 +84,7 @@ methods: {
           }))
           .then((response) => {
             if (response.data) {
-              this.forums = response.data;
+              this.forum = response.data;
               this.name = response.data.name;
               this.owner = response.data.owner;
               this.date = response.data.date;
@@ -91,6 +101,18 @@ methods: {
             }
           })
       );
+    },
+
+  removePost(post) {
+    var index = this.listOfPosts
+      .map(function (post) {
+        return post.body;
+      })
+      .indexOf(post.body);
+
+    this.listOfPosts.splice(index, 1);
+    this.forum.listOfPosts = this.listOfPosts;
+    this.forumCon.updateForum(sessionStorage.getItem("token"), this.forum, this.forum._id);
     },
 },
 
@@ -110,6 +132,10 @@ created() {
    }
   if (this.id) {
       localStorage.setItem("forum_id", this.id);
+      this.user = JSON.parse(sessionStorage.getItem("user"));
+      if (this.user) {
+        this.username = this.user.username;
+      }
     this.getForum();
   } else {
     //this.$router.push("/");
@@ -141,7 +167,7 @@ created() {
 }
 
 .forumcard {
-    width: 85%;
+    width: 65%;
     background-color: #DEDBC4;
     border-radius: 15px/90px;
     padding-bottom: 5px;
@@ -163,6 +189,7 @@ ul.campcard {
 
 .test {
   display: block;
+  width: 90%;
 }
 
 .test1 {
@@ -210,6 +237,26 @@ button.opost {
 .link {
   text-decoration: none;
   color: black;
+}
+
+.kam-btn {
+  background-color: #b93b3b;
+  color: white;
+  font-family: "Charm", cursive;
+  border-radius: 10px;
+  border: none;
+  padding: 5px 15px;
+  margin: 0 10px 0 10px;
+  height: 25%;
+}
+
+.flex {
+  display: flex;
+  width: 100%;
+}
+
+.right {
+  margin: auto;
 }
 
 </style>

@@ -150,7 +150,7 @@ export default {
 }
 
 .forumcard {
-    width: 70%;
+    width: 65%;
     background-color: #DEDBC4;
     border-radius: 15px/90px;
     padding-bottom: 5px;

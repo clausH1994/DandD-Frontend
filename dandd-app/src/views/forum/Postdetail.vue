@@ -32,6 +32,7 @@
         <div class="forumcard">
           <ul class="campcard">
             <li v-for="reply in post.listOfReplies" v-bind:key="reply.id">
+              <div class="flex">
               <div class="test">
                 <div class="test1">
               <p class="ccp">{{ reply.body }}</p>
@@ -39,6 +40,10 @@
                     <p class="forumsignature">Af {{ reply.owner }} {{ reply.date }}</p>
                 </div>
                 </div>
+              </div>
+              <div class="right">
+              <button class="kam-btn" v-if="reply.owner == this.username" v-on:click="removeReply(reply)">Delete</button>
+              </div>
               </div>
               <hr>
             </li>
@@ -67,6 +72,8 @@ export default {
       forums: [],
       id: null,
       forum: null,
+      user: {},
+      username: "",
       post: {},
       postreply: null,
     };
@@ -124,7 +131,23 @@ methods: {
           post = this.post
         }
       });
-      this.forumCon.updateForum(sessionStorage.getItem("token"), this.forum, this.forum._id)
+      this.forumCon.updateForum(sessionStorage.getItem("token"), this.forum, this.forum._id);
+      this.postreply = "";
+    },
+
+    removeReply(reply) {
+    var index = this.post.listOfReplies
+      .map(function (reply) {
+        return reply.body;
+    })
+      .indexOf(reply.body);
+    this.post.listOfReplies.splice(index, 1);
+    this.forum.listOfPosts.forEach(post => {
+      if (post.title == this.$route.params.name) {
+        post = this.post
+      }
+      });
+    this.forumCon.updateForum(sessionStorage.getItem("token"), this.forum, this.forum._id);
     },
 },
 
@@ -144,6 +167,10 @@ created() {
    }
   if (this.id) {
       localStorage.setItem("post_id", this.id);
+      this.user = JSON.parse(sessionStorage.getItem("user"));
+      if (this.user) {
+        this.username = this.user.username;
+      }
     this.getPost();
   } else {
     //this.$router.push("/");
@@ -179,7 +206,7 @@ created() {
 }
 
 .forumcard {
-    width: 85%;
+    width: 65%;
     background-color: #DEDBC4;
     border-radius: 15px/90px;
     padding-bottom: 5px;
@@ -206,6 +233,7 @@ ul.campcard {
 
 .test {
   display: block;
+  width: 90%;
 }
 
 .test1 {
@@ -252,12 +280,31 @@ button.opost {
 }
 
 .forumarea {
-  width: 83%;
+  width: 63%;
   padding: 5px;
   margin: 5px;
   resize: none;
   border-radius: 15px/90px;
   border: 1px solid;
+}
+
+.kam-btn {
+  background-color: #b93b3b;
+  color: white;
+  font-family: "Charm", cursive;
+  border-radius: 10px;
+  border: none;
+  padding: 5px 15px;
+  margin: 0 10px 0 10px;
+}
+
+.flex {
+  display: flex;
+  width: 100%;
+}
+
+.right {
+  margin: auto;
 }
 
 </style>
