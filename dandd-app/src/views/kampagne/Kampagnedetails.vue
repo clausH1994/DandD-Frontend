@@ -98,11 +98,16 @@ import CampaignCon from "../../controller/campaignController";
 
 export default {
   async created() {
-    
     //
     this.id = this.$route.params.id;
-    //this.id = "61a77f6258295764f502c78c";
+    if(this.id == null)
+    {
+       this.id = localStorage.getItem("campaign_id");
+    }
+
     if (this.id) {
+      localStorage.setItem("campaign_id", this.id);
+
       const campaign = await this.campaignCon.readCampaignById(this.id);
       
       this.titel = campaign.titel;
