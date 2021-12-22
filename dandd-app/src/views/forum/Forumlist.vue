@@ -7,7 +7,7 @@
       <div class="filler"></div>
       <div class="knap">
           <router-link to="/forum">
-    <button class="okamp">Tilbage</button>
+    <button class="okamp" onclick="history.back()">Tilbage</button>
           </router-link>
       </div>
     </div>

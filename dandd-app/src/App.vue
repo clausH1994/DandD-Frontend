@@ -93,6 +93,9 @@ button.okamp {
   width: 150px;
   border-radius: 12px;
   border: none;
+}
+
+button {
   cursor: pointer;
 }
 
