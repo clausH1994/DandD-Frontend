@@ -18,7 +18,7 @@
             <h2>{{ name }}</h2>
             <ul class="campcard">
               <li v-for="post in listOfPosts" v-bind:key="post.id">
-                <router-link class="link" :to="{ name: 'Postdetail', params: { post: JSON.stringify(post), name: post.title }}">
+                <router-link class="link" :to="{ name: 'Postdetail', params: { id: this.id, name: post.title }}">
               <div class="test">
                 <div class="test1">
               <h3 class="ccp">{{ post.title }}</h3>
@@ -39,7 +39,7 @@
     </div>
 
     <router-link :to="{ name: 'Makeforumpost', params: { id: this.id }}">
-    <button class="opost">Opret Post</button>
+    <button class="opost" v-if="isLogged">Opret Post</button>
     </router-link>
 
   </div> 
@@ -94,11 +94,22 @@ methods: {
     },
 },
 
+computed: {
+  isLogged() {
+    return this.$store.getters.getIsLogged;
+  }
+},
+
 created() {
 
   this.id = this.$route.params.id;
     //this.id = "61a77f6258295764f502c78c";
+    if(this.id == null)
+  {
+    this.id = localStorage.getItem("forum_id");
+   }
   if (this.id) {
+      localStorage.setItem("forum_id", this.id);
     this.getForum();
   } else {
     //this.$router.push("/");

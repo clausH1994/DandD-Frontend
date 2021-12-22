@@ -46,25 +46,29 @@
         </div>
     </div>
 
-    <textarea class="forumarea" name="forumPost" id="" rows="4" placeholder="Skriv reply her!">
+    <div v-if="isLogged">
+    <textarea class="forumarea" name="forumPost" id="" rows="4" placeholder="Skriv reply her!" v-model="postreply">
     </textarea>
     <br>
-    <button class="opost">Post Reply</button>
+    <button class="opost" v-on:click="postReply()">Post Reply</button>
+    </div>
 
   </div> 
 </template>
 
 <script>
+import ForumCon from '../../controller/forumController'
 export default {
     
     data () {
     return {
+      forumCon: new ForumCon(),
+
       forums: [],
       id: null,
-      title: null,
-      owner: null,
-      date: null,
-      listOfReplies: [],
+      forum: null,
+      post: {},
+      postreply: null,
     };
     },
 
@@ -82,12 +86,14 @@ methods: {
           }))
           .then((response) => {
             if (response.data) {
-              this.title = response.data.title;
-              this.owner = response.data.owner;
-              this.date = response.data.date;
-              this.listOfReplies = response.data.listOfReplies;
+              this.forum = response.data;
+              this.listOfPosts = this.forum.listOfPosts;
               console.log(response.data);
-              console.log(response.data.listOfReplies);
+              this.listOfPosts.forEach(post => {
+                if (post.title == this.$route.params.name) {
+                  this.post = post
+                }
+              });
             } else {
               alert(
                 "Server returned " +
@@ -99,19 +105,51 @@ methods: {
           })
       );
     },
+
+    postReply() {
+      const user = JSON.parse(sessionStorage.getItem("user"));
+      const reply = {}
+      const time = Date.now();
+      const today = new Date(time);
+      reply.date = today.toLocaleString();
+      reply.owner = user.username;
+      reply.body = this.postreply;
+      if (this.post.listOfReplies == null) {
+        this.post.listOfReplies = []
+      }
+
+      this.post.listOfReplies.push(reply);
+      this.forum.listOfPosts.forEach(post => {
+        if (post.title == this.$route.params.name) {
+          post = this.post
+        }
+      });
+      this.forumCon.updateForum(sessionStorage.getItem("token"), this.forum, this.forum._id)
+    },
+},
+
+computed: {
+  isLogged() {
+    return this.$store.getters.getIsLogged;
+  }
 },
 
 created() {
 
   this.id = this.$route.params.id;
     //this.id = "61a77f6258295764f502c78c";
+    if(this.id == null)
+  {
+    this.id = localStorage.getItem("post_id");
+   }
   if (this.id) {
+      localStorage.setItem("post_id", this.id);
     this.getPost();
   } else {
     //this.$router.push("/");
   }
 
-  this.post = JSON.parse(this.$route.params.post);
+  //this.post = JSON.parse(this.$route.params.post);
 
 },
 
@@ -154,6 +192,13 @@ created() {
 }
 
 .campcard {
+  text-align: left;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+ul.campcard {
+  list-style: none;
   text-align: left;
   padding-left: 15px;
   padding-right: 15px;

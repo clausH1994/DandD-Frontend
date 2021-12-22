@@ -35,7 +35,7 @@ export default {
     logout(){
       sessionStorage.clear();
       alert("successfuld logout")
-      this.$router.push("/")
+      this.$router.back();
     },
 
     subIsActive(input) {
