@@ -1,86 +1,70 @@
 <template>
-<div class="forum">
+  <div class="forum">
     <div class="top">
       <div class="overskrift">
-    <h1> Forum </h1>
+        <h1>Forum</h1>
       </div>
       <div class="filler"></div>
-      <div class="knap">
-    
-      </div>
+      <div class="knap"></div>
     </div>
 
     <div class="contentforum">
-
-        <div class="forumcard" v-for="forum in forums" v-bind:key="forum.id">
-      <router-link :to="{ name: 'Forumlist', params: { id: forum._id, name: forum.name }}">
-            <h2>{{ forum.name }}</h2>
-            </router-link>
-            <ul class="campcard">
-              <li v-for="listOfPosts in forum.listOfPosts" v-bind:key="listOfPosts.id">
-              <div class="test">
-                <div class="test1">
-              <h3 class="ccp">{{ listOfPosts.title }}</h3>
-                </div>
-                <div class="test2">
-              <p class="ccp" v-if="listOfPosts.body.length < 100 ">{{ listOfPosts.body }}</p>
-              <p class="ccp" v-else>{{ listOfPosts.body.substring(0,100)+"..."  }}</p>
-                </div>
+      <div class="forumcard" v-for="forum in forums" v-bind:key="forum.id">
+        <router-link
+          :to="{
+            name: 'Forumlist',
+            params: { id: forum._id, name: forum.name },
+          }"
+        >
+          <h2>{{ forum.name }}</h2>
+        </router-link>
+        <ul class="campcard">
+          <li
+            v-for="listOfPosts in forum.listOfPosts"
+            v-bind:key="listOfPosts.id"
+          >
+            <div class="test">
+              <div class="test1">
+                <h3 class="ccp">{{ listOfPosts.title }}</h3>
               </div>
-              <hr>
-              </li>
-            </ul>
-        </div>
-
+              <div class="test2">
+                <p class="ccp" v-if="listOfPosts.body.length < 100">
+                  {{ listOfPosts.body }}
+                </p>
+                <p class="ccp" v-else>
+                  {{ listOfPosts.body.substring(0, 100) + "..." }}
+                </p>
+              </div>
+            </div>
+            <hr />
+          </li>
+        </ul>
+      </div>
     </div>
-
-  </div> 
+  </div>
 </template>
 
 <script>
+import ForumCon from "../../controller/forumController";
+
 export default {
-    
-    data () {
+  data() {
     return {
+      forumCon: new ForumCon(),
       forums: [],
     };
+  },
+
+  methods: {
+    async getForums() {
+      this.forums = await this.forumCon.readForums();
     },
+  },
 
-
-methods: {
-  getForums() {
-      this.userID;
-      fetch("https://dandd-api.herokuapp.com/api/forums/" , {
-        method: "GET",
-      }).then((response) =>
-        response
-          .json()
-          .then((data) => ({
-            data: data,
-            status: response.status,
-          }))
-          .then((response) => {
-            if (response.data) {
-              this.forums = response.data;
-              console.log(response.data);
-            } else {
-              alert(
-                "Server returned " +
-                  response.status +
-                  " : " +
-                  response.statusText
-              );
-            }
-          })
-      );
-    },
-},
-
-created() {
-  this.getForums();
-}
-
-}
+  created() {
+    this.getForums();
+  },
+};
 </script>
 
 <style scoped>
@@ -106,13 +90,13 @@ created() {
 }
 
 .forumcard {
-    width: 20%;
-    background-color: #DEDBC4;
-    border-radius: 15px/90px;
-    padding-bottom: 5px;
-    color: black;
-    margin-bottom: 20px;
-    margin: 25px;
+  width: 20%;
+  background-color: #dedbc4;
+  border-radius: 15px/90px;
+  padding-bottom: 5px;
+  color: black;
+  margin-bottom: 20px;
+  margin: 25px;
 }
 
 .forumcard h3 {
@@ -131,7 +115,6 @@ ul.campcard {
 }
 
 .test1 {
-  
 }
 
 .test2 {
@@ -151,5 +134,4 @@ hr {
   background-color: black;
   border: none;
 }
-
 </style>

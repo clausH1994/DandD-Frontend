@@ -7,16 +7,20 @@
       <div class="filler"></div>
       <div class="knap" v-if="isLogged">
         <router-link to="/makecampaign">
-        <button class="okamp">Opret Kampagne</button>
+          <button class="okamp">Opret Kampagne</button>
         </router-link>
       </div>
-
     </div>
 
     <div class="contenthome">
       <div class="filter" id="filterBox">
         <h3>Advanced Filter</h3>
-        <input class="inputfelt" type="text" v-model="filterCampaigns" placeholder="Søg" /><br />
+        <input
+          class="inputfelt"
+          type="text"
+          v-model="filterCampaigns"
+          placeholder="Søg"
+        /><br />
         <div class="checkboxes">
           <h4 class="check" @click="openEdition = !openEdition">Edition</h4>
           <div class="edition" v-if="openEdition">
@@ -65,11 +69,15 @@
         </div>
 
         <h4>Lokation</h4>
-        <input class="inputfelt" type="text" v-model="filterLocations" placeholder=" Søg Lokation" />
+        <input
+          class="inputfelt"
+          type="text"
+          v-model="filterLocations"
+          placeholder=" Søg Lokation"
+        />
       </div>
 
       <div class="maincontent">
-
         <div
           class="campaigncard"
           v-for="campaign in sortedCampaigns"
@@ -78,80 +86,89 @@
             visible(campaign.edition, campaign.setting, campaign.wishedClasses)
           "
         >
-        <router-link class="link" :to="{ name: 'Kampagnedetails', params: { id: campaign._id }}">
-          <h3>{{ campaign.titel }}</h3>
-          <ul class="campcard">
-            <li>
-              <div class="test">
-                <div class="test1">
-                  <p class="ccp"><b>Ejer:</b></p>
+          <router-link
+            class="link"
+            :to="{ name: 'Kampagnedetails', params: { id: campaign._id } }"
+          >
+            <h3>{{ campaign.titel }}</h3>
+            <ul class="campcard">
+              <li>
+                <div class="test">
+                  <div class="test1">
+                    <p class="ccp"><b>Ejer:</b></p>
+                  </div>
+                  <div class="test2">
+                    <p class="ccp" v-if="campaign.ownerName.length < 15">
+                      {{ campaign.ownerName }}
+                    </p>
+                    <p class="ccp" v-else>
+                      {{ campaign.ownerName.substring(0, 15) + "..." }}
+                    </p>
+                  </div>
                 </div>
-                <div class="test2">
-                  <p class="ccp" v-if="campaign.ownerName.length < 15">
-                    {{ campaign.ownerName }}
-                  </p>
-                  <p class="ccp" v-else>
-                    {{ campaign.ownerName.substring(0, 15) + "..." }}
-                  </p>
+              </li>
+              <li>
+                <div class="test">
+                  <div class="test1">
+                    <p class="ccp"><b>Regler:</b></p>
+                  </div>
+                  <div class="test2">
+                    <p class="ccp" v-if="campaign.rules.length < 40">
+                      {{ campaign.rules }}
+                    </p>
+                    <p class="ccp" v-else>
+                      {{ campaign.rules.substring(0, 40) + "..." }}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            </li>
-            <li>
-              <div class="test">
-                <div class="test1">
-                  <p class="ccp"><b>Regler:</b></p>
+              </li>
+              <li>
+                <div class="test">
+                  <div class="test1">
+                    <p class="ccp"><b>Setting:</b></p>
+                  </div>
+                  <div class="test2">
+                    <p class="ccp">{{ campaign.setting }}</p>
+                  </div>
                 </div>
-                <div class="test2">
-                  <p class="ccp" v-if="campaign.rules.length < 40">
-                    {{ campaign.rules }}
-                  </p>
-                  <p class="ccp" v-else>
-                    {{ campaign.rules.substring(0, 40) + "..." }}
-                  </p>
+              </li>
+              <li>
+                <div class="test">
+                  <div class="test1">
+                    <p class="ccp"><b>Edition:</b></p>
+                  </div>
+                  <div class="test2">
+                    <p class="ccp">{{ campaign.edition }}</p>
+                  </div>
                 </div>
-              </div>
-            </li>
-            <li>
-              <div class="test">
-                <div class="test1">
-                  <p class="ccp"><b>Setting:</b></p>
+              </li>
+              <li>
+                <div class="camproller">
+                  <p class="ccp"><b>Ønskede Classes:</b></p>
+                  <div
+                    class="wishedclassicons"
+                    v-for="wish in campaign.wishedClasses"
+                    v-bind:key="wish.id"
+                  >
+                    <img :src="getImgUrl(wish)" v-bind:alt="wish" />
+                  </div>
                 </div>
-                <div class="test2">
-                  <p class="ccp">{{ campaign.setting }}</p>
+              </li>
+              <li>
+                <div class="test">
+                  <div class="test1">
+                    <p class="ccp"><b>Lokation:</b></p>
+                  </div>
+                  <div class="test3">
+                    <p class="ccp" v-if="campaign.zipcode != 0">
+                      {{ campaign.zipcode }}
+                    </p>
+                    <p class="ccp">{{ campaign.city }}</p>
+                  </div>
                 </div>
-              </div>
-            </li>
-            <li>
-              <div class="test">
-                <div class="test1">
-                  <p class="ccp"><b>Edition:</b></p>
-                </div>
-                <div class="test2">
-                  <p class="ccp">{{ campaign.edition }}</p>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="camproller">
-                <p class="ccp"><b>Ønskede Classes:</b></p>
-                <div class="wishedclassicons" v-for="wish in campaign.wishedClasses" v-bind:key="wish.id"><img :src="getImgUrl(wish)" v-bind:alt="wish" /></div>
-              </div>
-            </li>
-            <li>
-              <div class="test">
-                <div class="test1">
-                  <p class="ccp"><b>Lokation:</b></p>
-                </div>
-                <div class="test3">
-                  <p class="ccp" v-if="campaign.zipcode != 0">
-                    {{ campaign.zipcode }}
-                  </p>
-                  <p class="ccp">{{ campaign.city }}</p>
-                </div>
-              </div>
-            </li>
-          </ul>
-        </router-link>
+              </li>
+            </ul>
+          </router-link>
         </div>
       </div>
     </div>
@@ -160,12 +177,14 @@
 
 <script>
 import _ from "lodash";
+import CampaignCon from "../controller/campaignController";
 
 export default {
   name: "Home",
   components: {},
   data() {
     return {
+      campaignCon: new CampaignCon(),
       openEdition: false,
       openSetting: false,
       openClasses: false,
@@ -176,8 +195,8 @@ export default {
         setting: [],
         wishedClasses: [],
       },
-      filterCampaigns: '',
-      filterLocations: '',
+      filterCampaigns: "",
+      filterLocations: "",
       // isLogged: false,
     };
   },
@@ -195,37 +214,18 @@ export default {
 
     isLogged() {
       return this.$store.getters.getIsLogged;
-    }
-
+    },
   },
 
   methods: {
-    getCampaigns() {
-      this.userID;
-      fetch("https://dandd-api.herokuapp.com/api/campaigns/", {
-        method: "GET",
-      }).then((response) =>
-        response
-          .json()
-          .then((data) => ({
-            data: data,
-            status: response.status,
-          }))
-          .then((response) => {
-            if (response.data) {
-              this.campaigns = response.data;
-              this.sortedCampaigns = response.data;
-              console.log(response.data);
-            } else {
-              alert(
-                "Server returned " +
-                  response.status +
-                  " : " +
-                  response.statusText
-              );
-            }
-          })
-      );
+    async getCampaigns() {
+      this.campaigns = await this.campaignCon.readCampaigns();
+      this.campaigns.forEach(campaign => {
+        if(campaign.private == false)
+        {
+            this.sortedCampaigns.push(campaign)
+        }
+      });
     },
 
     available: function (category) {
@@ -272,21 +272,28 @@ export default {
       }
       return require("../assets/classIcon/" + wish + ".svg");
     },
-
   },
 
   watch: {
-    filterCampaigns: function() {
-         this.sortedCampaigns = this.campaigns.filter(campaigns => {
-         return campaigns.titel.toLowerCase().includes(this.filterCampaigns.toLowerCase()) ||
-         campaigns.ownerName.toLowerCase().includes(this.filterCampaigns.toLowerCase())
-         });
+    filterCampaigns: function () {
+      this.sortedCampaigns = this.campaigns.filter((campaigns) => {
+        return (
+          campaigns.titel
+            .toLowerCase()
+            .includes(this.filterCampaigns.toLowerCase()) ||
+          campaigns.ownerName
+            .toLowerCase()
+            .includes(this.filterCampaigns.toLowerCase())
+        );
+      });
     },
 
-    filterLocations: function() {
-         this.sortedCampaigns = this.campaigns.filter(campaigns => {
-         return campaigns.city.toLowerCase().includes(this.filterLocations.toLowerCase())
-         });
+    filterLocations: function () {
+      this.sortedCampaigns = this.campaigns.filter((campaigns) => {
+        return campaigns.city
+          .toLowerCase()
+          .includes(this.filterLocations.toLowerCase());
+      });
     },
   },
 
@@ -298,21 +305,18 @@ export default {
     },
   },
 
-   created() {
+  created() {
     this.getCampaigns();
 
-/*     this.token = sessionStorage.getItem("token");
+    /*     this.token = sessionStorage.getItem("token");
     this.user = JSON.parse(sessionStorage.getItem("user"));
     if (this.token == null || this.user == null) {
       this.isLogged = false;
     } else {
       this.isLogged = true;
     } */
-
   },
-
-}
-
+};
 </script>
 
 <style scoped>
@@ -425,5 +429,4 @@ img {
   text-decoration: none;
   color: black;
 }
-
 </style>

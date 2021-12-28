@@ -1,71 +1,86 @@
 <template>
-<div class="forum">
+  <div class="forum">
     <div class="top">
       <div class="overskrift">
-    <h1> Forum </h1>
+        <h1>Forum</h1>
       </div>
       <div class="filler"></div>
       <div class="knap">
-          <router-link to="/forum">
-    <button class="okamp" onclick="history.back()">Tilbage</button>
-          </router-link>
+        <router-link to="/forum">
+          <button class="okamp" onclick="history.back()">Tilbage</button>
+        </router-link>
       </div>
     </div>
 
     <div class="contentforum">
       <!-- The actual forum post -->
-    <div class="forumcard">
-      <h2>{{ post.title }}</h2>
+      <div class="forumcard">
+        <h2>{{ post.title }}</h2>
         <div class="campcard">
           <div class="test">
             <div class="test2">
               <p class="ccp">{{ post.body }}</p>
-            <div>
-              <p class="forumsignature">Af {{ post.owner }} {{ post.date }}</p>
-            </div>
+              <div>
+                <p class="forumsignature">
+                  Af {{ post.owner }} {{ post.date }}
+                </p>
+              </div>
             </div>
           </div>
-        <hr>
+          <hr />
         </div>
-    </div>
-    <!-- The forum replies -->
-        <div class="forumcard">
-          <ul class="campcard">
-            <li v-for="reply in post.listOfReplies" v-bind:key="reply.id">
-              <div class="flex">
+      </div>
+      <!-- The forum replies -->
+      <div class="forumcard">
+        <ul class="campcard">
+          <li v-for="reply in post.listOfReplies" v-bind:key="reply.id">
+            <div class="flex">
               <div class="test">
                 <div class="test1">
-              <p class="ccp">{{ reply.body }}</p>
-                <div>
-                    <p class="forumsignature">Af {{ reply.owner }} {{ reply.date }}</p>
-                </div>
+                  <p class="ccp">{{ reply.body }}</p>
+                  <div>
+                    <p class="forumsignature">
+                      Af {{ reply.owner }} {{ reply.date }}
+                    </p>
+                  </div>
                 </div>
               </div>
               <div class="right">
-              <button class="kam-btn" v-if="reply.owner == this.username" v-on:click="removeReply(reply)">Delete</button>
+                <button
+                  class="kam-btn"
+                  v-if="reply.owner == this.username"
+                  v-on:click="removeReply(reply)"
+                >
+                  Delete
+                </button>
               </div>
-              </div>
-              <hr>
-            </li>
-          </ul>
-        </div>
+            </div>
+            <hr />
+          </li>
+        </ul>
+      </div>
     </div>
 
     <div v-if="isLogged">
-    <textarea class="forumarea" name="forumPost" id="" rows="4" placeholder="Skriv reply her!" v-model="postreply">
-    </textarea>
-    <br>
-    <button class="opost" v-on:click="postReply()">Post Reply</button>
+      <textarea
+        class="forumarea"
+        name="forumPost"
+        id=""
+        rows="4"
+        placeholder="Skriv reply her!"
+        v-model="postreply"
+      >
+      </textarea>
+      <br />
+      <button class="opost" v-on:click="postReply()">Post Reply</button>
     </div>
-
-  </div> 
+  </div>
 </template>
 
 <script>
-import ForumCon from '../../controller/forumController'
+import ForumCon from "../../controller/forumController";
 export default {
-    
-    data () {
+  data() {
     return {
       forumCon: new ForumCon(),
 
@@ -77,110 +92,91 @@ export default {
       post: {},
       postreply: null,
     };
-    },
+  },
 
-
-methods: {
-  getPost() {
-      fetch("https://dandd-api.herokuapp.com/api/forums/" + this.id, {
-        method: "GET",
-      }).then((response) =>
-        response
-          .json()
-          .then((data) => ({
-            data: data,
-            status: response.status,
-          }))
-          .then((response) => {
-            if (response.data) {
-              this.forum = response.data;
-              this.listOfPosts = this.forum.listOfPosts;
-              console.log(response.data);
-              this.listOfPosts.forEach(post => {
-                if (post.title == this.$route.params.name) {
-                  this.post = post
-                }
-              });
-            } else {
-              alert(
-                "Server returned " +
-                  response.status +
-                  " : " +
-                  response.statusText
-              );
-            }
-          })
-      );
+  methods: {
+    async getPost() {
+      this.forum = await this.forumCon.readForumById(this.id);
+      this.listOfPosts = this.forum.listOfPosts;
+      this.listOfPosts.forEach((post) => {
+        if (post.title == this.$route.params.name) {
+          this.post = post;
+        }
+      });
     },
 
     postReply() {
       const user = JSON.parse(sessionStorage.getItem("user"));
-      const reply = {}
+      const reply = {};
       const time = Date.now();
       const today = new Date(time);
       reply.date = today.toLocaleString();
       reply.owner = user.username;
       reply.body = this.postreply;
       if (this.post.listOfReplies == null) {
-        this.post.listOfReplies = []
+        this.post.listOfReplies = [];
       }
 
       this.post.listOfReplies.push(reply);
-      this.forum.listOfPosts.forEach(post => {
+      this.forum.listOfPosts.forEach((post) => {
         if (post.title == this.$route.params.name) {
-          post = this.post
+          post = this.post;
         }
       });
-      this.forumCon.updateForum(sessionStorage.getItem("token"), this.forum, this.forum._id);
+      this.forumCon.updateForum(
+        sessionStorage.getItem("token"),
+        this.forum,
+        this.forum._id
+      );
       this.postreply = "";
     },
 
     removeReply(reply) {
-    var index = this.post.listOfReplies
-      .map(function (reply) {
-        return reply.body;
-    })
-      .indexOf(reply.body);
-    this.post.listOfReplies.splice(index, 1);
-    this.forum.listOfPosts.forEach(post => {
-      if (post.title == this.$route.params.name) {
-        post = this.post
-      }
+      var index = this.post.listOfReplies
+        .map(function (reply) {
+          return reply.body;
+        })
+        .indexOf(reply.body);
+      this.post.listOfReplies.splice(index, 1);
+      this.forum.listOfPosts.forEach((post) => {
+        if (post.title == this.$route.params.name) {
+          post = this.post;
+        }
       });
-    this.forumCon.updateForum(sessionStorage.getItem("token"), this.forum, this.forum._id);
+      this.forumCon.updateForum(
+        sessionStorage.getItem("token"),
+        this.forum,
+        this.forum._id
+      );
     },
-},
+  },
 
-computed: {
-  isLogged() {
-    return this.$store.getters.getIsLogged;
-  }
-},
+  computed: {
+    isLogged() {
+      return this.$store.getters.getIsLogged;
+    },
+  },
 
-created() {
-
-  this.id = this.$route.params.id;
+  created() {
+    this.id = this.$route.params.id;
     //this.id = "61a77f6258295764f502c78c";
-    if(this.id == null)
-  {
-    this.id = localStorage.getItem("post_id");
-   }
-  if (this.id) {
+    if (this.id == null) {
+      this.id = localStorage.getItem("post_id");
+    }
+    if (this.id) {
       localStorage.setItem("post_id", this.id);
       this.user = JSON.parse(sessionStorage.getItem("user"));
       if (this.user) {
         this.username = this.user.username;
       }
-    this.getPost();
-  } else {
-    //this.$router.push("/");
-  }
+      this.getPost();
+    } else {
+      //this.$router.push("/");
+    }
 
-  //this.post = JSON.parse(this.$route.params.post);
-
-},
-
-}
+    //this.post = JSON.parse(this.$route.params.post);
+  },
+};
 </script>
 
 <style scoped>
@@ -206,12 +202,12 @@ created() {
 }
 
 .forumcard {
-    width: 65%;
-    background-color: #DEDBC4;
-    border-radius: 15px/90px;
-    padding-bottom: 5px;
-    color: black;
-    margin-bottom: 10px;
+  width: 65%;
+  background-color: #dedbc4;
+  border-radius: 15px/90px;
+  padding-bottom: 5px;
+  color: black;
+  margin-bottom: 10px;
 }
 
 .forumcard h3 {
@@ -253,8 +249,8 @@ ul.campcard {
 }
 
 .forumsignature {
-    font-size: 12px;
-    padding-left: 5px;
+  font-size: 12px;
+  padding-left: 5px;
 }
 
 hr {
@@ -264,13 +260,13 @@ hr {
 }
 
 .okamp {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 button.opost {
-  background-color: #B93B3B;
+  background-color: #b93b3b;
   color: white;
-  font-family: 'Charm', cursive;
+  font-family: "Charm", cursive;
   font-size: 20px;
   height: 55px;
   width: 150px;
@@ -306,5 +302,4 @@ button.opost {
 .right {
   margin: auto;
 }
-
 </style>
