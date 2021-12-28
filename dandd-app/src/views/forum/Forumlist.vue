@@ -84,8 +84,7 @@ export default {
     async getForum() {
       this.forum = await this.forumCon.readForumById(this.id);
 
-      
-      this.name = this.forum .name;
+      this.name = this.forum.name;
       this.owner = this.forum.owner;
       this.date = this.forum.date;
       this.listOfPosts = this.forum.listOfPosts;
@@ -141,6 +140,7 @@ export default {
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
+  min-height: 90vh;
 }
 
 .contentforum {
@@ -245,5 +245,11 @@ button.opost {
 
 .right {
   margin: auto;
+}
+
+@media screen and (max-width: 600px) {
+  .forumcard {
+    width: 85%;
+  }
 }
 </style>

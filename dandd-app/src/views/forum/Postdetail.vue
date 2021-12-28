@@ -31,7 +31,7 @@
         </div>
       </div>
       <!-- The forum replies -->
-      <div class="forumcard">
+      <div class="forumcard" v-if="post.listOfReplies">
         <ul class="campcard">
           <li v-for="reply in post.listOfReplies" v-bind:key="reply.id">
             <div class="flex">
@@ -186,6 +186,7 @@ export default {
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
+  min-height: 90vh;
 }
 
 .contentforum {
@@ -246,6 +247,7 @@ ul.campcard {
 
 .ccp {
   margin: 2px;
+  word-break: break-all;
 }
 
 .forumsignature {
@@ -301,5 +303,16 @@ button.opost {
 
 .right {
   margin: auto;
+}
+
+@media screen and (max-width: 800px) {
+ .forumcard {
+  width: 90%;
+  background-color: #dedbc4;
+  border-radius: 15px/90px;
+  padding-bottom: 5px;
+  color: black;
+  margin-bottom: 10px;
+}
 }
 </style>

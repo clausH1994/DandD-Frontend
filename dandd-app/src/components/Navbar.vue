@@ -182,8 +182,7 @@ export default {
   .burgerMenu {
     display: none;
   }
-  .dropdown
-  {
+  .dropdown {
     display: none;
   }
 }
@@ -198,7 +197,7 @@ export default {
   }
 
   .logout {
-      padding-left: 30px;
+    padding-left: 30px;
   }
 
   .burgerMenu {
@@ -242,7 +241,7 @@ export default {
   .dropdown {
     margin-top: 50px;
     height: 0px;
-   
+
     background-color: #a05353;
     transition: height 0.2s ease;
     display: inline-block;
@@ -277,4 +276,17 @@ export default {
   }
 }
 
+@media screen and (max-width: 370px) {
+  .navLogo {
+    margin-left: 5px;
+  }
+
+  #nav {
+    padding-left: 2px;
+  }
+
+  #nav a {
+    padding: 0;
+  }
+}
 </style>

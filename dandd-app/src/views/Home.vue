@@ -6,7 +6,7 @@
       </div>
       <div class="filler"></div>
       <div class="knap">
-        <router-link  v-if="isLogged" to="/makecampaign">
+        <router-link v-if="isLogged" to="/makecampaign">
           <button class="okamp">Opret Kampagne</button>
         </router-link>
       </div>
@@ -91,7 +91,7 @@
             :to="{ name: 'Kampagnedetails', params: { id: campaign._id } }"
           >
             <h3 v-if="campaign.titel.length < 25">{{ campaign.titel }}</h3>
-            <h3 v-else>{{ campaign.titel.substring(0, 25) +"..." }}</h3>
+            <h3 v-else>{{ campaign.titel.substring(0, 25) + "..." }}</h3>
             <ul class="campcard">
               <li>
                 <div class="test">
@@ -166,6 +166,12 @@
                     </p>
                     <p class="ccpp">{{ campaign.city }}</p>
                   </div>
+                  <div class="test4">
+                    <p class="ccp" v-if="campaign.zipcode != 0">
+                      {{ campaign.zipcode }}
+                    </p>
+                    <p class="ccpp">{{ campaign.city }}</p>
+                  </div>
                 </div>
               </li>
             </ul>
@@ -222,11 +228,10 @@ export default {
     async getCampaigns() {
       this.campaigns = await this.campaignCon.readCampaigns();
       const privateCampaigns = [];
-      
-      this.campaigns.forEach(campaign => {
-        if(campaign.private == false)
-        {
-            privateCampaigns.push(campaign)
+
+      this.campaigns.forEach((campaign) => {
+        if (campaign.private == false) {
+          privateCampaigns.push(campaign);
         }
       });
 
@@ -425,7 +430,6 @@ ul.campcard {
   word-break: break-all;
 }
 
-
 .wishedclassicons {
   display: inline-flex;
 }
@@ -443,5 +447,87 @@ img {
 .link {
   text-decoration: none;
   color: black;
+}
+
+@media screen and (min-width: 1600px) {
+  .test4 {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 1599px) {
+  .test3 {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 1440px) {
+  .home {
+    padding-bottom: 100px;
+  }
+  .maincontent {
+    width: 75%;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .home {
+    padding-bottom: 100px;
+  }
+  .campaigncard {
+    width: 25%;
+  }
+
+  .filter {
+    width: 15%;
+    text-align: left;
+    margin-left: 50px;
+    margin-right: 50px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .home {
+    padding-bottom: 100px;
+  }
+  .campaigncard {
+    width: 70%;
+  }
+
+  .filter {
+    width: 15%;
+    text-align: left;
+    margin-left: 50px;
+    margin-right: 100px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .home {
+    padding-bottom: 100px;
+  }
+  .campaigncard {
+    width: 50%;
+    margin: 20px auto;
+  }
+
+  .filter {
+    width: 50%;
+    text-align: left;
+
+    margin: 20px auto;
+  }
+
+  .contenthome {
+    display: block;
+    margin: 0 auto;
+  }
+
+  .maincontent {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+  }
 }
 </style>

@@ -134,4 +134,16 @@ hr {
   background-color: black;
   border: none;
 }
+
+@media screen and (max-width: 1200px) {
+  .forumcard {
+  width:40%;
+}
+}
+
+@media screen and (max-width: 600px) {
+  .forumcard {
+  width:80%;
+}
+}
 </style>

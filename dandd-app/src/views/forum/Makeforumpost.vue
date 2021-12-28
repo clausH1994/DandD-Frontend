@@ -120,6 +120,7 @@ export default {
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
+  min-height: 90vh;
 }
 
 .contentforum {
@@ -222,5 +223,18 @@ button.opost {
   resize: none;
   border-radius: 8px;
   border: 1px solid;
+}
+
+@media screen and (max-width: 800px) {
+  .forumcard {
+    width: 90%;
+  }
+
+  .campcard {
+  list-style-type: none;
+  text-align: left;
+  padding-left: 25px;
+  padding-right: 25px;
+}
 }
 </style>
