@@ -90,7 +90,8 @@
             class="link"
             :to="{ name: 'Kampagnedetails', params: { id: campaign._id } }"
           >
-            <h3>{{ campaign.titel }}</h3>
+            <h3 v-if="campaign.titel.length < 25">{{ campaign.titel }}</h3>
+            <h3 v-else>{{ campaign.titel.substring(0, 25) +"..." }}</h3>
             <ul class="campcard">
               <li>
                 <div class="test">
