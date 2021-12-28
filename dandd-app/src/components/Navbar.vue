@@ -7,28 +7,78 @@
     </div>
     <div class="navleft">
     <router-link to="/">Kampagner</router-link>
-    <router-link to="/forumforside">Forum</router-link>
+    <router-link to="/forum" :class="{'link-active': subIsActive('/forum')}">Forum</router-link>
     </div>
     <div class="navright">
     <router-link to="/minekampagner">Mine Kampagner</router-link>
-    <router-link to="/chat">Chat</router-link>
     <router-link to="/profil">Profil</router-link>
-    <button class="logout" v-on:click="logout()">Log ud</button>
-    <router-link to="/login">Login</router-link>
+    <router-link to="/login" v-if="!isLogged">Login</router-link>
+    <button class="logout" v-else v-on:click="logout()">Log ud</button>
     </div>
   </div>
   <router-view/>
 </template>
 
 <script>
+//import { mapActions } from 'vuex'
+
 export default {
     name: 'Navbar',
+
+  data() {
+    return {
+    //isLogged: false,
+    }
+  },
+
   methods: {
     logout(){
       sessionStorage.clear();
       alert("successfuld logout")
+      this.$router.back();
+    },
+
+    subIsActive(input) {
+      const paths = Array.isArray(input) ? input : [input]
+      return paths.some(path => {
+      return this.$route.path.indexOf(path) === 0 // current path starts with this path string
+      })
     }
-  },  
+
+/*     ...mapActions(['setIsLogged']),
+    checkIsLogged() {
+    this.setIsLogged();
+    } */
+/*     checkIsLogged() {
+      this.$store.dispatch("getIsLogged")
+    } */
+  },
+
+  computed: {
+    isLogged() {
+      return this.$store.getters.getIsLogged;
+    }
+  },
+
+  watch: {
+    isLogged: function() {
+      this.$forceUpdate();
+    }
+  },
+
+/*   mounted() {
+    this.isLogged = this.$store.getters.getIsLogged;
+  }, */
+
+/*   created() {
+    this.token = sessionStorage.getItem("token");
+    this.user = JSON.parse(sessionStorage.getItem("user"));
+    if (this.token == null || this.user == null) {
+      this.isLogged = false;
+    } else {
+      this.isLogged = true;
+    }
+  } */
 }
 </script>
 
@@ -71,7 +121,7 @@ export default {
 .navright {
   display: inline-block;
   position: absolute;
-  right: 5%;
+  right: 10%;
   margin-top: 15px;
 }
 
@@ -83,6 +133,10 @@ export default {
   cursor: pointer;
   font-family: 'charm', cursive;
   font-weight: bold;
+}
+
+.link-active {
+  color: black !important;
 }
 
 </style>

@@ -6,7 +6,7 @@
       </div>
       <div class="filler"></div>
       <div class="knap">
-        <button class="okamp" onclick="history.back()" style="cursor: pointer">
+        <button class="okamp" onclick="history.back()">
           Tilbage
         </button>
       </div>

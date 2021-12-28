@@ -100,7 +100,7 @@ export default {
           alert(this.email + " Has been logged in");
           //emit event tells parent(app) that token is set.
           this.$emit("eventname", token);
-          this.$router.push({ name: "Home" });
+          this.$router.back();
         } else {
           alert("Something went wrong");
         }

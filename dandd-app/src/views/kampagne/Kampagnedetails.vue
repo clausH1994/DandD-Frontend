@@ -77,7 +77,7 @@
 
       <div class="cardHolder">
         <div class="card">
-          <h3>Ekstra Noter::</h3>
+          <h3>Ekstra Noter:</h3>
           <p>
             {{ notes }}
           </p>
