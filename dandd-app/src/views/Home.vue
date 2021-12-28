@@ -98,10 +98,10 @@
                     <p class="ccp"><b>Ejer:</b></p>
                   </div>
                   <div class="test2">
-                    <p class="ccp" v-if="campaign.ownerName.length < 15">
+                    <p class="ccpp" v-if="campaign.ownerName.length < 15">
                       {{ campaign.ownerName }}
                     </p>
-                    <p class="ccp" v-else>
+                    <p class="ccpp" v-else>
                       {{ campaign.ownerName.substring(0, 15) + "..." }}
                     </p>
                   </div>
@@ -113,10 +113,10 @@
                     <p class="ccp"><b>Regler:</b></p>
                   </div>
                   <div class="test2">
-                    <p class="ccp" v-if="campaign.rules.length < 40">
+                    <p class="ccpp" v-if="campaign.rules.length < 40">
                       {{ campaign.rules }}
                     </p>
-                    <p class="ccp" v-else>
+                    <p class="ccpp" v-else>
                       {{ campaign.rules.substring(0, 40) + "..." }}
                     </p>
                   </div>
@@ -128,7 +128,7 @@
                     <p class="ccp"><b>Setting:</b></p>
                   </div>
                   <div class="test2">
-                    <p class="ccp">{{ campaign.setting }}</p>
+                    <p class="ccpp">{{ campaign.setting }}</p>
                   </div>
                 </div>
               </li>
@@ -138,7 +138,7 @@
                     <p class="ccp"><b>Edition:</b></p>
                   </div>
                   <div class="test2">
-                    <p class="ccp">{{ campaign.edition }}</p>
+                    <p class="ccpp">{{ campaign.edition }}</p>
                   </div>
                 </div>
               </li>
@@ -163,7 +163,7 @@
                     <p class="ccp" v-if="campaign.zipcode != 0">
                       {{ campaign.zipcode }}
                     </p>
-                    <p class="ccp">{{ campaign.city }}</p>
+                    <p class="ccpp">{{ campaign.city }}</p>
                   </div>
                 </div>
               </li>
@@ -382,6 +382,9 @@ h4 {
 
 .campaigncard h3 {
   padding-top: 5px;
+  word-break: break-all;
+  margin-right: 20px;
+  margin-left: 20px;
 }
 
 ul.campcard {
@@ -415,6 +418,12 @@ ul.campcard {
 .ccp {
   margin: 2px;
 }
+
+.ccpp {
+  margin: 2px;
+  word-break: break-all;
+}
+
 
 .wishedclassicons {
   display: inline-flex;
