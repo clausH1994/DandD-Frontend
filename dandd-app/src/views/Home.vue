@@ -5,12 +5,10 @@
         <h1>Kampagner</h1>
       </div>
       <div class="filler"></div>
-      <div class="knap" v-if="isLogged">
-        <router-link to="/makecampaign">
+      <div class="knap">
+        <router-link  v-if="isLogged" to="/makecampaign">
           <button class="okamp">Opret Kampagne</button>
         </router-link>
-      </div>
-      <div class="knap" v-if="!isLogged"> 
       </div>
     </div>
 
@@ -222,12 +220,17 @@ export default {
   methods: {
     async getCampaigns() {
       this.campaigns = await this.campaignCon.readCampaigns();
+      const privateCampaigns = [];
+      
       this.campaigns.forEach(campaign => {
         if(campaign.private == false)
         {
-            this.sortedCampaigns.push(campaign)
+            privateCampaigns.push(campaign)
         }
       });
+
+      this.campaigns = privateCampaigns;
+      this.sortedCampaigns = this.campaigns;
     },
 
     available: function (category) {
