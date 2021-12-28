@@ -31,7 +31,7 @@
       <div id="e-kam" class="Campaign paper">
         <table>
           <tr v-for="campaign in owned" v-bind:key="campaign._id"> 
-            <td>
+            <td v-on:click="viewCam(campaign._id)">
                 {{ campaign.titel }}
             </td>
             <td>
@@ -68,7 +68,7 @@
       <div id="t-kam" class="Campaign paper" style="display: none">
         <table>
           <tr v-for="campaign in added" v-bind:key="campaign._id">
-            <td>
+            <td v-on:click="viewCam(campaign._id)">
               {{ campaign.titel }}
             </td>
             <td>
@@ -215,6 +215,12 @@ export default {
     calendar(_id) {
       this.$router.push({
         name: "Kalender",
+        params: { id: _id },
+      });
+    },
+        viewCam(_id) {
+      this.$router.push({
+        name: "Kampagnedetails",
         params: { id: _id },
       });
     },
