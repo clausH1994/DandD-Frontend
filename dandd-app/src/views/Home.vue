@@ -10,6 +10,8 @@
           <button class="okamp">Opret Kampagne</button>
         </router-link>
       </div>
+      <div class="knap" v-if="!isLogged"> 
+      </div>
     </div>
 
     <div class="contenthome">
