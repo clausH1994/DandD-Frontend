@@ -106,6 +106,10 @@ export default {
     },
   },
 
+  created() {
+    this.$store.dispatch("setIsLogged");
+  },
+
   /*   mounted() {
     this.isLogged = this.$store.getters.getIsLogged;
   }, */
