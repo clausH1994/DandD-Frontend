@@ -3,7 +3,7 @@
     <form v-on:submit.prevent="updateUser()">
       <div class="registrer">
         <div class="top">
-          <div class="overskrift"></div>
+          <div class="overskrift"><h1>Redigere Profil</h1></div>
           <div class="filler"></div>
           <div class="knap"></div>
         </div>
@@ -70,141 +70,141 @@
 
               <p>Foretrukne Class</p>
               <div class="checkboxes-area">
-                <div class="checkboxes-placement">
-                  <div>
-                    <input
-                      class="checkboxes"
-                      type="checkbox"
-                      v-model="barbarian"
-                      name=""
-                      id=""
-                    /><label class="labels">Barbarian</label>
-                  </div>
-
-                  <div>
-                    <input
-                      class="checkboxes"
-                      type="checkbox"
-                      v-model="druid"
-                      name=""
-                      id=""
-                    /><label class="labels">Druid</label>
-                  </div>
-
-                  <div>
-                    <input
-                      class="checkboxes"
-                      type="checkbox"
-                      v-model="paladin"
-                      name=""
-                      id=""
-                    /><label class="labels">Paladin</label>
-                  </div>
-
-                  <div>
-                    <input
-                      class="checkboxes"
-                      type="checkbox"
-                      v-model="sorcerer"
-                      name=""
-                      id=""
-                    /><label class="labels">Sorcerer</label>
-                  </div>
-
-                  <div>
-                    <input
-                      class="checkboxes"
-                      type="checkbox"
-                      v-model="artificer"
-                      name=""
-                      id=""
-                    /><label class="labels">Artificer</label>
-                  </div>
+                 <div class="checkboxes-placement">
+                <div>
+                  <input
+                    class="checkboxes"
+                    type="checkbox"
+                    v-model="barbarian"
+                    name=""
+                    id=""
+                  /><label class="labels">Barbarian</label>
                 </div>
 
-                <div class="checkboxes-placement">
-                  <div>
-                    <input
-                      class="checkboxes"
-                      type="checkbox"
-                      v-model="bard"
-                      name=""
-                      id=""
-                    /><label class="labels">Bard</label>
-                  </div>
-
-                  <div>
-                    <input
-                      class="checkboxes"
-                      type="checkbox"
-                      v-model="fighter"
-                      name=""
-                      id=""
-                    /><label class="labels">Fighter</label>
-                  </div>
-
-                  <div>
-                    <input
-                      class="checkboxes"
-                      type="checkbox"
-                      v-model="ranger"
-                      name=""
-                      id=""
-                    /><label class="labels">Ranger</label>
-                  </div>
-
-                  <div>
-                    <input
-                      class="checkboxes"
-                      type="checkbox"
-                      v-model="warlock"
-                      name=""
-                      id=""
-                    /><label class="labels">Warlock</label>
-                  </div>
+                <div>
+                  <input
+                    class="checkboxes"
+                    type="checkbox"
+                    v-model="bard"
+                    name=""
+                    id=""
+                  /><label class="labels">Bard</label>
                 </div>
 
-                <div class="checkboxes-placement">
-                  <div>
-                    <input
-                      class="checkboxes"
-                      type="checkbox"
-                      v-model="cleric"
-                      name=""
-                      id=""
-                    /><label class="labels">Cleric</label>
-                  </div>
-
-                  <div>
-                    <input
-                      class="checkboxes"
-                      type="checkbox"
-                      v-model="monk"
-                      name=""
-                      id=""
-                    /><label class="labels">Monk</label>
-                  </div>
-
-                  <div>
-                    <input
-                      class="checkboxes"
-                      type="checkbox"
-                      v-model="rogue"
-                      name=""
-                      id=""
-                    /><label class="labels">Rogue</label>
-                  </div>
-
-                  <div>
-                    <input
-                      class="checkboxes"
-                      type="checkbox"
-                      v-model="wizard"
-                      name=""
-                      id=""
-                    /><label class="labels">Wizard</label>
-                  </div>
+                <div>
+                  <input
+                    class="checkboxes"
+                    type="checkbox"
+                    v-model="cleric"
+                    name=""
+                    id=""
+                  /><label class="labels">Cleric</label>
                 </div>
+
+                <div>
+                  <input
+                    class="checkboxes"
+                    type="checkbox"
+                    v-model="druid"
+                    name=""
+                    id=""
+                  /><label class="labels">Druid</label>
+                </div>
+
+                <div>
+                  <input
+                    class="checkboxes"
+                    type="checkbox"
+                    v-model="fighter"
+                    name=""
+                    id=""
+                  /><label class="labels">Fighter</label>
+                </div>
+              </div>
+
+              <div class="checkboxes-placement">
+                <div>
+                  <input
+                    class="checkboxes"
+                    type="checkbox"
+                    v-model="monk"
+                    name=""
+                    id=""
+                  /><label class="labels">Monk</label>
+                </div>
+
+                <div>
+                  <input
+                    class="checkboxes"
+                    type="checkbox"
+                    v-model="paladin"
+                    name=""
+                    id=""
+                  /><label class="labels">Paladin</label>
+                </div>
+
+                <div>
+                  <input
+                    class="checkboxes"
+                    type="checkbox"
+                    v-model="ranger"
+                    name=""
+                    id=""
+                  /><label class="labels">Ranger</label>
+                </div>
+
+                <div>
+                  <input
+                    class="checkboxes"
+                    type="checkbox"
+                    v-model="rogue"
+                    name=""
+                    id=""
+                  /><label class="labels">Rogue</label>
+                </div>
+              </div>
+
+              <div class="checkboxes-placement">
+                <div>
+                  <input
+                    class="checkboxes"
+                    type="checkbox"
+                    v-model="sorcerer"
+                    name=""
+                    id=""
+                  /><label class="labels">Sorcerer</label>
+                </div>
+
+                <div>
+                  <input
+                    class="checkboxes"
+                    type="checkbox"
+                    v-model="warlock"
+                    name=""
+                    id=""
+                  /><label class="labels">Warlock</label>
+                </div>
+
+                <div>
+                  <input
+                    class="checkboxes"
+                    type="checkbox"
+                    v-model="wizard"
+                    name=""
+                    id=""
+                  /><label class="labels">Wizard</label>
+                </div>
+
+                <div>
+                  <input
+                    class="checkboxes"
+                    type="checkbox"
+                    v-model="artificer"
+                    name=""
+                    id=""
+                  /><label class="labels">Artificer</label>
+                </div>
+              </div>
               </div>
             </div>
           </div>
@@ -223,14 +223,21 @@ export default {
   // run when page is created and check if the user are logged in.
   // calls getLoginUser()
   created() {
-    this.user = JSON.parse(this.$route.params.user);
+    if (this.$route.params.user != null) {
+      this.user = JSON.parse(this.$route.params.user);
+    }
+
+    if (this.user == null) {
+      this.user = JSON.parse(localStorage.getItem("user_user"));
+    }
+
     this.token = sessionStorage.getItem("token");
     this.userID = sessionStorage.getItem("user_id");
     if (this.token == null && this.userID == null) {
       this.$router.push("Login");
     } else {
       //
-
+      localStorage.setItem("user_user", JSON.stringify(this.user));
       this.username = this.user.username;
       this.name = this.user.name;
       this.city = this.user.city;
@@ -491,6 +498,7 @@ export default {
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
+  min-height: 90vh;
 }
 
 .register {
@@ -499,7 +507,6 @@ export default {
   flex-direction: column;
   width: 75%;
   margin: 0 auto;
-  height: 350px;
 }
 
 input {
@@ -523,7 +530,6 @@ input {
   background-color: #dedbc4;
   border-radius: 15px/90px;
   padding-bottom: 10px;
-  height: 450px;
 }
 
 .setting-1 {
@@ -539,6 +545,7 @@ p {
 
 .okamp {
   margin-bottom: 30px;
+  margin-top: 50px;
 }
 
 .checkboxes {
@@ -555,6 +562,7 @@ p {
   display: flex;
   justify-content: space-between;
   margin-right: 20px;
+  flex-wrap: wrap;
 }
 
 .checkboxes-placement {
@@ -562,5 +570,74 @@ p {
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
+}
+
+@media screen and (max-width: 1200px) {
+  .outerBox {
+    width: 50%;
+  }
+
+  .outerBox-2 {
+    width: 50%;
+  }
+
+  .spacer {
+    width: 10%;
+  }
+
+  .placement {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .outerBox {
+    width: 50%;
+  }
+
+  .outerBox-2 {
+    width: 50%;
+  }
+
+  .spacer {
+    width: 5%;
+  }
+
+  .placement {
+    width: 90%;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .placement {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .spacer {
+    display: none;
+  }
+
+  .outerBox {
+    margin-bottom: 20px;
+     width: 80%;
+  }
+
+  .outerBox-2 {
+    width: 80%;
+  }
+}
+
+
+@media screen and (max-width: 800px) {
+  
+  .outerBox {
+   
+     width: 90%;
+  }
+
+  .outerBox-2 {
+    width: 90%;
+  }
 }
 </style>

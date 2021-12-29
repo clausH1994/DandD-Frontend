@@ -5,7 +5,9 @@
         <h1>Kampagner</h1>
       </div>
       <div class="filler"></div>
-      <div class="knap"></div>
+      <div class="knap">
+         <button class="okamp" onclick="history.back()">Tilbage</button>
+      </div>
     </div>
 
     <div class="container">
@@ -100,16 +102,15 @@ export default {
   async created() {
     //
     this.id = this.$route.params.id;
-    if(this.id == null)
-    {
-       this.id = localStorage.getItem("campaign_id");
+    if (this.id == null) {
+      this.id = localStorage.getItem("campaign_id");
     }
 
     if (this.id) {
       localStorage.setItem("campaign_id", this.id);
 
       const campaign = await this.campaignCon.readCampaignById(this.id);
-      
+
       this.titel = campaign.titel;
       this.ownerName = campaign.ownerName;
       this.city = campaign.city;
@@ -126,8 +127,6 @@ export default {
       this.wishedClasses = campaign.wishedClasses;
       this.listOfPlayers = campaign.listOfPlayers;
       this.numberOfPlayers = this.listOfPlayers.length;
-
-     
     } else {
       this.$router.push("/");
     }
@@ -135,7 +134,6 @@ export default {
 
   data() {
     return {
-
       campaignCon: new CampaignCon(),
       id: null,
       titel: null,
@@ -157,8 +155,6 @@ export default {
   },
 
   methods: {
-   
-
     getImgUrl(wish) {
       if (wish == "") {
         wish = "question-solid";
@@ -176,11 +172,11 @@ export default {
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
+  min-height: 90vh;
 }
 
 .container {
   display: flex;
-
   margin: 0 auto;
   width: 75%;
 }
@@ -222,7 +218,7 @@ export default {
   align-items: center;
   margin-top: 10px;
   margin-bottom: 10px;
-  width: 40%;
+  width: 50%;
 }
 
 .amountField {
@@ -260,6 +256,7 @@ h2 {
   text-decoration: underline;
   text-align: left;
   text-transform: capitalize;
+  word-break: break-all;
 }
 
 h3 {
@@ -278,10 +275,74 @@ p {
   margin-top: 0;
   margin-bottom: 5px;
   text-transform: capitalize;
+  word-break: break-all;
 }
 
 img {
-  height: 40px;
-  width: 40px;
+  height: 25px;
+  width: 25px;
+}
+
+@media screen and (max-width: 1500px) {
+  .textline2 {
+    width: 55%;
+  }
+  .container {
+    width: 100%;
+    justify-content: space-around;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .textline2 {
+    width: 65%;
+  }
+  .cardHolder {
+    width: 40%;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .container {
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+  }
+
+  .card
+  {
+    width:95%;
+  }
+
+  .cardHolder {
+    height: 500px;
+  }
+
+  p
+  {
+    margin-right: 5px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .cardHolder {
+    height: 480px;
+    margin: 0 auto;
+    width: 70%;
+  }
+}
+
+
+@media screen and (max-width: 400px) {
+ 
+  .cardHolder {
+    height: 480px;
+    margin: 0 auto;
+    width: 80%;
+  }
 }
 </style>

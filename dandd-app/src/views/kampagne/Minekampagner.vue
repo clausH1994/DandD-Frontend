@@ -30,24 +30,43 @@
     <div class="content">
       <div id="e-kam" class="Campaign paper">
         <table>
-          <tr v-for="campaign in owned" v-bind:key="campaign._id"> 
-            <td v-on:click="viewCam(campaign._id)">
-                {{ campaign.titel }}
+          <tr v-for="campaign in owned" v-bind:key="campaign._id">
+            <td
+              class="titleDesk"
+              v-if="campaign.titel.length < 30"
+              v-on:click="viewCam(campaign._id)"
+            >
+              {{ campaign.titel }}
+            </td>
+            <td class="titleDesk" v-else v-on:click="viewCam(campaign._id)">
+              {{ campaign.titel.substring(0, 30) + "..." }}
+            </td>
+
+            <td
+              class="titleMobile"
+              v-if="campaign.titel.length < 10"
+              v-on:click="viewCam(campaign._id)"
+            >
+              {{ campaign.titel }}
+            </td>
+            <td class="titleMobile" v-else v-on:click="viewCam(campaign._id)">
+              {{ campaign.titel.substring(0, 10) + "..." }}
+            </td>
+
+            <td>
+              <p>af {{ campaign.ownerName }}</p>
             </td>
             <td>
-                <p>af {{ campaign.ownerName }}</p>
+              <input
+                type="checkbox"
+                name=""
+                id=""
+                checked="campaign.private"
+                v-model="campaign.private"
+                v-on:click="updatePrivate(campaign)"
+              /><label>Privat</label>
             </td>
-            <td>
-                <input
-                  type="checkbox"
-                  name=""
-                  id=""
-                  checked="campaign.private"
-                  v-model="campaign.private"
-                  v-on:click="updatePrivate(campaign)"
-                /><label>Privat</label>
-            </td>
-            <td>
+            <td class="btnArea">
               <button class="kam-btn" v-on:click="deleteCampaign(campaign._id)">
                 Delete
               </button>
@@ -75,7 +94,7 @@
               <p>af {{ campaign.ownerName }}</p>
             </td>
             <td>
-              <p v-if="campaign.private">Privat</p> 
+              <p v-if="campaign.private">Privat</p>
               <p v-if="!campaign.private">Not Private</p>
             </td>
             <td>
@@ -90,7 +109,7 @@
       </div>
     </div>
     <div>
-      <button class="okamp">Opret</button>
+      <button class="okamp btnCreate">Opret</button>
     </div>
   </div>
 </template>
@@ -218,7 +237,7 @@ export default {
         params: { id: _id },
       });
     },
-        viewCam(_id) {
+    viewCam(_id) {
       this.$router.push({
         name: "Kampagnedetails",
         params: { id: _id },
@@ -251,6 +270,7 @@ export default {
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
+  min-height: 90vh;
 }
 
 .bar {
@@ -289,11 +309,8 @@ table {
   border-collapse: collapse;
 }
 
+th,
 td {
-  min-width: 190px;
-}
-
-th,td {
   text-align: left;
 }
 
@@ -334,5 +351,86 @@ tr:last-child {
   text-align: center;
   cursor: pointer;
   white-space: nowrap;
+}
+
+.btnCreate {
+  margin-bottom: 80px;
+}
+
+@media screen and (max-width: 1500px) {
+  .Campaign {
+    width: 80%;
+  }
+
+  .bar {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 1500px) {
+  .Campaign {
+    width: 90%;
+  }
+
+  .bar {
+    width: 90%;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .btnArea {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+  }
+
+  .kam-btn {
+    margin: 5px 10px;
+  }
+}
+
+@media screen and (min-width: 500px) {
+  .titleMobile {
+    display: none;
+  }
+
+  .titleDesk {
+    display: table-cell;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .Campaign {
+    width: 85%;
+  }
+
+  .bar {
+    width: 85%;
+  }
+
+  .titleMobile {
+    display: table-cell;
+  }
+
+  .titleDesk {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .minekampagner {
+    overflow: auto;
+  }
+
+  .bar {
+    margin-top: 50px;
+  }
+  .Campaign {
+    width: 95%;
+  }
+
+  .bar {
+    width: 95%;
+  }
 }
 </style>

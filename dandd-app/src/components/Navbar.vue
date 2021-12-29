@@ -12,8 +12,8 @@
       >
     </div>
     <div class="navright">
-      <router-link to="/minekampagner">Mine Kampagner</router-link>
-      <router-link to="/profil">Profil</router-link>
+      <router-link to="/minekampagner" v-if="isLogged">Mine Kampagner</router-link>
+      <router-link to="/profil" v-if="isLogged">Profil</router-link>
       <router-link to="/login" v-if="!isLogged">Login</router-link>
       <button class="logout" v-else v-on:click="logout()">Log ud</button>
     </div>
