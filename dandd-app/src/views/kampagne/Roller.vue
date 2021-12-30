@@ -128,7 +128,7 @@
           </div>
           <img
             v-bind:class="{ picked: player.role == 'GM' }"
-            class="roles"
+            class="roles crown"
             src="../../assets/classIcon/GM.svg"
             alt=""
           />
@@ -151,7 +151,9 @@
       <div v-for="player in listOfPlayers" v-bind:key="player.playerID">
         <div v-if="player.role != 'GM'" class="textline">
           <p class="playerName">{{ player.playerName }}</p>
-          <img class="role" :src="getImgUrl(player.role)" />
+          <div class="chosen">
+            <img class="role" :src="getImgUrl(player.role)" />
+          </div>
           <div class="selectors">
             <img
               v-on:click="roleChange(player, 'barbarian')"
@@ -247,7 +249,7 @@
           </div>
           <img
             v-on:click="roleChange(player, 'GM')"
-            class="roles"
+            class="roles crown"
             src="../../assets/classIcon/GM.svg"
             alt=""
           />
@@ -298,12 +300,20 @@ export default {
   async created() {
     this.token = sessionStorage.getItem("token");
     this.user = JSON.parse(sessionStorage.getItem("user"));
-    this.campaign = JSON.parse(this.$route.params.campaign);
+    if (this.$route.params.campaign != null) {
+      this.campaign = JSON.parse(this.$route.params.campaign);
+    }
+
+    if (this.campaign == null) {
+      this.campaign = JSON.parse(localStorage.getItem("campaign_campaign"));
+    }
+
     if (this.token == null || this.user == null) {
       this.$router.push("Login");
     } else if (this.campaign == null) {
       this.$router.push("minekampagner");
     } else {
+      localStorage.setItem("campaign_campaign", JSON.stringify(this.campaign));
       this.ownerName = this.campaign.ownerName;
       this.maxPlayer = this.campaign.maxPlayer;
       this.title = this.campaign.titel;
@@ -412,6 +422,7 @@ export default {
     },
 
     async updateCampaign(campaign) {
+      this.campaign.listOfPlayers = this.listOfPlayers;
       const response = await this.campaignCon.updateCampaign(
         this.token,
         campaign,
@@ -438,12 +449,12 @@ export default {
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
-  padding-bottom: 100px;
+  min-height: 90vh;
 }
 
 .card {
   border-radius: 15px/80px;
-  width: 30%;
+  width: 50%;
   background-color: #dedbc4;
   color: black;
   font-size: 24px;
@@ -453,16 +464,17 @@ export default {
 }
 
 .title {
-  width: 35%;
+  width: 33%;
 }
 
 .del {
-  width: 20%;
+  width: 33%;
+  text-align: center;
 }
 
 .number {
   text-align: right;
-  width: 25%;
+  width: 33%;
 }
 
 .amountField {
@@ -542,7 +554,7 @@ export default {
   color: white;
   border-radius: 12px;
   font-size: 30px;
-  width: 10%;
+  width: 150px;
   font-family: "Charm", cursive;
   cursor: pointer;
 }
@@ -585,5 +597,50 @@ p {
 
 input {
   width: 25%;
+}
+
+@media screen and (max-width: 1200px) {
+  .card {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .card {
+    width: 90%;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .chosen {
+    display: none;
+  }
+
+  .selectors {
+    width: 35%;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  img{
+    margin-top: 10px;
+  }
+
+  .crown
+  {
+    margin-left: 46px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  
+  .playerName
+  {
+    width: 45%;
+  }
+
+  input
+  {
+    width: 40%;
+  }
 }
 </style>

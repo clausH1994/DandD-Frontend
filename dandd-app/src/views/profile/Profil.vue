@@ -33,7 +33,7 @@
 
             <div class="list">
               <p>setting:</p>
-              <div v-for="item in setting" v-bind:key="item.id">
+              <div v-for="item in setting" v-bind:key="item">
                 <p>&nbsp; {{ item }},</p>
               </div>
             </div>
@@ -43,10 +43,10 @@
       </div>
 
       <div>
-        <button>
+        <button  v-if="this.user._id == this.userID">
           <router-link to="/minekampagner">Mine Kampagner</router-link>
         </button>
-        <button>
+        <button v-if="this.user._id == this.userID">
           <router-link
             :to="{ name: 'Rediger', params: { user: JSON.stringify(user) } }"
             >Redigere Profil</router-link
@@ -62,14 +62,15 @@ import UserCon from "../../controller/userController";
 
 export default {
   // run when page is created and check if the user are logged in.
-  // calls getLoginUser()
+  
   async created() {
     this.token = sessionStorage.getItem("token");
     this.userID = sessionStorage.getItem("user_id");
-    if (this.token == null && this.userID == null) {
-      this.$router.push("Login");
-    } else {
-      //this.getLoginUser();
+    if (this.token == null || this.userID == null) {
+      this.$router.push("/login");
+    } 
+    else {
+      
 
       const theUser = await this.userCon.readUserById(this.token, this.userID);
 
@@ -96,8 +97,8 @@ export default {
     city: null,
     zipcode: null,
     roles: [],
-    classes: null,
-    setting: null,
+    classes: [],
+    setting: [],
 
     user: null,
   }),
@@ -113,6 +114,7 @@ export default {
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
+  min-height: 90vh;
 }
 
 .placement {
@@ -139,6 +141,7 @@ export default {
 
 .list {
   display: flex;
+  flex-wrap: wrap;
 }
 
 p {
@@ -159,5 +162,25 @@ button {
 button a {
   color: white;
   text-decoration: none;
+}
+
+@media screen and (max-width: 1200px) {
+  .card {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .card {
+    width: 90%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .card {
+    width: 95%;
+    display: flex;
+    flex-wrap: wrap;
+  }
 }
 </style>

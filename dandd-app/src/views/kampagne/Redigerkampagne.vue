@@ -6,9 +6,7 @@
       </div>
       <div class="filler"></div>
       <div class="knap">
-        <button class="okamp" onclick="history.back()" style="cursor: pointer">
-          Tilbage
-        </button>
+        <button class="okamp" onclick="history.back()">Tilbage</button>
       </div>
     </div>
     <form v-on:submit.prevent="updateCampaign()">
@@ -70,7 +68,7 @@
             v-if="!online"
             class="input"
             type="text"
-            placeholder="City"
+            placeholder="By"
             v-model="city"
           />
           <input
@@ -140,10 +138,52 @@
                   <input
                     class="checkboxes"
                     type="checkbox"
+                    v-model="bard"
+                    name=""
+                    id=""
+                  /><label class="labels">Bard</label>
+                </div>
+
+                <div>
+                  <input
+                    class="checkboxes"
+                    type="checkbox"
+                    v-model="cleric"
+                    name=""
+                    id=""
+                  /><label class="labels">Cleric</label>
+                </div>
+
+                <div>
+                  <input
+                    class="checkboxes"
+                    type="checkbox"
                     v-model="druid"
                     name=""
                     id=""
                   /><label class="labels">Druid</label>
+                </div>
+
+                <div>
+                  <input
+                    class="checkboxes"
+                    type="checkbox"
+                    v-model="fighter"
+                    name=""
+                    id=""
+                  /><label class="labels">Fighter</label>
+                </div>
+              </div>
+
+              <div class="checkboxes-placement">
+                <div>
+                  <input
+                    class="checkboxes"
+                    type="checkbox"
+                    v-model="monk"
+                    name=""
+                    id=""
+                  /><label class="labels">Monk</label>
                 </div>
 
                 <div>
@@ -160,84 +200,10 @@
                   <input
                     class="checkboxes"
                     type="checkbox"
-                    v-model="sorcerer"
-                    name=""
-                    id=""
-                  /><label class="labels">Sorcerer</label>
-                </div>
-
-                <div>
-                  <input
-                    class="checkboxes"
-                    type="checkbox"
-                    v-model="artificer"
-                    name=""
-                    id=""
-                  /><label class="labels">Artificer</label>
-                </div>
-              </div>
-
-              <div class="checkboxes-placement">
-                <div>
-                  <input
-                    class="checkboxes"
-                    type="checkbox"
-                    v-model="bard"
-                    name=""
-                    id=""
-                  /><label class="labels">Bard</label>
-                </div>
-
-                <div>
-                  <input
-                    class="checkboxes"
-                    type="checkbox"
-                    v-model="fighter"
-                    name=""
-                    id=""
-                  /><label class="labels">Fighter</label>
-                </div>
-
-                <div>
-                  <input
-                    class="checkboxes"
-                    type="checkbox"
                     v-model="ranger"
                     name=""
                     id=""
                   /><label class="labels">Ranger</label>
-                </div>
-
-                <div>
-                  <input
-                    class="checkboxes"
-                    type="checkbox"
-                    v-model="warlock"
-                    name=""
-                    id=""
-                  /><label class="labels">Warlock</label>
-                </div>
-              </div>
-
-              <div class="checkboxes-placement">
-                <div>
-                  <input
-                    class="checkboxes"
-                    type="checkbox"
-                    v-model="cleric"
-                    name=""
-                    id=""
-                  /><label class="labels">Cleric</label>
-                </div>
-
-                <div>
-                  <input
-                    class="checkboxes"
-                    type="checkbox"
-                    v-model="monk"
-                    name=""
-                    id=""
-                  /><label class="labels">Monk</label>
                 </div>
 
                 <div>
@@ -249,6 +215,28 @@
                     id=""
                   /><label class="labels">Rogue</label>
                 </div>
+              </div>
+
+              <div class="checkboxes-placement">
+                <div>
+                  <input
+                    class="checkboxes"
+                    type="checkbox"
+                    v-model="sorcerer"
+                    name=""
+                    id=""
+                  /><label class="labels">Sorcerer</label>
+                </div>
+
+                <div>
+                  <input
+                    class="checkboxes"
+                    type="checkbox"
+                    v-model="warlock"
+                    name=""
+                    id=""
+                  /><label class="labels">Warlock</label>
+                </div>
 
                 <div>
                   <input
@@ -258,6 +246,16 @@
                     name=""
                     id=""
                   /><label class="labels">Wizard</label>
+                </div>
+
+                <div>
+                  <input
+                    class="checkboxes"
+                    type="checkbox"
+                    v-model="artificer"
+                    name=""
+                    id=""
+                  /><label class="labels">Artificer</label>
                 </div>
               </div>
             </div>
@@ -276,12 +274,21 @@ export default {
   created() {
     this.token = sessionStorage.getItem("token");
     this.user = JSON.parse(sessionStorage.getItem("user"));
-    this.campaign = JSON.parse(this.$route.params.campaign);
+    if (this.$route.params.campaign != null) {
+      this.campaign = JSON.parse(this.$route.params.campaign);
+    }
+  
+    if (this.campaign == null) {
+      this.campaign = JSON.parse(localStorage.getItem("campaign_campaign"));
+    }
+
     if (this.token == null || this.user == null) {
       this.$router.push("Login");
     } else if (this.campaign == null) {
       this.$router.push("minekampagner");
     } else {
+      localStorage.setItem("campaign_campaign", JSON.stringify(this.campaign));
+     
       this.title = this.campaign.titel;
       this.edition = this.campaign.edition;
       this.setting = this.campaign.setting;
@@ -302,11 +309,9 @@ export default {
         if (clas == "GM") {
           this.gm = true;
         }
-
         if (clas == "barbarian") {
           this.barbarian = true;
         }
-
         if (clas == "bard") {
           this.bard = true;
         }
@@ -334,15 +339,12 @@ export default {
         if (clas == "rogue") {
           this.rogue = true;
         }
-
         if (clas == "warlock") {
           this.warlock = true;
         }
-
         if (clas == "wizard") {
           this.wizard = true;
         }
-
         if (clas == "artificer") {
           this.artificer = true;
         }
@@ -609,5 +611,69 @@ h2 {
   text-align: left;
   margin: 0 0 0 25px;
   font-size: 24px;
+}
+
+@media screen and (max-width: 1700px) {
+  .container {
+    width: 85%;
+  }
+
+  .checkboxes-area {
+    flex-wrap: wrap;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .container {
+    width: 90%;
+  }
+
+  .card {
+    width: 30%;
+  }
+
+  .card2 {
+    width: 90%;
+  }
+
+  .cardHolder {
+    width: 29%;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .checkboxes-area {
+    flex-wrap: wrap;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .card {
+    width: 40%;
+  }
+  .cardHolder {
+    width: 40%;
+  }
+
+  .container {
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+  }
+
+  .cmm {
+    margin-top: 40px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .card {
+    width: 80%;
+  }
+  .cardHolder {
+    width: 90%;
+  }
+  .cm {
+    margin-top: 40px;
+  }
 }
 </style>

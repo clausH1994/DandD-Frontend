@@ -101,7 +101,7 @@ export default {
           alert(this.email + " Has been logged in");
           //emit event tells parent(app) that token is set.
           this.$emit("eventname", token);
-          this.$router.push({ name: "Home" });
+          this.$router.back();
         } else {
           alert("Something went wrong");
         }
@@ -129,7 +129,7 @@ export default {
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
-  height: 80.2vh;
+  min-height: 90vh;
 }
 .outerBox {
   width: 25%;
@@ -172,5 +172,40 @@ input {
 button {
   height: 45px;
   border-radius: 12px;
+}
+
+@media screen and (max-width: 1500px) {
+  .outerBox {
+    width: 45%;
+  }
+}
+
+@media screen and (max-width: 1500px) {
+  .outerBox {
+    width: 55%;
+  }
+
+  .placement {
+    width: 95%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+.outerBox {
+    margin-top: 20px;
+    width: 70%;
+  }
+  .placement {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width: 400px) {
+.outerBox {
+    
+    width: 90%;
+  }
+  
 }
 </style>
