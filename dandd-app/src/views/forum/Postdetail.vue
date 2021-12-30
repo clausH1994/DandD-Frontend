@@ -174,6 +174,8 @@ export default {
       //this.$router.push("/");
     }
 
+    this.$store.dispatch("setIsLogged");
+
     //this.post = JSON.parse(this.$route.params.post);
   },
 };

@@ -129,6 +129,8 @@ export default {
     } else {
       //this.$router.push("/");
     }
+
+    this.$store.dispatch("setIsLogged");
   },
 };
 </script>

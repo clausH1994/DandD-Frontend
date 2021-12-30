@@ -319,6 +319,8 @@ export default {
   created() {
     this.getCampaigns();
 
+    this.$store.dispatch("setIsLogged");
+
     /*     this.token = sessionStorage.getItem("token");
     this.user = JSON.parse(sessionStorage.getItem("user"));
     if (this.token == null || this.user == null) {
