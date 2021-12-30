@@ -239,6 +239,7 @@ export default {
       //
       localStorage.setItem("user_user", JSON.stringify(this.user));
       this.username = this.user.username;
+      this.checkUsername = this.user.username;
       this.name = this.user.name;
       this.city = this.user.city;
       this.postNr = this.user.zipcode;
@@ -329,6 +330,7 @@ export default {
 
       user: null,
       username: null,
+      checkUsername: null,
       name: null,
       city: null,
       postNr: null,
@@ -447,6 +449,11 @@ export default {
       }
       if (this.artificer == true) {
         this.classes.push("artificer");
+      }
+
+      if(this.username == this.checkUsername)
+      {
+        this.username = null
       }
 
       const user = {};

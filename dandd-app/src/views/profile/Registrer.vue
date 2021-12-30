@@ -354,6 +354,7 @@ export default {
 
       const user = {};
 
+      user.username = this.username;
       user.name = this.name;
       user.age = age;
       user.city = this.city;
