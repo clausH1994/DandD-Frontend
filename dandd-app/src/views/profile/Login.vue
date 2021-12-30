@@ -31,14 +31,15 @@
       <div class="outerBox">
         <form class="register" v-on:submit.prevent="loginUser()">
           <h3>LOGIN</h3>
-          <input v-model="email" placeholder="Email" required />
+          <input v-model="email" placeholder="Email" name="Email" required />
           <input
             v-model="password"
             placeholder="Password"
             type="password"
+            name="Password"
             required
           />
-          <button class="btn-reg">Login</button>
+          <button class="btn-reg" name="login">Login</button>
           <button class="social">Facebook</button>
           <button class="social">Google</button>
         </form>
