@@ -55,7 +55,6 @@
       </ul>
     </div>
   </div>
-  <router-view />
 </template>
 
 <script>
@@ -75,7 +74,7 @@ export default {
     logout() {
       sessionStorage.clear();
       alert("successfuld logout");
-      this.$router.back();
+      this.$router.push('/login');
     },
 
     subIsActive(input) {

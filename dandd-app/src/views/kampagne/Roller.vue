@@ -298,6 +298,7 @@ import userCon from "../../controller/userController";
 
 export default {
   async created() {
+    this.$store.dispatch("setIsLogged");
     this.token = sessionStorage.getItem("token");
     this.user = JSON.parse(sessionStorage.getItem("user"));
     if (this.$route.params.campaign != null) {
@@ -344,6 +345,12 @@ export default {
       listOfPlayers: [],
       allUsers: [],
     };
+  },
+
+  computed: {
+     isLogged() {
+      return this.$store.getters.getIsLogged;
+    },
   },
 
   methods: {

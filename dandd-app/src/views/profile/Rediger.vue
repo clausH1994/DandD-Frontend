@@ -223,6 +223,7 @@ export default {
   // run when page is created and check if the user are logged in.
   // calls getLoginUser()
   created() {
+    this.$store.dispatch("setIsLogged");
     if (this.$route.params.user != null) {
       this.user = JSON.parse(this.$route.params.user);
     }
@@ -364,6 +365,12 @@ export default {
       classes: [],
       setting: [],
     };
+  },
+
+  computed: {
+     isLogged() {
+      return this.$store.getters.getIsLogged;
+    },
   },
 
   methods: {

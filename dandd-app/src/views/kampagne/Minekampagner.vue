@@ -131,6 +131,12 @@ export default {
     };
   },
 
+  computed: {
+     isLogged() {
+      return this.$store.getters.getIsLogged;
+    },
+  },
+
   methods: {
     async getCampaigns() {
       this.campaigns = await this.campaignCon.readCampaigns();
@@ -252,6 +258,7 @@ export default {
   },
 
   created() {
+    this.$store.dispatch("setIsLogged");
     this.token = sessionStorage.getItem("token");
     this.userID = sessionStorage.getItem("user_id");
     if (this.userID == null) {
