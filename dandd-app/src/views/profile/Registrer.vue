@@ -222,6 +222,7 @@ import UserCon from "../../controller/userController";
 import AuthCon from "../../controller/authController";
 
 export default {
+  //data som vises på vores side, Null og False gør at de bliver vist tomme når brugeren kommer ind på siden
   data() {
     return {
       userCon: new UserCon(),
@@ -256,13 +257,12 @@ export default {
       tempID: null,
       password: null,
       email: null,
-
+    //her bliver de specifikke data kategorier sat op i en tom Array
       roles: [],
       classes: [],
       setting: [],
     };
   },
-
   created() {
     this.$store.dispatch("setIsLogged");
     this.tempID = sessionStorage.getItem("tempID");
@@ -272,7 +272,6 @@ export default {
       this.$router.push("login");
     }
   },
-
   computed: {
      isLogged() {
       return this.$store.getters.getIsLogged;
@@ -280,7 +279,9 @@ export default {
   },
 
   methods: {
+    //Opretter et user objekt med data fra formlen og kalder updateUser i userControlleren som bruger userObjektet til at opdatere useren
     async updateUser() {
+       //denne method tager datoen og konverterer den til år
       if (this.dob != null) {
         var today = new Date();
         var birthdate = new Date(this.dob);
@@ -358,7 +359,7 @@ export default {
       if (this.artificer == true) {
         this.classes.push("artificer");
       }
-
+    //userObject
       const user = {};
 
       user.username = this.username;
@@ -370,7 +371,7 @@ export default {
       user.roles = this.roles;
       user.classes = this.classes;
       user.setting = this.setting;
-
+    //kalder updateUser i userController
       const response = await this.userCon.updateUser(user, this.tempID);
 
       if (response.message == "User was succesfully updated") {
@@ -380,7 +381,7 @@ export default {
         alert(response.message);
       }
     },
-
+    //logger den registrerede bruger ind
     async loginUser() {
       sessionStorage.clear();
       console.log("no way home");
