@@ -64,16 +64,19 @@ export default {
 
   computed: {
      isLogged() {
+       // getting the isLogged state from the vuex store
       return this.$store.getters.getIsLogged;
     },
   },
 
   methods: {
     async getForum() {
+      // getting the forum list based on id through the forum controller
       this.forum = await this.forumCon.readForumById(this.id);
     },
 
     async createPost() {
+      // creating a forum post using the forum controller
       const user = JSON.parse(sessionStorage.getItem("user"));
       const post = {};
       const time = Date.now();
@@ -107,7 +110,10 @@ export default {
   },
 
   created() {
+    // dispatch to set the state isLogged from the vuex store
     this.$store.dispatch("setIsLogged");
+
+    // checks the id and gets it of the forum to make post in the correct forum part in the database
     this.id = this.$route.params.id;
     if (this.id == null) {
       this.id = localStorage.getItem("forum_id");

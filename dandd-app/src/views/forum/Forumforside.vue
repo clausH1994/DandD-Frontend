@@ -57,17 +57,20 @@ export default {
 
   computed: {
      isLogged() {
+       // getting the isLogged state from the vuex store
       return this.$store.getters.getIsLogged;
     },
   },
 
   methods: {
     async getForums() {
+      // uses the forum controller to get the list of forums and forum posts
       this.forums = await this.forumCon.readForums();
     },
   },
 
   created() {
+    // dispatch to set the state isLogged from the vuex store
     this.$store.dispatch("setIsLogged");
     this.getForums();
   },
