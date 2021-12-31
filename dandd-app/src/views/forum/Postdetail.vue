@@ -159,7 +159,6 @@ export default {
 
   created() {
     this.id = this.$route.params.id;
-    //this.id = "61a77f6258295764f502c78c";
     if (this.id == null) {
       this.id = localStorage.getItem("post_id");
     }
@@ -175,8 +174,6 @@ export default {
     }
 
     this.$store.dispatch("setIsLogged");
-
-    //this.post = JSON.parse(this.$route.params.post);
   },
 };
 </script>

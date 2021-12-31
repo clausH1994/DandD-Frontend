@@ -109,7 +109,6 @@ export default {
   created() {
     this.$store.dispatch("setIsLogged");
     this.id = this.$route.params.id;
-    //this.id = "61a77f6258295764f502c78c";
     if (this.id == null) {
       this.id = localStorage.getItem("forum_id");
     }

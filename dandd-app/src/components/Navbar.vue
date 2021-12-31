@@ -113,15 +113,6 @@ export default {
     this.isLogged = this.$store.getters.getIsLogged;
   }, */
 
-  /*   created() {
-    this.token = sessionStorage.getItem("token");
-    this.user = JSON.parse(sessionStorage.getItem("user"));
-    if (this.token == null || this.user == null) {
-      this.isLogged = false;
-    } else {
-      this.isLogged = true;
-    }
-  } */
 };
 </script>
 
