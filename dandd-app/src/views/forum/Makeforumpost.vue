@@ -173,9 +173,6 @@ export default {
   display: block;
 }
 
-.test1 {
-}
-
 .test2 {
   overflow-wrap: break-word;
 }

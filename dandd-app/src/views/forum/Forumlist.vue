@@ -187,9 +187,6 @@ ul.campcard {
   width: 90%;
 }
 
-.test1 {
-}
-
 .test2 {
   overflow-wrap: break-word;
 }
