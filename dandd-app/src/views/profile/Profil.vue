@@ -64,6 +64,7 @@ export default {
   // run when page is created and check if the user are logged in.
   
   async created() {
+    this.$store.dispatch("setIsLogged");
     this.token = sessionStorage.getItem("token");
     this.userID = sessionStorage.getItem("user_id");
     if (this.token == null || this.userID == null) {
@@ -104,6 +105,14 @@ export default {
   }),
 
   methods: {},
+
+    computed: {
+    isLogged() {
+      return this.$store.getters.getIsLogged;
+    },
+  },
+
+
 };
 </script>
 

@@ -264,12 +264,19 @@ export default {
   },
 
   created() {
+    this.$store.dispatch("setIsLogged");
     this.tempID = sessionStorage.getItem("tempID");
     this.email = sessionStorage.getItem("email");
     this.password = sessionStorage.getItem("pass");
     if (this.tempID == null) {
       this.$router.push("login");
     }
+  },
+
+  computed: {
+     isLogged() {
+      return this.$store.getters.getIsLogged;
+    },
   },
 
   methods: {

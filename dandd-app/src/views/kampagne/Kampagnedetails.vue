@@ -101,6 +101,7 @@ import CampaignCon from "../../controller/campaignController";
 export default {
   async created() {
     //
+    this.$store.dispatch("setIsLogged");
     this.id = this.$route.params.id;
     if (this.id == null) {
       this.id = localStorage.getItem("campaign_id");
@@ -152,6 +153,12 @@ export default {
       wishedClasses: [],
       listOfPlayers: [],
     };
+  },
+
+  computed: {
+     isLogged() {
+      return this.$store.getters.getIsLogged;
+    },
   },
 
   methods: {

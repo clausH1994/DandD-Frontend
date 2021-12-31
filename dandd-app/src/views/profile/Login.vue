@@ -66,6 +66,13 @@ export default {
     passwordR: "",
     bPassword: "",
   }),
+
+  computed: {
+    isLogged() {
+      return this.$store.getters.getIsLogged;
+    },
+  },
+
   methods: {
     //validates user input and call registerUser()
     async validate() {
@@ -109,6 +116,10 @@ export default {
         alert(response.error);
       }
     },
+  },
+
+  created() {
+    this.$store.dispatch("setIsLogged");
   },
   //checks if username and password match a user from the database.
 };

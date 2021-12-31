@@ -62,6 +62,12 @@ export default {
     };
   },
 
+  computed: {
+     isLogged() {
+      return this.$store.getters.getIsLogged;
+    },
+  },
+
   methods: {
     async getForum() {
       this.forum = await this.forumCon.readForumById(this.id);
@@ -101,6 +107,7 @@ export default {
   },
 
   created() {
+    this.$store.dispatch("setIsLogged");
     this.id = this.$route.params.id;
     //this.id = "61a77f6258295764f502c78c";
     if (this.id == null) {

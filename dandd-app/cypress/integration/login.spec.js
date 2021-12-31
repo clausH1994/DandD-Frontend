@@ -24,10 +24,10 @@ describe('Login', () => {
     it('Logout', () => {
         //Visit the front page
         cy.visit('http://localhost:8080')
-        //Push logout and check the cookie
+        //Push the logout button in the navbar
         cy.get('button').contains('Log ud').click()
-
-        cy.url().should('contain', 'http://localhost:8080')
+        //Checks the URL is correct
+        cy.url().should('contain', 'http://localhost:8080/login')
 
     })
 

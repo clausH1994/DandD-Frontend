@@ -272,6 +272,7 @@ import CampaignCon from "../../controller/campaignController";
 
 export default {
   created() {
+    this.$store.dispatch("setIsLogged");
     this.token = sessionStorage.getItem("token");
     this.user = JSON.parse(sessionStorage.getItem("user"));
     if (this.$route.params.campaign != null) {
@@ -389,6 +390,12 @@ export default {
     wizard: false,
     artificer: false,
   }),
+
+  computed: {
+     isLogged() {
+      return this.$store.getters.getIsLogged;
+    },
+  },
 
   methods: {
     async updateCampaign() {

@@ -55,6 +55,12 @@ export default {
     };
   },
 
+  computed: {
+     isLogged() {
+      return this.$store.getters.getIsLogged;
+    },
+  },
+
   methods: {
     async getForums() {
       this.forums = await this.forumCon.readForums();
@@ -62,6 +68,7 @@ export default {
   },
 
   created() {
+    this.$store.dispatch("setIsLogged");
     this.getForums();
   },
 };
