@@ -96,7 +96,7 @@ export default {
         this.forum,
         this.forum._id
       );
-      console.log(response);
+      
       if (response.message == "Forum was succesfully updated") {
         alert("Opslaget er blevet oprettet");
         this.$router.push({

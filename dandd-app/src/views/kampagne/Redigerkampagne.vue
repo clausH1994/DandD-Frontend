@@ -271,14 +271,19 @@
 import CampaignCon from "../../controller/campaignController";
 
 export default {
+  
+  //check if user is logged in 
+  //set data after selected campaign
   created() {
+    // dispatch to set the state isLogged from the vuex store
     this.$store.dispatch("setIsLogged");
+
     this.token = sessionStorage.getItem("token");
     this.user = JSON.parse(sessionStorage.getItem("user"));
     if (this.$route.params.campaign != null) {
       this.campaign = JSON.parse(this.$route.params.campaign);
     }
-  
+
     if (this.campaign == null) {
       this.campaign = JSON.parse(localStorage.getItem("campaign_campaign"));
     }
@@ -289,7 +294,7 @@ export default {
       this.$router.push("minekampagner");
     } else {
       localStorage.setItem("campaign_campaign", JSON.stringify(this.campaign));
-     
+
       this.title = this.campaign.titel;
       this.edition = this.campaign.edition;
       this.setting = this.campaign.setting;
@@ -392,12 +397,16 @@ export default {
   }),
 
   computed: {
-     isLogged() {
+    isLogged() {
+      // getting the isLogged state from the vuex store
       return this.$store.getters.getIsLogged;
     },
   },
 
   methods: {
+    //makes sure there is no null data
+    //creates campaign object
+    //call campaignCon.updateCampaign with id to update the campaign with the campaign object in database.
     async updateCampaign() {
       this.wishedClasses = [];
 

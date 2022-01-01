@@ -6,7 +6,7 @@
       </div>
       <div class="filler"></div>
       <div class="knap">
-         <button class="okamp" onclick="history.back()">Tilbage</button>
+        <button class="okamp" onclick="history.back()">Tilbage</button>
       </div>
     </div>
 
@@ -99,9 +99,11 @@
 import CampaignCon from "../../controller/campaignController";
 
 export default {
+  //get campaign and set datas after the campaign's data
   async created() {
-    //
+    // dispatch to set the state isLogged from the vuex store
     this.$store.dispatch("setIsLogged");
+
     this.id = this.$route.params.id;
     if (this.id == null) {
       this.id = localStorage.getItem("campaign_id");
@@ -156,12 +158,14 @@ export default {
   },
 
   computed: {
-     isLogged() {
+    isLogged() {
+      // getting the isLogged state from the vuex store
       return this.$store.getters.getIsLogged;
     },
   },
 
   methods: {
+    //returns image which equals variable wish in name from assets
     getImgUrl(wish) {
       if (wish == "") {
         wish = "question-solid";
@@ -316,17 +320,15 @@ img {
     justify-content: space-evenly;
   }
 
-  .card
-  {
-    width:95%;
+  .card {
+    width: 95%;
   }
 
   .cardHolder {
     height: 500px;
   }
 
-  p
-  {
+  p {
     margin-right: 5px;
   }
 }
@@ -343,9 +345,7 @@ img {
   }
 }
 
-
 @media screen and (max-width: 400px) {
- 
   .cardHolder {
     height: 480px;
     margin: 0 auto;

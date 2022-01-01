@@ -1,10 +1,11 @@
 
 export default class CampaignCon {
 
-  async readCampaigns()
-  {
-    try { 
-     let response = await fetch("https://dandd-api.herokuapp.com/api/campaigns/", {
+  //calls api with GET request to get all campaigns
+  //returns all campaigns 
+  async readCampaigns() {
+    try {
+      let response = await fetch("https://dandd-api.herokuapp.com/api/campaigns/", {
         method: "GET",
       })
       return response.json();
@@ -13,6 +14,8 @@ export default class CampaignCon {
     }
   }
 
+  //calls api with GET request and id to get specific campaign. 
+  //returns specific campaign
   async readCampaignById(id) {
     try {
       let response = await fetch("https://dandd-api.herokuapp.com/api/campaigns/" + id, {
@@ -26,6 +29,8 @@ export default class CampaignCon {
     }
   }
 
+  //calls api with POST request to create campaign.
+  //return created campaign
   async createCampaign(token, campaign) {
     try {
       const requestOptions = {
@@ -65,6 +70,8 @@ export default class CampaignCon {
     }
   }
 
+  //calls api with PUT request to update campaign.
+  //return succsesful message
   async updateCampaign(token, campaign, id) {
     try {
       const requestOptions = {
@@ -103,6 +110,8 @@ export default class CampaignCon {
     }
   }
 
+  //calls api with DELETE request to delete campaign.
+  //return succsesful message
   async deleteCampaign(token, id) {
     try {
       const requestOptions = {

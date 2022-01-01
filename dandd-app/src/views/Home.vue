@@ -204,7 +204,7 @@ export default {
       },
       filterCampaigns: "",
       filterLocations: "",
-      // isLogged: false,
+      
     };
   },
 
@@ -327,6 +327,7 @@ export default {
 
   created() {
     this.getCampaigns();
+
     // dispatch to set the state isLogged from the vuex store
     this.$store.dispatch("setIsLogged");
   },

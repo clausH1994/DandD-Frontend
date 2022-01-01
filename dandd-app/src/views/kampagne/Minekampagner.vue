@@ -163,16 +163,19 @@ export default {
 
   computed: {
      isLogged() {
+        // getting the isLogged state from the vuex store
       return this.$store.getters.getIsLogged;
     },
   },
 
   methods: {
+  //gets all Campaigns
     async getCampaigns() {
       this.campaigns = await this.campaignCon.readCampaigns();
       this.filterCampaigns();
     },
 
+    //updates a campaigns private status
     async updatePrivate(campaign) {
       campaign.private = !campaign.private;
 
@@ -183,7 +186,7 @@ export default {
       );
 
       if (response == "campaign was succesfully updated") {
-        //alert("Privat status opdateret");
+        //
       } else {
         alert(response.message);
       }
@@ -191,7 +194,6 @@ export default {
 
     // Dette er vores måde at sortere på med fanerne om du ejer kampagnen eller om du
     // deltager i den
-
     filterCampaigns() {
       this.campaigns.forEach((campaign) => {
         if (this.userID == campaign.ownerID) {
@@ -210,7 +212,6 @@ export default {
 
     // Gør at du forlader kampagnen ved at splice dig ud af kampagnen og refresher
     // indholdet ved at tømme owned, added og loader det igen
-
     async leaveCampaign(campaign) {
       if (confirm("Er du sikker på du vil forlade denne kampagne")) {
         const playerList = campaign.listOfPlayers;
@@ -240,7 +241,6 @@ export default {
     },
 
     // Går ind og sletter kampagnen gennem controlleren
-
     async deleteCampaign(_id) {
       if (confirm("Er du sikker på du vil slette denne kampagne")) {
         const response = await this.campaignCon.deleteCampaign(this.token, _id);
@@ -257,7 +257,6 @@ export default {
 
     // Kerne funktionen bag fane skiftet. sørger for at flytte rundt på classes og 
     // hvilken fane der er aktiv
-
     openKam(evt, tabName) {
       var i, x, tablinks;
       x = document.getElementsByClassName("Campaign");
@@ -299,7 +298,9 @@ export default {
   },
 
   created() {
+     // dispatch to set the state isLogged from the vuex store
     this.$store.dispatch("setIsLogged");
+
     this.token = sessionStorage.getItem("token");
     this.userID = sessionStorage.getItem("user_id");
     if (this.userID == null) {

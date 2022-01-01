@@ -1,5 +1,6 @@
 export default class AuthCon {
-
+    //calls api with POST request and gets a user created
+    //return created user
     async registerUser(email, password) {
         try {
             const requestOptions = {
@@ -19,7 +20,8 @@ export default class AuthCon {
         }
     }
 
-
+    //calls api with POST request to Login user
+    //returns token and user
     async login(email, password) {
         try {
             const requestOptions = {

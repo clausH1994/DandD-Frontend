@@ -43,7 +43,7 @@
       </div>
 
       <div>
-        <button  v-if="this.user._id == this.userID">
+        <button v-if="this.user._id == this.userID">
           <router-link to="/minekampagner">Mine Kampagner</router-link>
         </button>
         <button v-if="this.user._id == this.userID">
@@ -62,17 +62,16 @@ import UserCon from "../../controller/userController";
 
 export default {
   // run when page is created and check if the user are logged in.
-  
+  // set all data after logged in user.
   async created() {
+     // dispatch to set the state isLogged from the vuex store
     this.$store.dispatch("setIsLogged");
+
     this.token = sessionStorage.getItem("token");
     this.userID = sessionStorage.getItem("user_id");
     if (this.token == null || this.userID == null) {
       this.$router.push("/login");
-    } 
-    else {
-      
-
+    } else {
       const theUser = await this.userCon.readUserById(this.token, this.userID);
 
       this.user = theUser;
@@ -106,13 +105,12 @@ export default {
 
   methods: {},
 
-    computed: {
+  computed: {
     isLogged() {
+      // getting the isLogged state from the vuex store
       return this.$store.getters.getIsLogged;
     },
   },
-
-
 };
 </script>
 

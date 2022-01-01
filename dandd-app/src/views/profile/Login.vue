@@ -69,6 +69,7 @@ export default {
 
   computed: {
     isLogged() {
+      // getting the isLogged state from the vuex store
       return this.$store.getters.getIsLogged;
     },
   },
@@ -117,7 +118,14 @@ export default {
   },
 
   created() {
+    // dispatch to set the state isLogged from the vuex store
     this.$store.dispatch("setIsLogged");
+
+    const token = sessionStorage.getItem("token");
+    if(token)
+    {
+      this.$router.bn;
+    }
   },
 };
 </script>
@@ -199,7 +207,7 @@ button {
 }
 
 @media screen and (max-width: 600px) {
-.outerBox {
+  .outerBox {
     margin-top: 20px;
     width: 70%;
   }
@@ -210,10 +218,8 @@ button {
 }
 
 @media screen and (max-width: 400px) {
-.outerBox {
-    
+  .outerBox {
     width: 90%;
   }
-  
 }
 </style>

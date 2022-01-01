@@ -1,7 +1,7 @@
 export default class UserCon {
 
-
-
+    //calls api with GET request to get all users
+    //returns all users 
     async readUsers(token) {
         try {
             let response = await fetch("https://dandd-api.herokuapp.com/api/users/", {
@@ -14,6 +14,8 @@ export default class UserCon {
         }
     }
 
+    //calls api with GET request and id to get specific user. 
+    //returns specific user
     async readUserById(token, id) {
         try {
             let response = await fetch("https://dandd-api.herokuapp.com/api/users/" + id, {
@@ -25,8 +27,10 @@ export default class UserCon {
             alert(error);
         }
     }
-
-
+    
+    //check if username is null.
+    //calls api with PUT request to update user.
+    //return succsesful message
     async updateUser(user, id) {
 
         if (user.username == null) {
@@ -59,8 +63,7 @@ export default class UserCon {
                 alert(error);
             }
         }
-        else
-        {
+        else {
             try {
 
                 const requestOptions = {

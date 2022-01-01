@@ -297,8 +297,12 @@ import CampaignCon from "../../controller/campaignController";
 import userCon from "../../controller/userController";
 
 export default {
+  //check if user is logged in
+  //set data after selected campaign
   async created() {
+    // dispatch to set the state isLogged from the vuex store
     this.$store.dispatch("setIsLogged");
+
     this.token = sessionStorage.getItem("token");
     this.user = JSON.parse(sessionStorage.getItem("user"));
     if (this.$route.params.campaign != null) {
@@ -348,12 +352,14 @@ export default {
   },
 
   computed: {
-     isLogged() {
+    isLogged() {
+      // getting the isLogged state from the vuex store
       return this.$store.getters.getIsLogged;
     },
   },
 
   methods: {
+    //returns image which equals variable wish in name from assets
     getImgUrl(wish) {
       if (wish == "") {
         wish = "question-solid";
@@ -362,6 +368,10 @@ export default {
       return require("../../assets/classIcon/" + wish + ".svg");
     },
 
+    //checks if pickedUser is null or empty.
+    //if not runs foreach to check if pickedUser matches a user on allUser array.
+    //if match create player object and add it to list of players.
+    //calls removeFromList() with player object as parameter.
     addUser() {
       if (this.pickedUser == "" || this.pickedUser == null) {
         //
@@ -382,6 +392,8 @@ export default {
       }
     },
 
+    /* makes sure that players on the campaign does 
+    not show up on list of player that can be added to campaign */
     filterUser(users) {
       var i = 0;
 
@@ -398,6 +410,7 @@ export default {
       });
     },
 
+    //removes player from array allUsers
     removeFromList(player) {
       var index = this.allUsers
         .map(function (user) {
@@ -408,6 +421,8 @@ export default {
       this.allUsers.splice(index, 1);
     },
 
+    //removes player from array listOfPlayer (removes them from the campaign).
+    //adds removed player to array allUsers (list of player that can be added to campaign).
     removeUser(player) {
       var index = this.listOfPlayers
         .map(function (user) {
@@ -424,10 +439,12 @@ export default {
       this.allUsers.push(user);
     },
 
+    //sets player.role
     roleChange(player, role) {
       player.role = role;
     },
 
+    //calls updateCampaign in campaignController. saving all changes made on page.
     async updateCampaign(campaign) {
       this.campaign.listOfPlayers = this.listOfPlayers;
       const response = await this.campaignCon.updateCampaign(
@@ -628,25 +645,21 @@ input {
     display: flex;
     flex-wrap: wrap;
   }
-  img{
+  img {
     margin-top: 10px;
   }
 
-  .crown
-  {
+  .crown {
     margin-left: 46px;
   }
 }
 
 @media screen and (max-width: 800px) {
-  
-  .playerName
-  {
+  .playerName {
     width: 45%;
   }
 
-  input
-  {
+  input {
     width: 40%;
   }
 }

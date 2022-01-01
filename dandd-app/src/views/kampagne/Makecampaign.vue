@@ -278,8 +278,11 @@
 import CampaignCon from "../../controller/campaignController";
 
 export default {
+  //checks if user is logged in
   created() {
+     // dispatch to set the state isLogged from the vuex store
     this.$store.dispatch("setIsLogged");
+
     this.token = sessionStorage.getItem("token");
     this.user = JSON.parse(sessionStorage.getItem("user"));
     if (this.token == null || this.user == null) {
@@ -327,11 +330,15 @@ export default {
 
   computed: {
      isLogged() {
+        // getting the isLogged state from the vuex store
       return this.$store.getters.getIsLogged;
     },
   },
 
   methods: {
+    //makes sure there is no null data
+    //creates campaign object
+    //call campaignCon.createCampaign to create the campaign object in database.
     async createCampaign() {
       if (this.rules == null) {
         this.rules = "";
@@ -398,6 +405,7 @@ export default {
         this.wishedClasses.push("artificer");
       }
 
+      //put the user on the listOfPlayers in the campaign
       if (this.user) {
         var player = {};
         player.playerID = this.user._id;

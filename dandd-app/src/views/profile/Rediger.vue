@@ -70,141 +70,141 @@
 
               <p>Foretrukne Class</p>
               <div class="checkboxes-area">
-                 <div class="checkboxes-placement">
-                <div>
-                  <input
-                    class="checkboxes"
-                    type="checkbox"
-                    v-model="barbarian"
-                    name=""
-                    id=""
-                  /><label class="labels">Barbarian</label>
+                <div class="checkboxes-placement">
+                  <div>
+                    <input
+                      class="checkboxes"
+                      type="checkbox"
+                      v-model="barbarian"
+                      name=""
+                      id=""
+                    /><label class="labels">Barbarian</label>
+                  </div>
+
+                  <div>
+                    <input
+                      class="checkboxes"
+                      type="checkbox"
+                      v-model="bard"
+                      name=""
+                      id=""
+                    /><label class="labels">Bard</label>
+                  </div>
+
+                  <div>
+                    <input
+                      class="checkboxes"
+                      type="checkbox"
+                      v-model="cleric"
+                      name=""
+                      id=""
+                    /><label class="labels">Cleric</label>
+                  </div>
+
+                  <div>
+                    <input
+                      class="checkboxes"
+                      type="checkbox"
+                      v-model="druid"
+                      name=""
+                      id=""
+                    /><label class="labels">Druid</label>
+                  </div>
+
+                  <div>
+                    <input
+                      class="checkboxes"
+                      type="checkbox"
+                      v-model="fighter"
+                      name=""
+                      id=""
+                    /><label class="labels">Fighter</label>
+                  </div>
                 </div>
 
-                <div>
-                  <input
-                    class="checkboxes"
-                    type="checkbox"
-                    v-model="bard"
-                    name=""
-                    id=""
-                  /><label class="labels">Bard</label>
+                <div class="checkboxes-placement">
+                  <div>
+                    <input
+                      class="checkboxes"
+                      type="checkbox"
+                      v-model="monk"
+                      name=""
+                      id=""
+                    /><label class="labels">Monk</label>
+                  </div>
+
+                  <div>
+                    <input
+                      class="checkboxes"
+                      type="checkbox"
+                      v-model="paladin"
+                      name=""
+                      id=""
+                    /><label class="labels">Paladin</label>
+                  </div>
+
+                  <div>
+                    <input
+                      class="checkboxes"
+                      type="checkbox"
+                      v-model="ranger"
+                      name=""
+                      id=""
+                    /><label class="labels">Ranger</label>
+                  </div>
+
+                  <div>
+                    <input
+                      class="checkboxes"
+                      type="checkbox"
+                      v-model="rogue"
+                      name=""
+                      id=""
+                    /><label class="labels">Rogue</label>
+                  </div>
                 </div>
 
-                <div>
-                  <input
-                    class="checkboxes"
-                    type="checkbox"
-                    v-model="cleric"
-                    name=""
-                    id=""
-                  /><label class="labels">Cleric</label>
-                </div>
+                <div class="checkboxes-placement">
+                  <div>
+                    <input
+                      class="checkboxes"
+                      type="checkbox"
+                      v-model="sorcerer"
+                      name=""
+                      id=""
+                    /><label class="labels">Sorcerer</label>
+                  </div>
 
-                <div>
-                  <input
-                    class="checkboxes"
-                    type="checkbox"
-                    v-model="druid"
-                    name=""
-                    id=""
-                  /><label class="labels">Druid</label>
-                </div>
+                  <div>
+                    <input
+                      class="checkboxes"
+                      type="checkbox"
+                      v-model="warlock"
+                      name=""
+                      id=""
+                    /><label class="labels">Warlock</label>
+                  </div>
 
-                <div>
-                  <input
-                    class="checkboxes"
-                    type="checkbox"
-                    v-model="fighter"
-                    name=""
-                    id=""
-                  /><label class="labels">Fighter</label>
-                </div>
-              </div>
+                  <div>
+                    <input
+                      class="checkboxes"
+                      type="checkbox"
+                      v-model="wizard"
+                      name=""
+                      id=""
+                    /><label class="labels">Wizard</label>
+                  </div>
 
-              <div class="checkboxes-placement">
-                <div>
-                  <input
-                    class="checkboxes"
-                    type="checkbox"
-                    v-model="monk"
-                    name=""
-                    id=""
-                  /><label class="labels">Monk</label>
+                  <div>
+                    <input
+                      class="checkboxes"
+                      type="checkbox"
+                      v-model="artificer"
+                      name=""
+                      id=""
+                    /><label class="labels">Artificer</label>
+                  </div>
                 </div>
-
-                <div>
-                  <input
-                    class="checkboxes"
-                    type="checkbox"
-                    v-model="paladin"
-                    name=""
-                    id=""
-                  /><label class="labels">Paladin</label>
-                </div>
-
-                <div>
-                  <input
-                    class="checkboxes"
-                    type="checkbox"
-                    v-model="ranger"
-                    name=""
-                    id=""
-                  /><label class="labels">Ranger</label>
-                </div>
-
-                <div>
-                  <input
-                    class="checkboxes"
-                    type="checkbox"
-                    v-model="rogue"
-                    name=""
-                    id=""
-                  /><label class="labels">Rogue</label>
-                </div>
-              </div>
-
-              <div class="checkboxes-placement">
-                <div>
-                  <input
-                    class="checkboxes"
-                    type="checkbox"
-                    v-model="sorcerer"
-                    name=""
-                    id=""
-                  /><label class="labels">Sorcerer</label>
-                </div>
-
-                <div>
-                  <input
-                    class="checkboxes"
-                    type="checkbox"
-                    v-model="warlock"
-                    name=""
-                    id=""
-                  /><label class="labels">Warlock</label>
-                </div>
-
-                <div>
-                  <input
-                    class="checkboxes"
-                    type="checkbox"
-                    v-model="wizard"
-                    name=""
-                    id=""
-                  /><label class="labels">Wizard</label>
-                </div>
-
-                <div>
-                  <input
-                    class="checkboxes"
-                    type="checkbox"
-                    v-model="artificer"
-                    name=""
-                    id=""
-                  /><label class="labels">Artificer</label>
-                </div>
-              </div>
               </div>
             </div>
           </div>
@@ -221,9 +221,11 @@ import UserCon from "../../controller/userController";
 
 export default {
   // run when page is created and check if the user are logged in.
-  // calls getLoginUser()
+  // set data after user.
   created() {
+    // dispatch to set the state isLogged from the vuex store
     this.$store.dispatch("setIsLogged");
+
     if (this.$route.params.user != null) {
       this.user = JSON.parse(this.$route.params.user);
     }
@@ -237,7 +239,6 @@ export default {
     if (this.token == null && this.userID == null) {
       this.$router.push("Login");
     } else {
-      //
       localStorage.setItem("user_user", JSON.stringify(this.user));
       this.username = this.user.username;
       this.checkUsername = this.user.username;
@@ -368,23 +369,18 @@ export default {
   },
 
   computed: {
-     isLogged() {
+    isLogged() {
+      // getting the isLogged state from the vuex store
       return this.$store.getters.getIsLogged;
     },
   },
 
   methods: {
+    
+    //makes sure no data is null
+    //creates user object
+    // calls updateUser in userController
     async updateUser() {
-      // if (this.dob != null) {
-      //   var today = new Date();
-      //   var birthdate = new Date(this.dob);
-      //   var age = today.getFullYear() - birthdate.getFullYear();
-      //   var m = today.getMonth() - birthdate.getMonth();
-      //   if (m < 0 || (m == 0 && today.getDate() < birthdate.getDate())) {
-      //     age--;
-      //   }
-      // }
-
       this.roles = [];
       this.classes = [];
       this.setting = [];
@@ -458,9 +454,8 @@ export default {
         this.classes.push("artificer");
       }
 
-      if(this.username == this.checkUsername)
-      {
-        this.username = null
+      if (this.username == this.checkUsername) {
+        this.username = null;
       }
 
       const user = {};
@@ -634,7 +629,7 @@ p {
 
   .outerBox {
     margin-bottom: 20px;
-     width: 80%;
+    width: 80%;
   }
 
   .outerBox-2 {
@@ -642,12 +637,9 @@ p {
   }
 }
 
-
 @media screen and (max-width: 800px) {
-  
   .outerBox {
-   
-     width: 90%;
+    width: 90%;
   }
 
   .outerBox-2 {
