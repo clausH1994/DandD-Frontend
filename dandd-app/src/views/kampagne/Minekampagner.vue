@@ -7,10 +7,14 @@
 
       <div class="filler"></div>
 
+      <!-- Vores tilbage knap som går en tilbage i din browser historie -->
+
       <div class="knap">
         <button class="okamp" onclick="history.back()">Tilbage</button>
       </div>
     </div>
+
+    <!-- Her har vi funktionen der sørger for at fanerne virker. -->
 
     <div class="bar">
       <button
@@ -26,6 +30,14 @@
         Egne Kampagner
       </button>
     </div>
+
+    <!-- 
+    Dette er vores visnings del. Der er to sektioner hvor den ene har display: none
+    og systemet gør at display none bliver skiftet rundt så der kun vises en fane af gangen 
+    
+    Vi har også titelDesk og titelMobile som håndtere mbilvenlighed og længden af ord.
+    Der er også btnArea der håndtere at knapperne ser pæne ud på mobil
+    -->
 
     <div class="content">
       <div id="e-kam" class="Campaign paper">
@@ -87,17 +99,35 @@
       <div id="t-kam" class="Campaign paper" style="display: none">
         <table>
           <tr v-for="campaign in added" v-bind:key="campaign._id">
-            <td v-on:click="viewCam(campaign._id)">
+           <td
+              class="titleDesk"
+              v-if="campaign.titel.length < 30"
+              v-on:click="viewCam(campaign._id)"
+            >
               {{ campaign.titel }}
+            </td>
+            <td class="titleDesk" v-else v-on:click="viewCam(campaign._id)">
+              {{ campaign.titel.substring(0, 30) + "..." }}
+            </td>
+
+            <td
+              class="titleMobile"
+              v-if="campaign.titel.length < 10"
+              v-on:click="viewCam(campaign._id)"
+            >
+              {{ campaign.titel }}
+            </td>
+            <td class="titleMobile" v-else v-on:click="viewCam(campaign._id)">
+              {{ campaign.titel.substring(0, 10) + "..." }}
             </td>
             <td>
               <p>af {{ campaign.ownerName }}</p>
             </td>
             <td>
               <p v-if="campaign.private">Privat</p>
-              <p v-if="!campaign.private">Not Private</p>
+              <p v-if="!campaign.private"></p>
             </td>
-            <td>
+            <td class="btnArea">
               <button class="kam-btn" v-on:click="leaveCampaign(campaign)">
                 Forlad
               </button>
@@ -159,6 +189,9 @@ export default {
       }
     },
 
+    // Dette er vores måde at sortere på med fanerne om du ejer kampagnen eller om du
+    // deltager i den
+
     filterCampaigns() {
       this.campaigns.forEach((campaign) => {
         if (this.userID == campaign.ownerID) {
@@ -174,6 +207,9 @@ export default {
         });
       });
     },
+
+    // Gør at du forlader kampagnen ved at splice dig ud af kampagnen og refresher
+    // indholdet ved at tømme owned, added og loader det igen
 
     async leaveCampaign(campaign) {
       if (confirm("Er du sikker på du vil forlade denne kampagne")) {
@@ -203,6 +239,8 @@ export default {
       }
     },
 
+    // Går ind og sletter kampagnen gennem controlleren
+
     async deleteCampaign(_id) {
       if (confirm("Er du sikker på du vil slette denne kampagne")) {
         const response = await this.campaignCon.deleteCampaign(this.token, _id);
@@ -216,6 +254,9 @@ export default {
         }
       }
     },
+
+    // Kerne funktionen bag fane skiftet. sørger for at flytte rundt på classes og 
+    // hvilken fane der er aktiv
 
     openKam(evt, tabName) {
       var i, x, tablinks;
