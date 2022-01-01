@@ -106,8 +106,6 @@ export default {
         const userID = sessionStorage.getItem("user_id");
         if (token != null && userID != null) {
           alert(this.email + " Has been logged in");
-          //emit event tells parent(app) that token is set.
-          this.$emit("eventname", token);
           this.$router.back();
         } else {
           alert("Something went wrong");
@@ -121,7 +119,6 @@ export default {
   created() {
     this.$store.dispatch("setIsLogged");
   },
-  //checks if username and password match a user from the database.
 };
 </script>
 
