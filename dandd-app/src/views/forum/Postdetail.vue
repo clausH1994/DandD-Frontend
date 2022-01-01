@@ -95,6 +95,7 @@ export default {
   },
 
   methods: {
+    // get list of posts and replies for the forum based on id
     async getPost() {
       this.forum = await this.forumCon.readForumById(this.id);
       this.listOfPosts = this.forum.listOfPosts;
@@ -106,6 +107,7 @@ export default {
     },
 
     postReply() {
+      // to post reply on the post of the forum
       const user = JSON.parse(sessionStorage.getItem("user"));
       const reply = {};
       const time = Date.now();
@@ -132,6 +134,7 @@ export default {
     },
 
     removeReply(reply) {
+      // deletes replies from the post on the forum with using the forum controller to update the forum list in the database
       var index = this.post.listOfReplies
         .map(function (reply) {
           return reply.body;
@@ -153,13 +156,14 @@ export default {
 
   computed: {
     isLogged() {
+      // getting the isLogged state from the vuex store
       return this.$store.getters.getIsLogged;
     },
   },
 
   created() {
+    // gets the forum id and compares it to the user to see if the user is the owner of posts on the forum
     this.id = this.$route.params.id;
-    //this.id = "61a77f6258295764f502c78c";
     if (this.id == null) {
       this.id = localStorage.getItem("post_id");
     }
@@ -174,9 +178,8 @@ export default {
       //this.$router.push("/");
     }
 
+    // dispatch to set the state isLogged from the vuex store
     this.$store.dispatch("setIsLogged");
-
-    //this.post = JSON.parse(this.$route.params.post);
   },
 };
 </script>

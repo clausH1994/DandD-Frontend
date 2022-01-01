@@ -72,22 +72,26 @@ export default {
 
   methods: {
     logout() {
+      // logs out the user by clearing the sessionstorage
       sessionStorage.clear();
       alert("successfuld logout");
       this.$router.push('/login');
     },
 
     subIsActive(input) {
+      // function to display mainpage active on navbar from the forum if a subpage is the current page it still shows forum as active in navbar
       const paths = Array.isArray(input) ? input : [input];
       return paths.some((path) => {
         return this.$route.path.indexOf(path) === 0; // current path starts with this path string
       });
     },
 
+    // commented out as this were used to test and problem solve the issues with the state management
     /*     ...mapActions(['setIsLogged']),
     checkIsLogged() {
     this.setIsLogged();
     } */
+    // commented out as this were used to test and problem solve the issues with the state management
     /*     checkIsLogged() {
       this.$store.dispatch("getIsLogged")
     } */
@@ -95,33 +99,28 @@ export default {
 
   computed: {
     isLogged() {
+      // getting the isLogged state from the vuex store
       return this.$store.getters.getIsLogged;
     },
   },
 
   watch: {
+    // test to force updated on change of the state isLogged - not working
     isLogged: function () {
       this.$forceUpdate();
     },
   },
 
   created() {
+    // dispatch to set the state isLogged from the vuex store
     this.$store.dispatch("setIsLogged");
   },
 
+  // commented out as this were used to test and problem solve the issues with the state management
   /*   mounted() {
     this.isLogged = this.$store.getters.getIsLogged;
   }, */
 
-  /*   created() {
-    this.token = sessionStorage.getItem("token");
-    this.user = JSON.parse(sessionStorage.getItem("user"));
-    if (this.token == null || this.user == null) {
-      this.isLogged = false;
-    } else {
-      this.isLogged = true;
-    }
-  } */
 };
 </script>
 

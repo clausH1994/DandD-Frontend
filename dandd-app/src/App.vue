@@ -15,24 +15,28 @@ export default {
   name: "Home",
   components: { Navbar, Footer },
 
+  // commented out as this were used to test and problem solve the issues with the state management
   /* methods: {
     ...mapActions (["setIsLogged"])
   }, */
 
   created() {
+    // dispatch to set the state isLogged from the vuex store
     this.$store.dispatch("setIsLogged");
   },
 
+  // commented out as this were used to test and problem solve the issues with the state management
   /* updated() {
     this.$store.dispatch("setIsLogged");
 }, */
 
   computed: {
     isLogged() {
+      // getting the isLogged state from the vuex store
       return this.$store.getters.getIsLogged;
     },
   },
-
+  // commented out as this were used to test and problem solve the issues with the state management
   /* watch: {
    isLogged: function() {
      this.$forceUpdate();

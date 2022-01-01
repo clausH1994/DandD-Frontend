@@ -209,6 +209,7 @@ export default {
   },
 
   computed: {
+    // Setting the catergory for the available funktion in methods and sorts the results in alfabetic order
     edition: function () {
       return this.available("edition").sort((a, b) => (a < b ? -1 : 1));
     },
@@ -219,26 +220,29 @@ export default {
       return this.available("wishedClasses").sort((a, b) => (a < b ? -1 : 1));
     },
 
+    // getting the isLogged state from the vuex store
     isLogged() {
       return this.$store.getters.getIsLogged;
     },
   },
 
   methods: {
+    // uses the campaign controller to get the list of campaigns from the database
     async getCampaigns() {
       this.campaigns = await this.campaignCon.readCampaigns();
       const privateCampaigns = [];
-
+      // checks if the campaigns have the private boolean set to false to create list without campaigns marked as private
       this.campaigns.forEach((campaign) => {
         if (campaign.private == false) {
           privateCampaigns.push(campaign);
         }
       });
-
+      // defines the campaigns and sortedCampaigns
       this.campaigns = privateCampaigns;
       this.sortedCampaigns = this.campaigns;
     },
 
+    // the function to get the list of the available properties for the checkbox list in the campaigns based on the categories set in the computed property
     available: function (category) {
       const categorySet = new Set([]);
       for (var i = 0; i < this.campaigns.length; i++) {
@@ -254,6 +258,7 @@ export default {
       return [...categorySet];
     },
 
+    // the function to show the list of campaigns based on the properties checked in the checkbox list
     visible: function (edition, setting, wishedClasses) {
       const editionArray = [];
       editionArray.push(edition);
@@ -277,6 +282,7 @@ export default {
       }
     },
 
+    // getting the icons for the wishedclasses list
     getImgUrl(wish) {
       if (wish == "") {
         wish = "question-solid";
@@ -286,6 +292,7 @@ export default {
   },
 
   watch: {
+    // the search function for the input field to search on titel and ownerName for the campaigns
     filterCampaigns: function () {
       this.sortedCampaigns = this.campaigns.filter((campaigns) => {
         return (
@@ -299,6 +306,7 @@ export default {
       });
     },
 
+    // the search function to the input field to search on location for the campaigns
     filterLocations: function () {
       this.sortedCampaigns = this.campaigns.filter((campaigns) => {
         return campaigns.city
@@ -309,6 +317,7 @@ export default {
   },
 
   filters: {
+    // function to set first letter to capital letter
     capitalize: function (value) {
       if (!value) return "";
       value = value.toString();
@@ -318,16 +327,8 @@ export default {
 
   created() {
     this.getCampaigns();
-
+    // dispatch to set the state isLogged from the vuex store
     this.$store.dispatch("setIsLogged");
-
-    /*     this.token = sessionStorage.getItem("token");
-    this.user = JSON.parse(sessionStorage.getItem("user"));
-    if (this.token == null || this.user == null) {
-      this.isLogged = false;
-    } else {
-      this.isLogged = true;
-    } */
   },
 };
 </script>

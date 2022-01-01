@@ -82,6 +82,7 @@ export default {
 
   methods: {
     async getForum() {
+      // gets the list of forum posts connected to the current forum based on id
       this.forum = await this.forumCon.readForumById(this.id);
 
       this.name = this.forum.name;
@@ -91,6 +92,7 @@ export default {
     },
 
     removePost(post) {
+      // deletes post from the forum section
       var index = this.listOfPosts
         .map(function (post) {
           return post.body;
@@ -109,13 +111,14 @@ export default {
 
   computed: {
     isLogged() {
+      // getting the isLogged state from the vuex store
       return this.$store.getters.getIsLogged;
     },
   },
 
   created() {
+    // gets the forum id and compares it to the user to see if the user is the owner of posts on the forum
     this.id = this.$route.params.id;
-    //this.id = "61a77f6258295764f502c78c";
     if (this.id == null) {
       this.id = localStorage.getItem("forum_id");
     }
@@ -130,6 +133,7 @@ export default {
       //this.$router.push("/");
     }
 
+    // dispatch to set the state isLogged from the vuex store
     this.$store.dispatch("setIsLogged");
   },
 };
@@ -181,9 +185,6 @@ ul.campcard {
 .test {
   display: block;
   width: 90%;
-}
-
-.test1 {
 }
 
 .test2 {
